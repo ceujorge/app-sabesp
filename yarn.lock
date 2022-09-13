@@ -33,7 +33,7 @@
   "resolved" "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.18.13.tgz"
   "version" "7.18.13"
 
-"@babel/core@^7.12.9", "@babel/core@^7.13.16", "@babel/core@^7.14.0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.12.0", "@babel/core@^7.12.9", "@babel/core@^7.13.0", "@babel/core@^7.13.16", "@babel/core@^7.14.0", "@babel/core@^7.4.0-0":
   "resolved" "https://registry.npmjs.org/@babel/core/-/core-7.18.13.tgz"
   "version" "7.18.13"
   dependencies:
@@ -810,7 +810,7 @@
     "@babel/helper-create-regexp-features-plugin" "^7.18.6"
     "@babel/helper-plugin-utils" "^7.18.6"
 
-"@babel/preset-env@^7.12.9":
+"@babel/preset-env@^7.1.6", "@babel/preset-env@^7.12.9":
   "resolved" "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.18.10.tgz"
   "version" "7.18.10"
   dependencies:
@@ -1311,7 +1311,7 @@
   "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.2.0.tgz"
   "version" "6.2.0"
 
-"@fortawesome/fontawesome-svg-core@^6.2.0":
+"@fortawesome/fontawesome-svg-core@^6.2.0", "@fortawesome/fontawesome-svg-core@~1 || ~6":
   "integrity" "sha512-Cf2mAAeMWFMzpLC7Y9H1I4o3wEU+XovVJhTiNG8ZNgSQj53yl7OCJaS80K4YjrABWZzbAHVaoHE1dVJ27AAYXw=="
   "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.2.0.tgz"
   "version" "6.2.0"
@@ -1655,7 +1655,7 @@
     "@react-navigation/elements" "^1.3.4"
     "warn-once" "^0.1.0"
 
-"@react-navigation/native@^6.0.12":
+"@react-navigation/native@^6.0.0", "@react-navigation/native@^6.0.12":
   "integrity" "sha512-23n0pDsFvFxPIkB4zrAip05uUj6Jr+5dinqrDdEU26cPoki3/iJlirvbSIs/64Om/OuTyUjFdB/zI75ng+m5Pg=="
   "resolved" "https://registry.npmjs.org/@react-navigation/native/-/native-6.0.12.tgz"
   "version" "6.0.12"
@@ -2061,7 +2061,7 @@
   "resolved" "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.5.2.tgz"
   "version" "3.5.2"
 
-"ajv@^6.1.0", "ajv@^6.10.2", "ajv@^6.12.4", "ajv@^6.12.5":
+"ajv@^6.1.0", "ajv@^6.10.2", "ajv@^6.12.4", "ajv@^6.12.5", "ajv@^6.9.1", "ajv@>=5.0.0":
   "integrity" "sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g=="
   "resolved" "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz"
   "version" "6.12.6"
@@ -2464,6 +2464,13 @@
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
 
+"bindings@^1.5.0":
+  "integrity" "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ=="
+  "resolved" "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz"
+  "version" "1.5.0"
+  dependencies:
+    "file-uri-to-path" "1.0.0"
+
 "bl@^4.1.0":
   "resolved" "https://registry.npmjs.org/bl/-/bl-4.1.0.tgz"
   "version" "4.1.0"
@@ -2664,7 +2671,7 @@
   dependencies:
     "pako" "~1.0.5"
 
-"browserslist@^4.0.0", "browserslist@^4.20.2", "browserslist@^4.21.3":
+"browserslist@^4.0.0", "browserslist@^4.20.2", "browserslist@^4.21.3", "browserslist@>= 4.21.0":
   "resolved" "https://registry.npmjs.org/browserslist/-/browserslist-4.21.3.tgz"
   "version" "4.21.3"
   dependencies:
@@ -4279,7 +4286,7 @@
     "qs" "^6.9.1"
     "url-parse" "^1.5.9"
 
-"expo-modules-autolinking@0.10.3":
+"expo-modules-autolinking@>=0.8.1", "expo-modules-autolinking@0.10.3":
   "resolved" "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-0.10.3.tgz"
   "version" "0.10.3"
   dependencies:
@@ -4310,7 +4317,7 @@
   "resolved" "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.4.0.tgz"
   "version" "1.4.0"
 
-"expo@~46.0.9":
+"expo@*", "expo@~46.0.9":
   "resolved" "https://registry.npmjs.org/expo/-/expo-46.0.9.tgz"
   "version" "46.0.9"
   dependencies:
@@ -4486,7 +4493,7 @@
   "resolved" "https://registry.npmjs.org/figgy-pudding/-/figgy-pudding-3.5.2.tgz"
   "version" "3.5.2"
 
-"file-loader@~6.0.0":
+"file-loader@*", "file-loader@~6.0.0":
   "integrity" "sha512-/aMOAYEFXDdjG0wytpTL5YQLfZnnTmLNjn+AIrJ/6HVnTfDqLsVKUUwkDf4I4kgex36BvjuXEn/TX9B/1ESyqQ=="
   "resolved" "https://registry.npmjs.org/file-loader/-/file-loader-6.0.0.tgz"
   "version" "6.0.0"
@@ -4765,6 +4772,19 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fsevents@^1.2.7":
+  "integrity" "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz"
+  "version" "1.2.13"
+  dependencies:
+    "bindings" "^1.5.0"
+    "nan" "^2.12.1"
+
+"fsevents@^2.3.2", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
+
 "function-bind@^1.1.1":
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
   "version" "1.1.1"
@@ -4936,7 +4956,7 @@
   dependencies:
     "tslib" "^2.1.0"
 
-"graphql@15.8.0":
+"graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0", "graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "graphql@^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "graphql@^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "graphql@15.8.0":
   "resolved" "https://registry.npmjs.org/graphql/-/graphql-15.8.0.tgz"
   "version" "15.8.0"
 
@@ -6732,6 +6752,11 @@
     "object-assign" "^4.0.1"
     "thenify-all" "^1.0.0"
 
+"nan@^2.12.1":
+  "integrity" "sha512-UdAqHyFngu7TfQKsCBgAA6pWDkT8MAO7d0jyOecVhN5354xbLqdn8mV9Tat9gepAupm0bt2DbeaSC8vS52MuFA=="
+  "resolved" "https://registry.npmjs.org/nan/-/nan-2.16.0.tgz"
+  "version" "2.16.0"
+
 "nanoid@^3.1.23":
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
@@ -8008,7 +8033,7 @@
     "shell-quote" "^1.6.1"
     "ws" "^7"
 
-"react-dom@18.0.0":
+"react-dom@^17.0.2 || ^18.0.0", "react-dom@18.0.0":
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.0.0.tgz"
   "version" "18.0.0"
   dependencies:
@@ -8079,7 +8104,7 @@
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
 
-"react-native-pager-view@5.4.24":
+"react-native-pager-view@*", "react-native-pager-view@5.4.24":
   "integrity" "sha512-dRMB7i3B+mu4NCeIN6gqbR/kC/rr2wzqO0gisXDdJwJr78G24sWoTNpLEDFo3G8TFHY9nTMutVl5CUvkN2dp6g=="
   "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.24.tgz"
   "version" "5.4.24"
@@ -8101,12 +8126,12 @@
     "@react-native-picker/picker" "^1.8.3"
     "lodash.isequal" "^4.5.0"
 
-"react-native-safe-area-context@4.3.1":
+"react-native-safe-area-context@>= 3.0.0", "react-native-safe-area-context@4.3.1":
   "integrity" "sha512-cEr7fknJCToTrSyDCVNg0GRdRMhyLeQa2NZwVCuzEQcWedOw/59ExomjmzCE4rxrKXs6OJbyfNtFRNyewDaHuA=="
   "resolved" "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.3.1.tgz"
   "version" "4.3.1"
 
-"react-native-screens@~3.15.0":
+"react-native-screens@>= 3.0.0", "react-native-screens@~3.15.0":
   "integrity" "sha512-ezC5TibsUYyqPuuHpZoM3iEl6bRzCVBMJeGaFkn7xznuOt1VwkZVub0BvafIEYR/+AQC/RjxzMSQPs1qal0+wA=="
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.15.0.tgz"
   "version" "3.15.0"
@@ -8114,7 +8139,7 @@
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
 
-"react-native-svg@12.3.0":
+"react-native-svg@>= 11.x", "react-native-svg@12.3.0":
   "integrity" "sha512-ESG1g1j7/WLD7X3XRFTQHVv0r6DpbHNNcdusngAODIxG88wpTWUZkhcM3A2HJTb+BbXTFDamHv7FwtRKWQ/ALg=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.3.0.tgz"
   "version" "12.3.0"
@@ -8144,7 +8169,7 @@
     "postcss-value-parser" "^4.2.0"
     "styleq" "^0.1.2"
 
-"react-native@0.69.5":
+"react-native@*", "react-native@>= 0.67", "react-native@>=0.42.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@0.69.5":
   "integrity" "sha512-4Psrj1nDMLQjBXVH8n3UikzOHQc8+sa6NbxZQR0XKtpx8uC3HiJBgX+/FIum/RWxfi5J/Dt/+A2gLGmq2Hps8g=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.69.5.tgz"
   "version" "0.69.5"
@@ -8194,7 +8219,7 @@
     "object-assign" "^4.1.1"
     "react-is" "^16.12.0 || ^17.0.0 || ^18.0.0"
 
-"react@18.0.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0", "react@^18.0.0", "react@>=16.3.0", "react@>=17.0.0", "react@16 || 17", "react@18.0.0":
   "resolved" "https://registry.npmjs.org/react/-/react-18.0.0.tgz"
   "version" "18.0.0"
   dependencies:
@@ -10051,7 +10076,7 @@
     "source-list-map" "^2.0.0"
     "source-map" "~0.6.1"
 
-"webpack@4.43.0":
+"webpack@*", "webpack@^4.0.0", "webpack@^4.0.0 || ^5.0.0", "webpack@^4.37.0 || ^5.0.0", "webpack@^4.4.0", "webpack@>=2", "webpack@>=4.0.0 < 6.0.0", "webpack@2 || 3 || 4", "webpack@4.43.0":
   "integrity" "sha512-GW1LjnPipFW2Y78OOab8NJlCflB7EFskMih2AHdvjbpKMeDJqEgSx24cXXXiPS65+WSwVyxtDsJH6jGX2czy+g=="
   "resolved" "https://registry.npmjs.org/webpack/-/webpack-4.43.0.tgz"
   "version" "4.43.0"
