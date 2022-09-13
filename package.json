@@ -13,6 +13,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
+    "@react-native-community/checkbox": "^0.5.12",
     "@react-native-picker/picker": "2.4.2",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.7.0",
@@ -21,6 +22,7 @@
     "expo-constants": "^13.2.4",
     "expo-linking": "^3.2.2",
     "expo-status-bar": "~1.4.0",
+    "pod-install": "^0.1.38",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.5",
@@ -38,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^0.17.2",
+    "@expo/webpack-config": "^0.16.19",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.69.1",
     "typescript": "~4.3.5"
