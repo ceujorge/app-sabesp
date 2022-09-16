@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, CheckBox, Linking, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
+import { CheckBox } from "@rneui/themed";
 
 import Login from "../../Login";
 

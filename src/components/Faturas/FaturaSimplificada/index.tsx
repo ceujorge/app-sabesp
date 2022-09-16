@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, CheckBox, Linking, TouchableOpacity, ScrollView} from "react-native";
+import { View, Text, Linking, TouchableOpacity, ScrollView} from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
+import { CheckBox } from "@rneui/themed";
 
 import { TextInput } from "react-native-paper";
 
@@ -11,6 +12,7 @@ export default function FaturaSimplificada({ navigation }) {
     const [found, setFound] = useState(false)
     const [fornecimento, setFornecimento] = useState('')
     const [isSelected, setSelection] = useState(false);
+    const [check1, setCheck1] = useState(false);
 
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} >
@@ -108,8 +110,12 @@ export default function FaturaSimplificada({ navigation }) {
                 </View>
 
                 <View style={styles.checkBoxContainer}>
-                  <CheckBox value={isSelected} onValueChange={setSelection}/>
-                  <Text style={styles.checkBoxLabel}>Salve meu fornecimento</Text>
+                <CheckBox
+                        center
+                        title="Salve meu fornecimento"
+                        checked={check1}
+                        onPress={() => setCheck1(!check1)}
+                    />
                 </View>
               </>
             )}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, CheckBox, Linking, TouchableOpacity, ScrollView} from "react-native";
+import { View, Text, Linking, TouchableOpacity, ScrollView} from "react-native";
 import { TextInput } from "react-native-paper";
+import { CheckBox } from "@rneui/themed";
 
 import styles from "./styles";
 
@@ -9,6 +10,7 @@ export default function Login({ navigation, setLogado }) {
     const [PASS, setPASS]: any = useState('');
     const [isSelected, setSelection] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(true);
+    const [check1, setCheck1] = useState(false);
 
     const setMascaraCpf = function (cpf) {
         cpf = cpf.replace(/\D/g, "");                          //Remove tudo o que não é dígito
@@ -55,8 +57,12 @@ export default function Login({ navigation, setLogado }) {
                 </View>
 
                 <View style={styles.checkBoxContainer}>
-                    <CheckBox value={isSelected} onValueChange={setSelection}/>
-                    <Text style={styles.checkBoxLabel}>Mantenha-me conectado</Text>
+                    <CheckBox
+                        center
+                        title="Mantenha-me conectado"
+                        checked={check1}
+                        onPress={() => setCheck1(!check1)}
+                    />
                 </View>
 
                 <TouchableOpacity style={styles.buttonOutline} onPress={() => setLogado(true)}>
