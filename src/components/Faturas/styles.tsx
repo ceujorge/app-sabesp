@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         top: 18,
         right: 10,
+        zIndex: 9999,
     },
     textButtonFornecimento: {
         fontSize: 14,
@@ -193,8 +194,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         color: '#606060',
         width: '70%',
-        height: '110%',
-        marginLeft: 20,
+        height: '100%',
+        alignSelf: 'center'
     },
     cardText: {
         fontSize: 14,

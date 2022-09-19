@@ -81,12 +81,9 @@ export default function FaturaCompleta({ navigation }) {
     setCardsData(cardsDataParsed)
   }, [])
 
-  const avancarPagina = function() {
-
-  }
-
-  const retrocederPagina = function() {
-
+  const setPagina = function(pagina) {
+    let lastPage = Math.ceil(cardsData.length / itensPorPagina)
+    if(pagina > 0 && pagina <= lastPage) setPage(pagina)
   }
 
   const setarItensPorPagina = function(itens) {
@@ -163,7 +160,7 @@ export default function FaturaCompleta({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.paginationButton20}
-                onPress={() => setPage(page - 1)}>
+                onPress={() => setPagina(page - 1)}>
                 <FontAwesomeIcon icon={ faAngleLeft } size={16}/>
               </TouchableOpacity>
               <TouchableOpacity 
@@ -173,7 +170,7 @@ export default function FaturaCompleta({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.paginationButton20}
-                onPress={() => setPage(page + 1)}>
+                onPress={() => setPagina(page + 1)}>
                 <FontAwesomeIcon icon={ faAngleRight } size={16}/>
               </TouchableOpacity>
               <TouchableOpacity 

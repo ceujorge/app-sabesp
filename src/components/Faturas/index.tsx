@@ -41,6 +41,7 @@ export default function Faturas({ navigation }) {
                 initialLayout={{ width: layout.width }}
                 renderTabBar={renderTabBar}
                 style={styles.tabView}
+                swipeEnabled={false}
             />
         </>
     );

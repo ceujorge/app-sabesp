@@ -1,15 +1,48 @@
-import React, { useState } from "react";
-import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Linking, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { TextInput, Checkbox } from "react-native-paper";
+import Carousel from 'react-native-reanimated-carousel';
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
 
 import styles from "../styles";
+import mocks from "../../../mocks/mocks";
+
+moment.locale('pt-br');
+
+function CardFatura(item) {
+  const capitalizar = function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  return (
+    <View style={styles.cardFatura}>
+      <Text style={styles.cardText}>{capitalizar(moment(item.item.dataInicioCompetencia).format('MMM/YY'))}</Text>
+      <Text style={styles.cardValor}>{'R$ ' + item.item.valor }</Text>
+      <Text style={styles.cardText}>{'Vencimento ' + moment(item.item.dataVencimento).format('DD/MM/YY')}</Text>
+      <Text style={styles.cardVencido}>{item.item.statusFatura}</Text>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.buttonPagar} onPress={() => null}>
+          <Text style={styles.textButtonFornecimento}>Pagar conta</Text>
+        </TouchableOpacity>
+        <FontAwesomeIcon icon={ faDownload } size={18} style={styles.downloadIcon}/>
+      </View>
+    </View>
+  )
+}
 
 export default function FaturaSimplificada({ navigation }) {
     const [found, setFound] = useState(false)
     const [fornecimento, setFornecimento] = useState('')
     const [isSelected, setSelection] = useState(false);
+    const [contasFornecimento, setContasFornecimento] = useState([])
+    const width = Dimensions.get('window').width;
+
+    useEffect(() => {
+      setContasFornecimento(mocks.codigoFornecimento);
+    }, [])
 
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} >
@@ -24,6 +57,12 @@ export default function FaturaSimplificada({ navigation }) {
           </Text>
 
           <View style={styles.loginPassword} >
+            {!found ? (
+              <TouchableOpacity style={styles.buttonFornecimento} onPress={() => setFound(true)}>
+                <Text style={styles.textButtonFornecimento}>Ver conta</Text>
+              </TouchableOpacity>
+            ) : null}
+
             <TextInput 
               mode="outlined"
               theme={{ colors: { primary: '#00a5e4' }}}
@@ -33,12 +72,6 @@ export default function FaturaSimplificada({ navigation }) {
               maxLength={15}
               right={found ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFound(false)}/> : null}
             />
-            
-            {!found ? (
-              <TouchableOpacity style={styles.buttonFornecimento} onPress={() => setFound(true)}>
-                <Text style={styles.textButtonFornecimento}>Ver conta</Text>
-              </TouchableOpacity>
-            ) : null}
 
           </View>
 
@@ -50,7 +83,7 @@ export default function FaturaSimplificada({ navigation }) {
                 </Text>
 
                 <View style={styles.faturasContainer}>
-                  <Text style={styles.faturasValor}>R$ 164,80</Text>
+                  <Text style={styles.faturasValor}>{'R$ ' + contasFornecimento.reduce((acc, b) => {return acc + b.valor}, 0)}</Text>
                   <Text style={styles.faturasTextBold}>TOTAL DE DÉBITOS EM ABERTO</Text>
                   <Text style={styles.faturasText}>
                     {'Aqui você tem acesso somente à faturas emitidas\n nos ultimos 90 dias. Para acesso completo às\n faturas, faça login '} 
@@ -59,42 +92,18 @@ export default function FaturaSimplificada({ navigation }) {
                     </Text>
                   </Text>
                   <View style={styles.cardContainer}>
-                    <View style={styles.cardFatura}>
-                      <Text style={styles.cardText}>Ago/2021</Text>
-                      <Text style={styles.cardValor}>R$ 45,23</Text>
-                      <Text style={styles.cardText}>Vencimento 05/09/2022</Text>
-                      <Text style={styles.cardVencido}>Vencida</Text>
-                      <View style={styles.row}>
-                        <TouchableOpacity style={styles.buttonPagar} onPress={() => null}>
-                          <Text style={styles.textButtonFornecimento}>Pagar conta</Text>
-                        </TouchableOpacity>
-                        <FontAwesomeIcon icon={ faDownload } size={18} style={styles.downloadIcon}/>
-                      </View>
-                    </View>
-                    <View style={styles.cardFatura}>
-                      <Text style={styles.cardText}>Ago/2022</Text>
-                      <Text style={styles.cardValor}>R$ 45,23</Text>
-                      <Text style={styles.cardText}>Vencimento 05/09/2022</Text>
-                      <Text style={styles.cardVencido}>Vencida</Text>
-                      <View style={styles.row}>
-                        <TouchableOpacity style={styles.buttonPagar} onPress={() => null}>
-                          <Text style={styles.textButtonFornecimento}>Pagar conta</Text>
-                        </TouchableOpacity>
-                        <FontAwesomeIcon icon={ faDownload } size={18} style={styles.downloadIcon}/>
-                      </View>
-                    </View>
-                    <View style={styles.cardFatura}>
-                      <Text style={styles.cardText}>Ago/2023</Text>
-                      <Text style={styles.cardValor}>R$ 45,23</Text>
-                      <Text style={styles.cardText}>Vencimento 05/09/2022</Text>
-                      <Text style={styles.cardVencido}>Vencida</Text>
-                      <View style={styles.row}>
-                        <TouchableOpacity style={styles.buttonPagar} onPress={() => null}>
-                          <Text style={styles.textButtonFornecimento}>Pagar conta</Text>
-                        </TouchableOpacity>
-                        <FontAwesomeIcon icon={ faDownload } size={18} style={styles.downloadIcon}/>
-                      </View>
-                    </View>
+                    <Carousel
+                      loop={false}
+                      width={width}
+                      height={width / 1.5}
+                      autoPlay={false}
+                      data={contasFornecimento.slice(0, 3)}
+                      scrollAnimationDuration={1000}
+                      onSnapToItem={(index) => console.log('current index:', index)}
+                      renderItem={({ item }) => (
+                        <CardFatura item={item}/>
+                      )}
+                    />
                   </View>
                 </View>
               </>
