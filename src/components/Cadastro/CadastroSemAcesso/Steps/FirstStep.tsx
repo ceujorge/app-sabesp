@@ -114,6 +114,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
         theme={{ colors: { primary: '#00a5e4' }}}
         value={form.telefone} 
         onChangeText={value => { setMascaraTel(value) }}
+        maxLength={14}
       />
 
       <TextInput 

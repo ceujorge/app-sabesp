@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, Linking, TouchableOpacity, ScrollView} from "react-native";
+import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
-import { CheckBox } from "@rneui/themed";
-
-import { TextInput } from "react-native-paper";
+import { TextInput, Checkbox } from "react-native-paper";
 
 import styles from "../styles";
 
@@ -12,18 +10,17 @@ export default function FaturaSimplificada({ navigation }) {
     const [found, setFound] = useState(false)
     const [fornecimento, setFornecimento] = useState('')
     const [isSelected, setSelection] = useState(false);
-    const [check1, setCheck1] = useState(false);
 
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} >
         <View style={styles.center}>
           <Text style={styles.loginTitle}>Solicite a 2a via de fatura</Text>
           <Text style={styles.loginInformation}>
-              No campo abaixo, insira o seu código de fornecimento para ter acesso à segunda via das contas emitidas nos últimos 90 dias.
+            No campo abaixo, insira o seu código de fornecimento para ter acesso à segunda via das contas emitidas nos últimos 90 dias.
           </Text>
           
           <Text style={styles.loginOuterLabel}>
-              Fornecimento
+            Fornecimento
           </Text>
 
           <View style={styles.loginPassword} >
@@ -110,12 +107,11 @@ export default function FaturaSimplificada({ navigation }) {
                 </View>
 
                 <View style={styles.checkBoxContainer}>
-                <CheckBox
-                        center
-                        title="Salve meu fornecimento"
-                        checked={check1}
-                        onPress={() => setCheck1(!check1)}
-                    />
+                  <Checkbox
+                    status={isSelected ? 'checked' : 'unchecked'}
+                    onPress={() => setSelection(!isSelected)}
+                  />
+                  <Text>Salve meu fornecimento</Text>
                 </View>
               </>
             )}

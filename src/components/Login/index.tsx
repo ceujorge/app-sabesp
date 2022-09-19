@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Linking, TouchableOpacity, ScrollView} from "react-native";
-import { TextInput } from "react-native-paper";
-import { CheckBox } from "@rneui/themed";
+import { TextInput, Checkbox } from "react-native-paper";
 
 import styles from "./styles";
 
@@ -10,7 +9,6 @@ export default function Login({ navigation, setLogado }) {
     const [PASS, setPASS]: any = useState('');
     const [isSelected, setSelection] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(true);
-    const [check1, setCheck1] = useState(false);
 
     const setMascaraCpf = function (cpf) {
         cpf = cpf.replace(/\D/g, "");                          //Remove tudo o que não é dígito
@@ -22,7 +20,7 @@ export default function Login({ navigation, setLogado }) {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.center}>
-                <Text style={styles.loginTitle}>Bem-vindo à Sabesp | Sabesp Mobile</Text>
+                <Text style={styles.loginTitle}>Bem-vindo à Sabesp</Text>
                 <Text style={styles.loginInformation}>Insira seu login e senha para ter acesso completo aos serviços disponíveis.</Text>
             </View>
             <View>
@@ -57,12 +55,11 @@ export default function Login({ navigation, setLogado }) {
                 </View>
 
                 <View style={styles.checkBoxContainer}>
-                    <CheckBox
-                        center
-                        title="Mantenha-me conectado"
-                        checked={check1}
-                        onPress={() => setCheck1(!check1)}
+                    <Checkbox
+                        status={isSelected ? 'checked' : 'unchecked'}
+                        onPress={() => setSelection(!isSelected)}
                     />
+                    <Text>Mantenha-me conectado</Text>
                 </View>
 
                 <TouchableOpacity style={styles.buttonOutline} onPress={() => setLogado(true)}>

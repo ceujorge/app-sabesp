@@ -12,7 +12,7 @@ export default function Header() {
     return (
         <View style={styles.container}>
             <Image style={styles.tinyLogo} source={require('../../../assets/brand/logo.png')} />
-            <Text style={styles.title}>Agência{"\n"}Virtual</Text>
+            <Text style={styles.title}>Sabesp{'\n'}Mobile</Text>
             <View style={styles.rightMenu}>
                 <FontAwesomeIcon icon={ faMagnifyingGlass } size={28} style={styles.searchIcon}/>
                 <FontAwesomeIcon icon={ faBars } size={28} />

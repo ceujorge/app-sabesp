@@ -2,6 +2,7 @@
   "name": "agencia-virtual",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "proxy": "http://localhost:6000",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -16,8 +17,6 @@
     "@react-native-picker/picker": "2.4.2",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.7.0",
-    "@rneui/base": "^4.0.0-rc.6",
-    "@rneui/themed": "^4.0.0-rc.6",
     "@types/react-native-table-component": "^1.2.4",
     "expo": "~46.0.9",
     "expo-constants": "^13.2.4",
@@ -41,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^0.16.19",
+    "@expo/webpack-config": "^0.17.2",
     "@types/react": "~18.0.14",
     "@types/react-native": "~0.69.1",
     "typescript": "~4.3.5"

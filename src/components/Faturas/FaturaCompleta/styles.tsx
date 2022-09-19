@@ -12,6 +12,19 @@ const styles = StyleSheet.create({
         width: '90%',
         margin: 12,
     },
+    label: {
+        alignSelf: 'flex-start',
+        marginLeft: 16,
+        fontWeight: 'bold',
+    },
+    inputContainer: {
+        marginTop: 30,
+        marginLeft: 16,
+        marginBottom: 20,
+        alignContent: 'flex-start',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
     table: {
         width: '90%',
         margin: 12,
@@ -24,17 +37,17 @@ const styles = StyleSheet.create({
         borderBottomColor: '#00a5e4',
         borderBottomWidth: 0.5
     },
-    tableData: {
+    cardsData: {
         borderColor: '#606060',
         borderWidth: 0.5,
     },
-    buttonBar: {
+    buttonCardBar: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 30,
     },
-    button: {
+    buttonCard: {
         width: 60,
         height: 60,
         borderWidth: 0.5,
@@ -44,12 +57,50 @@ const styles = StyleSheet.create({
         marginTop: 5,
         alignItems: 'center'
     },
-    buttonIcon: {
+    buttonCardIcon: {
         alignSelf: 'center',
         paddingTop: 17,
     },
-    buttonText: {
+    buttonCardText: {
         fontSize: 8,
+    },
+    select: {
+        width: '95%',
+        padding: 10,
+    },
+    paginationButtonBar: {
+        width: '90%',
+        marginBottom: 20,
+        marginTop: 20,
+        flexDirection: 'row',
+    },
+    paginationButton33: {
+        width: '33%',
+        borderColor: '#909090',
+        borderWidth: 1,
+        padding: 15,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paginationButton33Selected: {
+        backgroundColor: '#d0d0d0',
+        width: '33%',
+        borderColor: '#909090',
+        borderWidth: 1,
+        padding: 15,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paginationButton20: {
+        width: '20%',
+        borderColor: '#909090',
+        borderWidth: 1,
+        padding: 15,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 

@@ -24,10 +24,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#F0F0F0"
-      }
+      },
+      "versionCode": 1,
+      "package": "br.com.comunix.AgenciaVirtual"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "40e625ff-a93a-4a14-8974-5f4ebb824e5e"
+      }
     }
   }
 }
