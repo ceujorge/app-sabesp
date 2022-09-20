@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { TextInput } from "react-native-paper";
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import moment from "moment";
+import * as Clipboard from 'expo-clipboard';
+import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
@@ -17,8 +19,18 @@ import Login from "../../Login";
 import styles from "./styles";
 import mocks from "../../../mocks/mocks";
 
-function FaturaCard({ dados }) {
+moment.locale('pt-br');
+
+function FaturaCard( dados ) {
   const titles = ['Data de\nEmissão','Valor da fatura','Data de\nvencimento','Situação']
+  const info = dados.dados
+
+  let cardsDataParsed = [
+    [moment(info.dataEmissao).format('DD/MM/YYYY')], 
+    [("R$ " + info.valor).replace('.', ',')], 
+    [moment(info.dataVencimento).format('DD/MM/YYYY')], 
+    [info.statusFatura],
+  ]
 
   return (
     <>
@@ -32,7 +44,7 @@ function FaturaCard({ dados }) {
             heightArr={[70, 70, 70, 70]}
           />
           <Rows 
-            data={dados} 
+            data={cardsDataParsed} 
             style={styles.cardsData}
             textStyle={{ alignSelf: 'flex-start', marginLeft: 10 }}
             widthArr={[150]}
@@ -49,7 +61,7 @@ function FaturaCard({ dados }) {
           <FontAwesomeIcon icon={ faMagnifyingGlass } size={18} style={styles.buttonCardIcon}/>
           <Text style={styles.buttonCardText}>Detalhes</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCard}>
+        <TouchableOpacity style={styles.buttonCard} onPress={() => Clipboard.setString(info.codigoDeBarras)}>
           <FontAwesomeIcon icon={ faDownload } size={18} style={styles.buttonCardIcon}/>
           <Text style={styles.buttonCardText}>Baixar</Text>
         </TouchableOpacity>
@@ -63,26 +75,23 @@ export default function FaturaCompleta({ navigation }) {
   const [situacao, setSituacao] = useState('');
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
+  const [fornecimento, setFornecimento] = useState('');
   const [cardsData, setCardsData] = useState([])
-  const [faturasTotal, setFaturasTotal] = useState(0);
+  const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
 
   useEffect(() => {
-    let cardsDataParsed = []
-
-    mocks.faturaSimplificada.map(i => {
-      cardsDataParsed.push([
-        [i.dataEmissao.split('T')[0].split('-').reverse().join('/')], 
-        [("R$ " + i.valor).replace('.', ',')], 
-        [i.dataVencimento.split('T')[0].split('-').reverse().join('/')], 
-        [i.statusFatura]
-      ])
-    })
-
-    setCardsData(cardsDataParsed)
+    fetchData();
   }, [])
 
+  const fetchData = function() {
+    let dados = mocks.faturaSimplificada // fetch
+
+    setCardsData(dados);
+    setCardsDataFiltered(dados);
+  }
+
   const setPagina = function(pagina) {
-    let lastPage = Math.ceil(cardsData.length / itensPorPagina)
+    let lastPage = Math.ceil(cardsDataFiltered.length / itensPorPagina)
     if(pagina > 0 && pagina <= lastPage) setPage(pagina)
   }
 
@@ -96,12 +105,23 @@ export default function FaturaCompleta({ navigation }) {
     let startIndex = (page - 1) * itensPorPagina
 
     for(let i = startIndex; i < (startIndex + itensPorPagina); i++) {
-      if(cardsData[i]) {
-        cardsArray.push(cardsData[i]);
+      if(cardsDataFiltered[i]) {
+        cardsArray.push(cardsDataFiltered[i]);
       }
     }
 
     return cardsArray;
+  }
+
+  const filter = function(sit = situacao, forn = fornecimento) {
+    setSituacao(sit);
+    setPage(1);
+
+    let filteredCardsData = cardsData.filter(item => {
+      if((!sit || item.statusFatura.includes(sit)) && true) return true;
+    })
+
+    setCardsDataFiltered(filteredCardsData);
   }
 
   return (
@@ -112,14 +132,14 @@ export default function FaturaCompleta({ navigation }) {
             <Text>Situação</Text>
             <Picker 
               selectedValue={situacao}
-              onValueChange={val => setSituacao(val)}
+              onValueChange={val => filter(val)}
               style={styles.select}>
               <Picker.Item label="Todos" value="" />
               <Picker.Item label="Em Aberto" value="Em Aberto" />
-              <Picker.Item label="Pendentes" value="Pendentes" />
-              <Picker.Item label="Pagas" value="Pagas" />
-              <Picker.Item label="Parcialmente pagas" value="Parcialmente pagas" />
-              <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamentos" />
+              <Picker.Item label="Pendentes" value="Pendente" />
+              <Picker.Item label="Pagas" value="Paga" />
+              <Picker.Item label="Parcialmente pagas" value="Parcialmente paga" />
+              <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
             </Picker>
           </View>
 
@@ -147,7 +167,8 @@ export default function FaturaCompleta({ navigation }) {
               style={styles.input} 
               theme={{ colors: { primary: '#00a5e4' }}}
               placeholder="Digite o fornecimento" 
-              value={''} 
+              value={fornecimento} 
+              onChangeText={text => setFornecimento(text)}
               right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
             />
             {cardsArray().map(item => (<FaturaCard dados={item}/>))}
@@ -175,7 +196,7 @@ export default function FaturaCompleta({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.paginationButton20}
-                onPress={() => setPage(Math.ceil(cardsData.length / itensPorPagina))}>
+                onPress={() => setPage(Math.ceil(cardsDataFiltered.length / itensPorPagina))}>
                 <FontAwesomeIcon icon={ faAnglesRight } size={16}/>
               </TouchableOpacity>
             </View>
