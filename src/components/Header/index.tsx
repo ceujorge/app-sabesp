@@ -1,7 +1,5 @@
 import React from "react";
-import { StatusBar } from 'expo-status-bar';
-import { View, Text, Image, TextInput, TouchableOpacity, Button } from "react-native";
-import { TextInputMask } from 'react-native-masked-text';
+import { View, Text, Image, StatusBar } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
@@ -17,7 +15,7 @@ export default function Header() {
                 <FontAwesomeIcon icon={ faMagnifyingGlass } size={28} style={styles.searchIcon}/>
                 <FontAwesomeIcon icon={ faBars } size={28} />
             </View>
-            <StatusBar style="auto" />
+            <StatusBar barStyle="light-content" backgroundColor='#303030' />
         </View>
     );
 }

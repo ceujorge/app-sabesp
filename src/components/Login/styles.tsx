@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         color: '#606060',
         alignSelf:'center',
         textAlign:'center',
-        marginLeft: '10px',
+        marginLeft: 10,
     },
     hyperlink: {
         fontSize: 14,

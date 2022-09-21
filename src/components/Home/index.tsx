@@ -11,7 +11,7 @@ import styles from "./styles";
 import Header from "../Header";
 
 export default function Home({ navigation }) {
-  const [collapsed, setCollapsed]: any = useState(false);
+  const [collapsed, setCollapsed]: any = useState(true);
 
   const toggleExpanded = () => {
     setCollapsed(!collapsed);
@@ -30,18 +30,18 @@ export default function Home({ navigation }) {
         <Text style={styles.collapsibleHeaderText}>Para Empresas</Text>
         <FontAwesomeIcon icon={ collapsed ? faCaretDown : faCaretLeft} size={22} style={styles.caret}/>
       </TouchableOpacity>
-      <Collapsible collapsed={collapsed}>
+      <Collapsible style={styles.collapsible} collapsed={collapsed}>
         <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver>
-          <Text style={styles.collpsibleItem}>- Representante Legal</Text>
+          <Text style={styles.collapsibleItem}>- Representante Legal</Text>
         </Animatable.Text>
         <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver>
-          <Text style={styles.collpsibleItem}>- Empresa</Text>
+          <Text style={styles.collapsibleItem}>- Empresa</Text>
         </Animatable.Text>
         <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver>
-          <Text style={styles.collpsibleItem}>- Imobiliária</Text>
+          <Text style={styles.collapsibleItem}>- Imobiliária</Text>
         </Animatable.Text>
         <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver>
-          <Text style={styles.collpsibleItem}>- Gestora de condomínio</Text>
+          <Text style={styles.collapsibleItem}>- Gestora de condomínio</Text>
         </Animatable.Text>
       </Collapsible>
 

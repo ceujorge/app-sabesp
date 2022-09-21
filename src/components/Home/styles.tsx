@@ -48,9 +48,12 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginBottom: 3,
     },
-    collpsibleItem: {
-        fontSize: 22,
+    collapsible: {
+        flex: 1,
         marginLeft: 50,
+    },
+    collapsibleItem: {
+        fontSize: 22,
     },
 });
 

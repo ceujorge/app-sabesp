@@ -14,9 +14,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
     },
-    container: {
-        overflow: 'hidden',
-    },
     center: {
         alignItems: 'center',
         textAlign: 'center',
@@ -132,7 +129,7 @@ const styles = StyleSheet.create({
         color: '#606060',
         alignSelf:'center',
         textAlign:'center',
-        marginLeft: '10px',
+        marginLeft: 10,
     },
     hyperlink: {
         fontSize: 14,
@@ -207,6 +204,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         color: 'red',
+        marginBottom: 10,
+        marginTop: 10,
+    },
+    cardOk: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: 'green',
         marginBottom: 10,
         marginTop: 10,
     },

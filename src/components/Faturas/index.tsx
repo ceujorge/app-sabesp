@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useWindowDimensions} from "react-native";
+import { View, useWindowDimensions} from "react-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 
 import styles from "./styles";
@@ -32,7 +32,7 @@ export default function Faturas({ navigation }) {
     ]);
 
     return (
-        <>    
+        <View style={{flex: 1}}>    
             <Header />
             <TabView
                 navigationState={{ index, routes }}
@@ -43,6 +43,6 @@ export default function Faturas({ navigation }) {
                 style={styles.tabView}
                 swipeEnabled={false}
             />
-        </>
+        </View>
     );
 }

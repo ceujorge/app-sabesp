@@ -28,6 +28,10 @@
       "versionCode": 1,
       "package": "br.com.comunix.AgenciaVirtual"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#F0F0F0",
+      "translucent": false
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },

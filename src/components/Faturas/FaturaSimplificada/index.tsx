@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Linking, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import { View, Text, Linking, TouchableOpacity, ScrollView, Dimensions, SafeAreaView } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { TextInput, Checkbox } from "react-native-paper";
 import Carousel from 'react-native-reanimated-carousel';
-import * as moment from 'moment';
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import styles from "../styles";
@@ -22,7 +23,7 @@ function CardFatura(item) {
       <Text style={styles.cardText}>{capitalizar(moment(item.item.dataInicioCompetencia).format('MMM/YY'))}</Text>
       <Text style={styles.cardValor}>{'R$ ' + item.item.valor }</Text>
       <Text style={styles.cardText}>{'Vencimento ' + moment(item.item.dataVencimento).format('DD/MM/YY')}</Text>
-      <Text style={styles.cardVencido}>{item.item.statusFatura}</Text>
+      <Text style={styles.cardOk}>{item.item.statusFatura}</Text>
       <View style={styles.row}>
         <TouchableOpacity style={styles.buttonPagar} onPress={() => null}>
           <Text style={styles.textButtonFornecimento}>Pagar conta</Text>
@@ -45,7 +46,7 @@ export default function FaturaSimplificada({ navigation }) {
     }, [])
 
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} >
+      <ScrollView contentContainerStyle={{ paddingBottom: 70 }}>
         <View style={styles.center}>
           <Text style={styles.loginTitle}>Solicite a 2a via de fatura</Text>
           <Text style={styles.loginInformation}>
@@ -92,18 +93,20 @@ export default function FaturaSimplificada({ navigation }) {
                     </Text>
                   </Text>
                   <View style={styles.cardContainer}>
-                    <Carousel
-                      loop={false}
-                      width={width}
-                      height={width / 1.5}
-                      autoPlay={false}
-                      data={contasFornecimento.slice(0, 3)}
-                      scrollAnimationDuration={1000}
-                      onSnapToItem={(index) => console.log('current index:', index)}
-                      renderItem={({ item }) => (
-                        <CardFatura item={item}/>
-                      )}
-                    />
+                    <GestureHandlerRootView>
+                      <Carousel
+                        loop={false}
+                        width={width}
+                        height={width / 1.5}
+                        autoPlay={false}
+                        data={contasFornecimento.slice(0, 3)}
+                        scrollAnimationDuration={1000}
+                        onSnapToItem={(index) => null}
+                        renderItem={({ item }) => (
+                          <CardFatura item={item}/>
+                        )}
+                      />
+                    </GestureHandlerRootView>
                   </View>
                 </View>
               </>

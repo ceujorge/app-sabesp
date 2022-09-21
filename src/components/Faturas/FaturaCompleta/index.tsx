@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import { TextInput } from "react-native-paper";
-import moment from "moment";
-import * as Clipboard from 'expo-clipboard';
+import Clipboard from 'expo-clipboard';
 import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
@@ -13,6 +12,8 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
+import moment from "moment";
+import 'moment/locale/pt-br';
 
 import Login from "../../Login";
 
@@ -126,7 +127,7 @@ export default function FaturaCompleta({ navigation }) {
 
   return (
     <>
-      {logado ? (<>
+      {logado ? (
         <ScrollView>
           <View style={styles.inputContainer}>
             <Text>Situação</Text>
@@ -149,17 +150,17 @@ export default function FaturaCompleta({ navigation }) {
               <TouchableOpacity 
                 style={itensPorPagina === 3 ? styles.paginationButton33Selected :  styles.paginationButton33}
                 onPress={() => setarItensPorPagina(3)}>
-                {'03'}
+                <Text>{'03'}</Text>
               </TouchableOpacity>
               <TouchableOpacity 
                 style={itensPorPagina === 5 ? styles.paginationButton33Selected :  styles.paginationButton33}
                 onPress={() => setarItensPorPagina(5)}>
-                {'05'}
+                <Text>{'05'}</Text>
               </TouchableOpacity>
               <TouchableOpacity 
                 style={itensPorPagina === 10 ? styles.paginationButton33Selected :  styles.paginationButton33}
                 onPress={() => setarItensPorPagina(10)}>
-                {'10'}
+                <Text>{'10'}</Text>
               </TouchableOpacity>
             </View>
             <TextInput 
@@ -171,7 +172,7 @@ export default function FaturaCompleta({ navigation }) {
               onChangeText={text => setFornecimento(text)}
               right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
             />
-            {cardsArray().map(item => (<FaturaCard dados={item}/>))}
+            {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
 
             <View style={styles.paginationButtonBar}>
               <TouchableOpacity 
@@ -187,7 +188,7 @@ export default function FaturaCompleta({ navigation }) {
               <TouchableOpacity 
                 style={styles.paginationButton20}
                 onPress={() => null }>
-                {String(page).padStart(2, '0')}
+                <Text>{String(page).padStart(2, '0')}</Text>
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.paginationButton20}
@@ -202,7 +203,7 @@ export default function FaturaCompleta({ navigation }) {
             </View>
           </View>
         </ScrollView>
-      </>) : (
+      ) : (
         <Login navigation={ navigation } setLogado={ setLogado }/>
       )}
     </>

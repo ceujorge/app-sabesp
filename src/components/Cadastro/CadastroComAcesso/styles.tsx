@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
-    marginBottom: '10px',
+    marginBottom: 10,
   },
   codConfirma: {
     marginLeft: 10,

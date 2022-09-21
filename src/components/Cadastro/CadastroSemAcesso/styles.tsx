@@ -29,12 +29,17 @@ const styles = StyleSheet.create({
     color: '#606060',
     textAlign: 'center',
     marginBottom: 30,
+    marginRight: 12,
+    marginLeft: 12,
+    width: '90%',
   },
   cadastroTextoLeft: {
     fontSize: 14,
     color: '#606060',
     textAlign: 'left',
     marginBottom: 20,
+    marginRight: 12,
+    width: '80%',
   },
   cadastroTextoBold: {
     fontSize: 14,
@@ -43,6 +48,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 30,
     marginBottom: 10,
+    marginRight: 12,
+    width: '90%',
   },
   buttonSubmit: {
     borderRadius: 5,
@@ -158,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
-    marginBottom: '10px',
+    marginBottom: 10,
   },
 });
 
