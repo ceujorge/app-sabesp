@@ -163,7 +163,7 @@ export default function FaturaCompleta({ navigation }) {
                 <Text>{'10'}</Text>
               </TouchableOpacity>
             </View>
-            <TextInput 
+            {/* <TextInput 
               mode="outlined"
               style={styles.input} 
               theme={{ colors: { primary: '#00a5e4' }}}
@@ -171,7 +171,7 @@ export default function FaturaCompleta({ navigation }) {
               value={fornecimento} 
               onChangeText={text => setFornecimento(text)}
               right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
-            />
+            /> */}
             {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
 
             <View style={styles.paginationButtonBar}>

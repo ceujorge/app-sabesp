@@ -8,16 +8,32 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
     },
-    row: {
+    rowCenter: {
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'center',
         textAlign: 'center',
     },
+    row: {
+        flexDirection: 'row',
+        width: '100%',
+    },
+    rowSpace: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+    },
     center: {
         alignItems: 'center',
         textAlign: 'center',
         paddingHorizontal: 15
+    },
+    titlePagamento: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        fontWeight: 'bold',
+        marginTop: 30,
+        marginBottom: 70,
     },
     loginTitle: {
         fontSize: 18,
@@ -59,18 +75,41 @@ const styles = StyleSheet.create({
         width: '90%',
         margin: 12,
     },
-    buttonSubmit: {
+    faturaSelecionadaTitle: {
+        fontSize: 18,
+        color: '#303030',
+        fontWeight: 'bold',
+        marginBottom: 30,
+        marginTop: 90,
+        alignSelf: 'center',
+    },
+    textfatura: {
+        fontSize: 14,
+        color: '#606060',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    textfaturaRightBold: {
+        fontSize: 14,
+        color: '#606060',
+        alignSelf: 'flex-end',
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    buttonBanco: {
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '90%',
-        backgroundColor: '#00a5e4',
+        width: '100%',
+        backgroundColor: '#1e3650',
         paddingTop: 14,
         paddingBottom: 14,
         marginLeft: 12,
         marginTop: 30,
+        marginBottom: 20,
     },
-    textButtonSubmit: {
+    textButtonBanco: {
         fontSize: 20,
         color: '#fff',
     },
@@ -150,7 +189,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1e3650',
         color: '#fff',
         width: width,
-        height: '60%',
+        height: 600,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -172,11 +211,19 @@ const styles = StyleSheet.create({
     faturasText: {
         fontSize: 14,
         color: '#fff',
-        //fontWeight: 'bold',
         marginBottom: 20,
         marginTop: 10,
     },
     cardContainer: {
+        flexDirection: "row",
+        width: width,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cardContainerPagamento: {
+        position: 'absolute',
+        bottom: -70,
         flexDirection: "row",
         width: width,
         textAlign: 'center',
@@ -191,6 +238,19 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         color: '#606060',
         width: '70%',
+        height: '100%',
+        alignSelf: 'center'
+    },
+    cardPagamento: {
+        backgroundColor: '#fff',
+        padding: 10,
+        alignItems: 'center',
+        textAlign: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        color: '#606060',
+        width: '80%',
+        overflow: 'visible',
         height: '100%',
         alignSelf: 'center'
     },
@@ -218,9 +278,64 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: "bold",
     },
+    cardPagamentoText: {
+        fontSize: 14,
+        color: '#303030', 
+        fontWeight: 'bold',
+        marginBottom: 20,
+        marginTop: 10,
+    },
     downloadIcon: {
         color: '#000',
         margin: 10,
+    },
+    codigoDeBarras: {
+        fontSize: 20,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        paddingTop: 30,
+        paddingBottom: 30,
+    },
+    buttonCardBar: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    buttonCard: {
+        width: 60,
+        height: 60,
+        borderWidth: 0.5,
+        borderColor: '#d0d0d0',
+        borderRadius: 5,
+        margin: 20,
+        marginTop: 5,
+        alignItems: 'center'
+    },
+    buttonCardIcon: {
+        alignSelf: 'center',
+        marginTop: 17,
+    },
+    buttonCardText: {
+        fontSize: 8,
+    },
+    itemNumber: {
+        marginTop: 10,
+        marginRight: 20,
+        color: '#00a5e4',
+        fontWeight: 'bold',
+    },
+    bancoLogo: {
+        width: 100,
+        height: 100,
+        marginTop: 10,
+    },
+    centerTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 20,
+        marginBottom: 20,
     },
 });
 

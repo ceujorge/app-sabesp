@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "agencia-virtual",
-    "slug": "agencia-virtual",
+    "name": "PWA Sabesp",
+    "slug": "PWA Sabesp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

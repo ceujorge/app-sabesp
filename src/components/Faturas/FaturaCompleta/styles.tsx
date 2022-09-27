@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     buttonCardIcon: {
         alignSelf: 'center',
-        paddingTop: 17,
+        marginTop: 17,
     },
     buttonCardText: {
         fontSize: 8,

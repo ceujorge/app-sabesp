@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
         </Animatable.Text>
       </Collapsible>
 
-      <Text style={styles.listItem}>Politicas de privacidade</Text>
+      <Text style={styles.listItem}>Políticas de privacidade</Text>
     </>
   )
 }
