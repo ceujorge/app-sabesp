@@ -234,7 +234,7 @@ export default function FaturaSimplificada({ navigation }) {
                           <Text style={{ fontSize: 20, width: '50%', marginRight: 20}}>Total de débitos selecionados</Text>
                           <Text style={{ fontWeight: 'bold', fontSize: 32, width: '50%', alignSelf:'flex-end'}}>{'R$ ' + String(fatura.valor).replace('.', ',')}</Text>
                         </View>
-                        <TouchableOpacity style={styles.buttonBanco} onPress={() => setLogado(true)}>
+                        <TouchableOpacity style={styles.buttonBanco} onPress={() => null}>
                           <Text style={styles.textButtonBanco}>Acessar o banco</Text>
                         </TouchableOpacity>
                       </View>

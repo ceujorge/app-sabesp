@@ -12,6 +12,8 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
+import Collapsible from "react-native-collapsible";
+import * as Animatable from 'react-native-animatable';
 import moment from "moment";
 import 'moment/locale/pt-br';
 
@@ -19,6 +21,7 @@ import Login from "../../Login";
 
 import styles from "./styles";
 import mocks from "../../../mocks/mocks";
+
 
 moment.locale('pt-br');
 
@@ -76,9 +79,9 @@ export default function FaturaCompleta({ navigation }) {
   const [situacao, setSituacao] = useState('');
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
-  const [fornecimento, setFornecimento] = useState('');
   const [cardsData, setCardsData] = useState([])
   const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
+  const [endereco, setEndereco] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -114,7 +117,7 @@ export default function FaturaCompleta({ navigation }) {
     return cardsArray;
   }
 
-  const filter = function(sit = situacao, forn = fornecimento) {
+  const filter = function(sit = situacao) {
     setSituacao(sit);
     setPage(1);
 
@@ -129,6 +132,29 @@ export default function FaturaCompleta({ navigation }) {
     <>
       {logado ? (
         <ScrollView>
+          <View>
+            <View style={styles.inputContainer}>
+              <Text style={{ fontWeight: 'bold' }}>Endereço</Text>
+              <Picker 
+                selectedValue={endereco}
+                onValueChange={val => setEndereco(val)}
+                style={styles.select}>
+                <Picker.Item label="Av. Presidente Castelo Branco, 785, Praia Grande - SP" value="" />
+                <Picker.Item label="Rua Inácio Bernardes, 181, São Paulo - SP" value="1" />
+              </Picker>
+            </View>
+            <View style={styles.enderecoContainer}>
+              <View style={styles.halfContainer}>
+                <Text style={styles.textEnderecoFornecimento}>Fornecimento</Text>
+                <Text style={styles.textEnderecoFornecimentoBold}>0073027707</Text>
+              </View>
+              <View style={styles.halfContainer}>
+                <Text style={styles.textEnderecoVencimento}>Próximo vencimento</Text>
+                <Text style={styles.textEnderecoVencimentoBold}>05/10/2022</Text>
+              </View>
+            </View>
+          </View>
+
           <View style={styles.inputContainer}>
             <Text>Situação</Text>
             <Picker 
