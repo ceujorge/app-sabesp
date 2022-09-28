@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -18,7 +18,7 @@ export default function Home({ navigation }) {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Header />
       <View style={styles.row}>
         <FontAwesomeIcon icon={ faCircleUser } size={32} style={styles.userIcon}/>
@@ -46,6 +46,6 @@ export default function Home({ navigation }) {
       </Collapsible>
 
       <Text style={styles.listItem}>Políticas de privacidade</Text>
-    </>
+    </SafeAreaView>
   )
 }
