@@ -124,7 +124,7 @@ export default function Pagamento({ fatura }) {
                 <Text style={{paddingTop: 15}}>Aceito os termos de serviço</Text>
               </View>
                                     
-              <TouchableOpacity style={styles.buttonOutline} onPress={() => setLogado(true)}>
+              <TouchableOpacity style={styles.buttonOutline} onPress={() => null}>
                 <Text style={styles.textButtonOutline}>Cadastrar E-mail</Text>
               </TouchableOpacity>
             </View>
