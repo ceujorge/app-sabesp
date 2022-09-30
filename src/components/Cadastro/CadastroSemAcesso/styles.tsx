@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     width: '45%'
   },
   switchContainer: {
-    width: '90%',
+    width: '95%',
     margin: 15,
     flexDirection: 'row',
   },

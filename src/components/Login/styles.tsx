@@ -42,16 +42,7 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         width: '90%',
-        // borderRadius: 5,
-        // borderColor: '#BEBEBE',
-        // borderWidth: 2,
-        // borderStyle: 'solid',
-        // height: 65,
         margin: 12,
-        // marginBottom: 30,
-        // paddingTop: 20,
-        // paddingLeft: 15,
-        // overflow: 'hidden',
     },
     loginPassword: {
         width: '90%',
@@ -122,8 +113,8 @@ const styles = StyleSheet.create({
     hyperlink: {
         fontSize: 14,
         color: 'blue',
-        alignSelf:'center',
-        textAlign:'center',
+        alignSelf: 'center',
+        textAlign: 'center',
         textDecorationLine: "underline",
         marginBottom: 10,
         marginTop: 10,

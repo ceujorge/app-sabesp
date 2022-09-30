@@ -156,9 +156,8 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           <Switch
             onValueChange={toggleSwitch}
             value={isEnabled}
-            style={styles.switch}
           />
-          <Text style={styles.cadastroTextoLeft}>Quer receber notificação via SMS do andamento da transferência?</Text>
+          <Text style={styles.cadastroTextoLeft}>Aceito os termos de serviço</Text>
         </View>
 
         <TouchableOpacity 

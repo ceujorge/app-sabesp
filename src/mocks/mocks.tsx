@@ -260,7 +260,7 @@ let mocks = {
       "numeroDocumento": "020211497018702211",
       "situacaoDocumento": null,
       "tipoDocumento": "B",
-      "statusFatura": "Em Aberto",
+      "statusFatura": "Aguardando confirmação do pagamento",
       "estadoSaldoPagamento": "S",
       "contestacao": "N",
       "cobrancaJuridica": false,

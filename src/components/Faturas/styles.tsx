@@ -28,13 +28,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 15
     },
-    titlePagamento: {
-        fontSize: 18,
-        color: '#FFFFFF',
-        fontWeight: 'bold',
-        marginTop: 30,
-        marginBottom: 70,
-    },
     loginTitle: {
         fontSize: 18,
         color: '#303030',
@@ -75,14 +68,6 @@ const styles = StyleSheet.create({
         width: '90%',
         margin: 12,
     },
-    faturaSelecionadaTitle: {
-        fontSize: 18,
-        color: '#303030',
-        fontWeight: 'bold',
-        marginBottom: 30,
-        marginTop: 90,
-        alignSelf: 'center',
-    },
     textfatura: {
         fontSize: 14,
         color: '#606060',
@@ -96,22 +81,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
-    },
-    buttonBanco: {
-        borderRadius: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        backgroundColor: '#1e3650',
-        paddingTop: 14,
-        paddingBottom: 14,
-        marginLeft: 12,
-        marginTop: 30,
-        marginBottom: 20,
-    },
-    textButtonBanco: {
-        fontSize: 20,
-        color: '#fff',
     },
     buttonOutline: {
         borderRadius: 5,
@@ -189,7 +158,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1e3650',
         color: '#fff',
         width: width,
-        height: 600,
+        height: 500,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -221,15 +190,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    cardContainerPagamento: {
-        position: 'absolute',
-        bottom: -70,
-        flexDirection: "row",
-        width: width,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     cardFatura: {
         backgroundColor: '#fff',
         alignItems: 'center',
@@ -238,19 +198,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         color: '#606060',
         width: '70%',
-        height: '100%',
-        alignSelf: 'center'
-    },
-    cardPagamento: {
-        backgroundColor: '#fff',
-        padding: 10,
-        alignItems: 'center',
-        textAlign: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        color: '#606060',
-        width: '80%',
-        overflow: 'visible',
         height: '100%',
         alignSelf: 'center'
     },
@@ -273,28 +220,15 @@ const styles = StyleSheet.create({
         color: 'green',
         marginBottom: 10,
         marginTop: 10,
+        textAlign: 'center'
     },
     cardValor: {
         fontSize: 32,
         fontWeight: "bold",
     },
-    cardPagamentoText: {
-        fontSize: 14,
-        color: '#303030', 
-        fontWeight: 'bold',
-        marginBottom: 20,
-        marginTop: 10,
-    },
     downloadIcon: {
         color: '#000',
         margin: 10,
-    },
-    codigoDeBarras: {
-        fontSize: 20,
-        alignSelf: 'center',
-        fontWeight: 'bold',
-        paddingTop: 30,
-        paddingBottom: 30,
     },
     buttonCardBar: {
         width: '100%',
@@ -325,18 +259,7 @@ const styles = StyleSheet.create({
         color: '#00a5e4',
         fontWeight: 'bold',
     },
-    bancoLogo: {
-        width: 100,
-        height: 100,
-        marginTop: 10,
-    },
-    centerTitle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 20,
-        marginBottom: 20,
-    },
+
 });
 
 export default styles;
