@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Linking, TouchableOpacity, ScrollView, Dimensions, Image } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
-import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
-import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { TextInput, Checkbox } from "react-native-paper";
 import Carousel from 'react-native-reanimated-carousel';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { LinearGradient } from 'expo-linear-gradient';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import styles from "../styles";
 import mocks from "../../../mocks/mocks";
-import Pagamento from "../Pagamento";
+import Pagamento from "../../Pagamento";
 
 moment.locale('pt-br');
 

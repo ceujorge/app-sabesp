@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { TextInput } from "react-native-paper";
 
 import Header from "../Header";
@@ -31,7 +31,7 @@ export default function Cadastro({ navigation }) {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <Header />
       <Breadcrumb config={ breadcrumb } navigation={ navigation }/>
       <Text style={styles.cadastroTextoBold}>Meu primeiro acesso</Text>
@@ -50,6 +50,6 @@ export default function Cadastro({ navigation }) {
       <TouchableOpacity style={styles.buttonSubmit}>
         <Text style={styles.textButtonSubmit} onPress={() => handleCpfSubmit(CPF)}>Continuar</Text>
       </TouchableOpacity>
-    </View>
+      </SafeAreaView>
   )
 }

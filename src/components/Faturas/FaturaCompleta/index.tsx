@@ -75,13 +75,11 @@ function FaturaCard( dados ) {
 }
 
 export default function FaturaCompleta({ navigation }) {
-  const [logado, setLogado] = useState(false);
   const [situacao, setSituacao] = useState('');
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
   const [cardsData, setCardsData] = useState([])
   const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
-  const [endereco, setEndereco] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -130,108 +128,81 @@ export default function FaturaCompleta({ navigation }) {
 
   return (
     <>
-      {logado ? (
-        <ScrollView>
-          <View>
-            <View style={styles.inputContainer}>
-              <Text style={{ fontWeight: 'bold' }}>Endereço</Text>
-              <Picker 
-                selectedValue={endereco}
-                onValueChange={val => setEndereco(val)}
-                style={styles.select}>
-                <Picker.Item label="Av. Presidente Castelo Branco, 785, Praia Grande - SP" value="" />
-                <Picker.Item label="Rua Inácio Bernardes, 181, São Paulo - SP" value="1" />
-              </Picker>
-            </View>
-            <View style={styles.enderecoContainer}>
-              <View style={styles.halfContainer}>
-                <Text style={styles.textEnderecoFornecimento}>Fornecimento</Text>
-                <Text style={styles.textEnderecoFornecimentoBold}>0073027707</Text>
-              </View>
-              <View style={styles.halfContainer}>
-                <Text style={styles.textEnderecoVencimento}>Próximo vencimento</Text>
-                <Text style={styles.textEnderecoVencimentoBold}>05/10/2022</Text>
-              </View>
-            </View>
-          </View>
+      <ScrollView>
+        <View style={styles.inputContainer}>
+          <Text>Situação</Text>
+          <Picker 
+            selectedValue={situacao}
+            onValueChange={val => filter(val)}
+            style={styles.select}>
+            <Picker.Item label="Todos" value="" />
+            <Picker.Item label="Em Aberto" value="Em Aberto" />
+            <Picker.Item label="Pendentes" value="Pendente" />
+            <Picker.Item label="Pagas" value="Paga" />
+            <Picker.Item label="Parcialmente pagas" value="Parcialmente paga" />
+            <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
+          </Picker>
+        </View>
 
-          <View style={styles.inputContainer}>
-            <Text>Situação</Text>
-            <Picker 
-              selectedValue={situacao}
-              onValueChange={val => filter(val)}
-              style={styles.select}>
-              <Picker.Item label="Todos" value="" />
-              <Picker.Item label="Em Aberto" value="Em Aberto" />
-              <Picker.Item label="Pendentes" value="Pendente" />
-              <Picker.Item label="Pagas" value="Paga" />
-              <Picker.Item label="Parcialmente pagas" value="Parcialmente paga" />
-              <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
-            </Picker>
+        <View style={styles.container}>
+          <Text style={styles.label}>Itens por página:</Text>
+          <View style={styles.paginationButtonBar}>
+            <TouchableOpacity 
+              style={itensPorPagina === 3 ? styles.paginationButton33Selected :  styles.paginationButton33}
+              onPress={() => setarItensPorPagina(3)}>
+              <Text>{'03'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={itensPorPagina === 5 ? styles.paginationButton33Selected :  styles.paginationButton33}
+              onPress={() => setarItensPorPagina(5)}>
+              <Text>{'05'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={itensPorPagina === 10 ? styles.paginationButton33Selected :  styles.paginationButton33}
+              onPress={() => setarItensPorPagina(10)}>
+              <Text>{'10'}</Text>
+            </TouchableOpacity>
           </View>
+          {/* <TextInput 
+            mode="outlined"
+            style={styles.input} 
+            theme={{ colors: { primary: '#00a5e4' }}}
+            placeholder="Digite o fornecimento" 
+            value={fornecimento} 
+            onChangeText={text => setFornecimento(text)}
+            right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
+          /> */}
+          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
 
-          <View style={styles.container}>
-            <Text style={styles.label}>Itens por página:</Text>
-            <View style={styles.paginationButtonBar}>
-              <TouchableOpacity 
-                style={itensPorPagina === 3 ? styles.paginationButton33Selected :  styles.paginationButton33}
-                onPress={() => setarItensPorPagina(3)}>
-                <Text>{'03'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={itensPorPagina === 5 ? styles.paginationButton33Selected :  styles.paginationButton33}
-                onPress={() => setarItensPorPagina(5)}>
-                <Text>{'05'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={itensPorPagina === 10 ? styles.paginationButton33Selected :  styles.paginationButton33}
-                onPress={() => setarItensPorPagina(10)}>
-                <Text>{'10'}</Text>
-              </TouchableOpacity>
-            </View>
-            {/* <TextInput 
-              mode="outlined"
-              style={styles.input} 
-              theme={{ colors: { primary: '#00a5e4' }}}
-              placeholder="Digite o fornecimento" 
-              value={fornecimento} 
-              onChangeText={text => setFornecimento(text)}
-              right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
-            /> */}
-            {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
-
-            <View style={styles.paginationButtonBar}>
-              <TouchableOpacity 
-                style={styles.paginationButton20}
-                onPress={() => setPage(1)}>
-                <FontAwesomeIcon icon={ faAnglesLeft } size={16}/>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={styles.paginationButton20}
-                onPress={() => setPagina(page - 1)}>
-                <FontAwesomeIcon icon={ faAngleLeft } size={16}/>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={styles.paginationButton20}
-                onPress={() => null }>
-                <Text>{String(page).padStart(2, '0')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={styles.paginationButton20}
-                onPress={() => setPagina(page + 1)}>
-                <FontAwesomeIcon icon={ faAngleRight } size={16}/>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={styles.paginationButton20}
-                onPress={() => setPage(Math.ceil(cardsDataFiltered.length / itensPorPagina))}>
-                <FontAwesomeIcon icon={ faAnglesRight } size={16}/>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.paginationButtonBar}>
+            <TouchableOpacity 
+              style={styles.paginationButton20}
+              onPress={() => setPage(1)}>
+              <FontAwesomeIcon icon={ faAnglesLeft } size={16}/>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.paginationButton20}
+              onPress={() => setPagina(page - 1)}>
+              <FontAwesomeIcon icon={ faAngleLeft } size={16}/>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.paginationButton20}
+              onPress={() => null }>
+              <Text>{String(page).padStart(2, '0')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.paginationButton20}
+              onPress={() => setPagina(page + 1)}>
+              <FontAwesomeIcon icon={ faAngleRight } size={16}/>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.paginationButton20}
+              onPress={() => setPage(Math.ceil(cardsDataFiltered.length / itensPorPagina))}>
+              <FontAwesomeIcon icon={ faAnglesRight } size={16}/>
+            </TouchableOpacity>
           </View>
-        </ScrollView>
-      ) : (
-        <Login navigation={ navigation } setLogado={ setLogado }/>
-      )}
+        </View>
+      </ScrollView>
     </>
   )
 };

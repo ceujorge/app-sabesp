@@ -4,7 +4,7 @@ import { TextInput, Checkbox } from "react-native-paper";
 
 import styles from "./styles";
 
-export default function Login({ navigation, setLogado }) {
+export default function Login({ navigation }) {
   const [CPF, setCPF]: any = useState('');
   const [PASS, setPASS]: any = useState('');
   const [isSelected, setSelection] = useState(false);
@@ -62,7 +62,7 @@ export default function Login({ navigation, setLogado }) {
           <Text>Mantenha-me conectado</Text>
         </View>
 
-        <TouchableOpacity style={styles.buttonOutline} onPress={() => setLogado(true)}>
+        <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('Home')}>
           <Text style={styles.textButtonOutline}>Entrar</Text>
         </TouchableOpacity>
 

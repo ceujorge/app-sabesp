@@ -20,19 +20,19 @@ const bancos = [
   {
     nome: 'Segunda Via',
     nomeButton: 'Conta\nSabesp',
-    icon: require('../../../../assets/bancos/conta-sabesp.png'),
+    icon: require('../../../assets/bancos/conta-sabesp.png'),
     logo: ''},
   {
     nome: 'Banco do Brasil',
     nomeButton: 'Banco do\nBrasil',
-    icon: require('../../../../assets/bancos/bb-icon.png'), 
-    logo: require('../../../../assets/bancos/bb-logo.png')
+    icon: require('../../../assets/bancos/bb-icon.png'), 
+    logo: require('../../../assets/bancos/bb-logo.png')
   },
   {
     nome: 'Bradesco',
     nomeButton: 'Banco\nBradesco', 
-    icon: require('../../../../assets/bancos/bradesco-icon.png'),
-    logo: require('../../../../assets/bancos/bradesco-logo.png')
+    icon: require('../../../assets/bancos/bradesco-icon.png'),
+    logo: require('../../../assets/bancos/bradesco-logo.png')
   }
 ]
 

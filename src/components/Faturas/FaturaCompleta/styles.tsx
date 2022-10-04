@@ -8,17 +8,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    halfContainer: {
-        width: '50%',
-    },
-    enderecoContainer: {
-        justifyContent: 'space-between',
-        width: '90%',
-        marginLeft: 16,
-        marginRight: 16,
-        flexDirection: 'row',
-        marginBottom: 30,
-    },
     input: {
         width: '90%',
         margin: 12,
@@ -27,26 +16,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginLeft: 16,
         fontWeight: 'bold',
-    },
-    textEnderecoFornecimento: {
-        fontSize: 16,
-        alignSelf: 'flex-start',
-    },
-    textEnderecoFornecimentoBold: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        alignSelf: 'flex-start',
-    },
-    textEnderecoVencimento: {
-        fontSize: 16,
-        alignSelf: 'flex-end',
-        textAlign: 'right',
-    },
-    textEnderecoVencimentoBold: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        alignSelf: 'flex-end',
-        textAlign: 'right',
     },
     inputContainer: {
         marginTop: 30,

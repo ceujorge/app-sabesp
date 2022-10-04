@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './src/components/Home';
+import PreLogin from './src/components/PreLogin';
 import Login from './src/components/Login';
-import Fatura from './src/components/Fatura';
 import Faturas from './src/components/Faturas';
 import Cadastro from './src/components/Cadastro';
 import CadastroSemAcesso from './src/components/Cadastro/CadastroSemAcesso';
@@ -15,9 +15,10 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
         
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="PreLogin" component={PreLogin} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Faturas" component={Faturas} />
         <Stack.Screen name="Cadastro" component={Cadastro} />

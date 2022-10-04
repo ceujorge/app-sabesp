@@ -6,13 +6,15 @@ import styles from "./styles";
 import Header from "../Header";
 import FaturaCompleta from "./FaturaCompleta";
 import FaturaSimplificada from "./FaturaSimplificada";
+import Login from "../Login";
 
 export default function Faturas({ navigation }) {
     const layout = useWindowDimensions();
 
     const renderScene = SceneMap({
         first: () => <FaturaSimplificada navigation={navigation}/>,
-        second: () => <FaturaCompleta navigation={navigation}/>,
+        // second: () => <FaturaCompleta navigation={navigation}/>,
+        second: () => <Login navigation={navigation}/>,
     });
 
     const renderTabBar = props => (

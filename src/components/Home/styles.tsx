@@ -1,12 +1,7 @@
 import { StyleSheet } from "react-native";
-import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
-    userIcon: {
-        color: '#00a5e4',
-        margin: 15,
-        marginLeft: 30,
-    },
+
     row: {
         width: '100%',
         flexDirection: 'row',
@@ -14,33 +9,63 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginBottom: 15,
     },
-    text: {
-        fontSize: 22,
+    inputContainer: {
+        marginTop: 30,
+        marginLeft: 16,
+        marginBottom: 20,
+        alignContent: 'flex-start',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
     },
-    listItem: {
+    enderecoContainer: {
+        justifyContent: 'space-between',
         width: '90%',
-        fontSize: 22,
-        marginLeft: 20,
-        marginTop: 10,
-        paddingBottom: 10,
-        borderBottomColor: '#606060',
-        borderBottomWidth: 0.5,
-        justifyContent: 'flex-start'
+        marginLeft: 16,
+        marginRight: 16,
+        flexDirection: 'row',
+        marginBottom: 30,
+    },
+    halfContainer: {
+        width: '50%',
+    },
+    textEnderecoFornecimento: {
+        fontSize: 16,
+        alignSelf: 'flex-start',
+    },
+    textEnderecoFornecimentoBold: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignSelf: 'flex-start',
+    },
+    textEnderecoVencimento: {
+        fontSize: 16,
+        alignSelf: 'flex-end',
+        textAlign: 'right',
+    },
+    textEnderecoVencimentoBold: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignSelf: 'flex-end',
+        textAlign: 'right',
+    },
+    select: {
+        width: '95%',
+        padding: 10,
     },
     collapsibleHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '90%',
         alignItems: 'center',
-        fontSize: 22,
         marginLeft: 20,
         marginTop: 10,
+        marginBottom: 30,
         paddingBottom: 10,
         borderBottomColor: '#606060',
         borderBottomWidth: 0.5,
     },
     collapsibleHeaderText: {
-        fontSize: 22,
+        fontSize: 18,
         alignSelf: 'flex-start',
     },
     caret: {
@@ -50,7 +75,6 @@ const styles = StyleSheet.create({
     },
     collapsible: {
         flex: 1,
-        marginLeft: 50,
     },
     collapsibleItem: {
         fontSize: 22,

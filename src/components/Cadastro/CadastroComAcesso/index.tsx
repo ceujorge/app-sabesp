@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Image, Switch, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, Switch, ScrollView, SafeAreaView, TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
 
@@ -19,7 +19,7 @@ export default function CadastroSemAcesso({ navigation }) {
   ]
 
   return (
-    <View>
+    <SafeAreaView>
       <Header />
       <Breadcrumb config={ breadcrumb } navigation={ navigation } />
       <ScrollView style={styles.scrollArea}>
@@ -53,6 +53,6 @@ export default function CadastroSemAcesso({ navigation }) {
           />
         ) : null}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
