@@ -46,7 +46,7 @@ function CardPagamento({ item, setBanco }) {
 }
 
 export default function Pagamento({ fatura }) {
-  const [banco, setBanco] = useState(null);
+  const [banco, setBanco] = useState(bancos[0]);
   const [informePagamento, setInformePagamento] = useState(false);
   const [email, setEmail] = useState('');
   const [emailConfirma, setEmaiConfirma] = useState('');
