@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0e0e0'
   },
   divisor: {
-    marginRight: 10,
-    marginLeft: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   }
 });
 

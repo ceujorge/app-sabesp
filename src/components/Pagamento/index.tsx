@@ -45,7 +45,7 @@ function CardPagamento({ item, setBanco }) {
   )
 }
 
-export default function Pagamento({ fatura }) {
+export default function Pagamento({ fatura, dropdown = false }) {
   const [banco, setBanco] = useState(bancos[0]);
   const [informePagamento, setInformePagamento] = useState(false);
   const [email, setEmail] = useState('');
@@ -55,6 +55,10 @@ export default function Pagamento({ fatura }) {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const width = Dimensions.get('window').width;
+  const carouselStyle = {
+    width: dropdown ? width - 20 : width,
+    marginLeft: 0,
+  }
 
   const capitalizar = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -134,7 +138,7 @@ export default function Pagamento({ fatura }) {
         <>
           {!informePagamento ? (
             // Carousel Bancos
-            <View style={styles.containerPagamento}>
+            <View style={dropdown ? styles.containerPagamentoDropdown : styles.containerPagamento}>
               <Text style={styles.titlePagamento}>Formas de Pagamento</Text>
               <View style={styles.cardContainerPagamento}>
                 <LinearGradient colors={['#1e3650', '#FFFFFF']} locations={[0.4, 0]}>
@@ -144,7 +148,7 @@ export default function Pagamento({ fatura }) {
                       width={width / 2.5}
                       height={width / 3}
                       autoPlay={false}
-                      style={{ width: width, zIndex: 999 }}
+                      style={carouselStyle}
                       data={bancos}
                       scrollAnimationDuration={1000}
                       renderItem={({ item, index }) => (
@@ -161,7 +165,6 @@ export default function Pagamento({ fatura }) {
               <View style={styles.rowCenter}>
                 <FontAwesomeIcon icon={ faCircleCheck } size={100} style={{ color: '#00a000', marginTop: 30}}/>
               </View>
-              <Text style={styles.centerTitle}>SOLICITAÇÃO DE 2ª VIA DE CONTA CONCLUÍDA COM SUCESSO</Text>
               <Text style={styles.information}>
                 Se você realizou o pagamento, aguarde até dois dias úteis para confirmação. Se você não realizou o pagamento, retorne e clique em pagar.
               </Text>

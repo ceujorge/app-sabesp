@@ -1,13 +1,10 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-
     row: {
         width: '100%',
         flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 30,
-        marginBottom: 15,
+        justifyContent: 'space-between',
     },
     inputContainer: {
         marginTop: 30,
@@ -28,23 +25,35 @@ const styles = StyleSheet.create({
     halfContainer: {
         width: '50%',
     },
-    textEnderecoFornecimento: {
+    homeTextLeft: {
         fontSize: 16,
         alignSelf: 'flex-start',
     },
-    textEnderecoFornecimentoBold: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        alignSelf: 'flex-start',
-    },
-    textEnderecoVencimento: {
+    homeTextRight: {
         fontSize: 16,
         alignSelf: 'flex-end',
         textAlign: 'right',
     },
-    textEnderecoVencimentoBold: {
+    homeTextLeftBold: {
         fontSize: 16,
         fontWeight: 'bold',
+        alignSelf: 'flex-start',
+    },
+    homeTextRightBold: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        alignSelf: 'flex-end',
+        textAlign: 'right',
+    },
+    debitosEmAtraso: {
+        fontSize: 20,
+        alignSelf: 'flex-start',
+        textAlign: 'left',
+        fontWeight: 'bold',
+        color: '#ff0000',
+    },
+    valorDosDebitos: {
+        fontSize: 20,
         alignSelf: 'flex-end',
         textAlign: 'right',
     },
@@ -56,11 +65,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '90%',
-        alignItems: 'center',
         marginLeft: 20,
         marginTop: 10,
         marginBottom: 30,
-        paddingBottom: 10,
+        paddingBottom: 5,
         borderBottomColor: '#606060',
         borderBottomWidth: 0.5,
     },
@@ -78,6 +86,45 @@ const styles = StyleSheet.create({
     },
     collapsibleItem: {
         fontSize: 22,
+    },
+    buttonSubmit: {
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '90%',
+        backgroundColor: '#00a5e4',
+        paddingTop: 14,
+        paddingBottom: 14,
+        marginLeft: 12,
+        marginTop: 30,
+    },
+    buttonSubmitMini: {
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '25%',
+        backgroundColor: '#00a5e4',
+        paddingTop: 8,
+        paddingBottom: 8,
+        marginRight: 10
+    },
+    textButtonSubmitMini: {
+        fontSize: 12,
+        color: '#fff',
+    },
+    textButtonSubmit: {
+        fontSize: 20,
+        color: '#fff',
+    },
+    switchContainer: {
+        width: '100%',
+        marginRight: 15,
+        marginTop: 15,
+        marginBottom: 15,
+        flexDirection: 'row',
+    },
+        switch: {
+        marginRight: 15,
     },
 });
 

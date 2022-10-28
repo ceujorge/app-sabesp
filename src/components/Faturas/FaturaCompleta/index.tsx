@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Linking, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Picker } from '@react-native-picker/picker';
-import { TextInput } from "react-native-paper";
 import Clipboard from 'expo-clipboard';
 import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -12,12 +11,8 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
-import Collapsible from "react-native-collapsible";
-import * as Animatable from 'react-native-animatable';
 import moment from "moment";
 import 'moment/locale/pt-br';
-
-import Login from "../../Login";
 
 import styles from "./styles";
 import mocks from "../../../mocks/mocks";

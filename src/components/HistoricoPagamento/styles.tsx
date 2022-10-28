@@ -52,6 +52,13 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     alignSelf: 'center',
   },
+  centerDot: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
+  },
 });
 
 export default styles;

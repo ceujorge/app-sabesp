@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { View, Text, Image, Switch, TouchableOpacity, ScrollView } from "react-native";
-import RNPickerSelect from 'react-native-picker-select';
 import { TextInput, RadioButton } from "react-native-paper";
 
 import styles from "./../styles";

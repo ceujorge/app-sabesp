@@ -55,13 +55,6 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           onChangeText={value => { setMascaraCpf(value) }}
         />
 
-        {/* <RNPickerSelect onValueChange={(value) => console.log(value)} value={''} style={styles.comboBox}
-            items={[
-                { label: 'Selecione', value: '' },
-                { label: 'Registro Geral', value: 'teste' },
-            ]}
-        /> */}
-
         <TextInput 
           label='Documento' 
           placeholder="Digite " 

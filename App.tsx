@@ -9,6 +9,8 @@ import Faturas from './src/components/Faturas';
 import Cadastro from './src/components/Cadastro';
 import CadastroSemAcesso from './src/components/Cadastro/CadastroSemAcesso';
 import CadastroComAcesso from './src/components/Cadastro/CadastroComAcesso';
+import Parcelamento from './src/components/Parcelamento'
+import Acordos from './src/components/Acordos';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ export default function App() {
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroSemAcesso" component={CadastroSemAcesso} />
         <Stack.Screen name="CadastroComAcesso" component={CadastroComAcesso} />
+        <Stack.Screen name="Parcelamento" component={Parcelamento} />
+        <Stack.Screen name="Acordos" component={Acordos} />
       </Stack.Navigator>
     </NavigationContainer>
   );

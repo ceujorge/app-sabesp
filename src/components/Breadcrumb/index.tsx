@@ -14,7 +14,7 @@ export default function Breadcrumb({ config, navigation }) {
                 onPress={() => item.link ? navigation.navigate(item.link) : null} 
                 style={item.active ? {fontWeight: 'bold'} : {}}
               >{item.label}</Text>
-              {config.length > index + 1 ? <Text style={styles.divisor}>{'>'}</Text> : null}
+              {config.length > index + 1 ? <Text style={styles.divisor}>{' > '}</Text> : null}
             </Text>
           )
         })}

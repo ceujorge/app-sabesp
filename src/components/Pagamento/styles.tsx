@@ -106,6 +106,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerPagamentoDropdown: {
+    backgroundColor: '#1e3650',
+    color: '#fff',
+    width: width - 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   titlePagamento: {
     fontSize: 18,
     color: '#FFFFFF',
@@ -115,7 +123,6 @@ const styles = StyleSheet.create({
   },
   cardContainerPagamento: {
     flexDirection: "row",
-    width: width,
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
