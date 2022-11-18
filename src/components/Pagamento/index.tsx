@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
 import { TextInput } from "react-native-paper";
 import Carousel from 'react-native-reanimated-carousel';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -187,6 +188,10 @@ export default function Pagamento({ fatura, dropdown = false }) {
                 <TouchableOpacity style={styles.buttonCard} onPress={() => null}>
                   <FontAwesomeIcon icon={ faDownload } size={18} style={styles.buttonCardIcon}/>
                   <Text style={styles.buttonCardText}>Baixar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonCard} onPress={() => null}>
+                  <FontAwesomeIcon icon={ faMagnifyingGlass } size={18} style={styles.buttonCardIcon}/>
+                  <Text style={styles.buttonCardText}>Visualizar</Text>
                 </TouchableOpacity>
               </View>
               {banco && banco?.nome != 'Segunda Via'? (

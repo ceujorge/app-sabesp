@@ -5,10 +5,39 @@ import { TextInput } from "react-native-paper";
 import styles from "./../styles";
 
 export default function SecondStep({ navigation, form, setForm, page, setPage }) {
+  const [found, setFound] = useState(false)
+  const [fornecimento, setFornecimento] = useState('')
+
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 70 }}>
       <View>
         <Text style={styles.cadastroTextoBold}>Dados do imóvel</Text>
+
+        <View>
+          {!found ? (
+            <TouchableOpacity style={styles.buttonFornecimento} onPress={() => setFound(true)}>
+              <Text style={styles.textButtonFornecimento}>Ver</Text>
+            </TouchableOpacity>
+          ) : null}
+
+          <TextInput 
+            mode="outlined"
+            label="Fornecimento ou Hidrômetro"
+            theme={{ colors: { primary: '#00a5e4' }}}
+            style={styles.cadastroInput}
+            value={fornecimento} 
+            onChangeText={value => { setFornecimento(value) }} 
+            maxLength={15}
+            right={found ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFound(false)}/> : null}
+          />
+
+        </View>
+
+        <View style={styles.linkContainer}>
+          <Text style={styles.link} onPress={() => Linking.openURL('javascript:void(0)')}>
+            Localize o número do fornecimento ou hidrômetro
+          </Text>
+        </View>
 
         <TextInput 
           label='Cep' 
@@ -17,13 +46,8 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.cep} 
           onChangeText={value => { setForm({...form, 'cep': value}) }}
+          disabled={true}
         />
-
-        <View style={styles.linkContainer}>
-            <Text style={styles.link} onPress={() => Linking.openURL('javascript:void(0)')}>
-              Não sei o meu CEP
-            </Text>
-        </View>
 
         <TextInput 
           label='Endereço completo' 
@@ -32,6 +56,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.endereço} 
           onChangeText={value => { setForm({...form, 'endereço': value}) }}
+          disabled={true}
         />
 
         <TextInput 
@@ -41,6 +66,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.uf} 
           onChangeText={value => { setForm({...form, 'uf': value}) }}
+          disabled={true}
         />
 
         <TextInput 
@@ -50,6 +76,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.numero} 
           onChangeText={value => { setForm({...form, 'numero': value}) }}
+          disabled={true}
         />
 
         <TextInput 
@@ -59,6 +86,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.complemento} 
           onChangeText={value => { setForm({...form, 'complemento': value}) }}
+          disabled={true}
         />
 
         <TextInput 
@@ -68,6 +96,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.bairro} 
           onChangeText={value => { setForm({...form, 'bairro': value}) }}
+          disabled={true}
         />
 
         <TextInput 
@@ -77,6 +106,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.cidade} 
           onChangeText={value => { setForm({...form, 'cidade': value}) }}
+          disabled={true}
         />
 
         <TouchableOpacity style={styles.buttonSubmit} onPress={() => setPage(3)}>

@@ -59,7 +59,7 @@ export default function FaturaSimplificada({ navigation }) {
         <View style={styles.center}>
           <Text style={styles.loginTitle}>Solicite a 2a via de fatura</Text>
           <Text style={styles.loginInformation}>
-            No campo abaixo, insira o seu código de fornecimento para ter acesso à segunda via das contas emitidas nos últimos 90 dias.
+            No campo abaixo, insira o seu código de fornecimento para ter acesso à segunda via das contas emitidas nos últimos 180 dias.
           </Text>
           
           <Text style={styles.loginOuterLabel}>
@@ -69,7 +69,7 @@ export default function FaturaSimplificada({ navigation }) {
           <View style={styles.loginPassword} >
             {!found ? (
               <TouchableOpacity style={styles.buttonFornecimento} onPress={() => setFound(true)}>
-                <Text style={styles.textButtonFornecimento}>Ver conta</Text>
+                <Text style={styles.textButtonFornecimento}>Ver</Text>
               </TouchableOpacity>
             ) : null}
 
@@ -126,7 +126,7 @@ export default function FaturaSimplificada({ navigation }) {
             ) : (
               <>
                 <View style={styles.linkContainer}>
-                  <Text style={styles.hyperlink} onPress={() => Linking.openURL('javascript:void(0)')}>
+                  <Text style={styles.hyperlink} onPress={() => Linking.openURL('https://sabesp.s3.amazonaws.com/guiaFatura.pdf')}>
                     Localize o código de fornecimento da sua conta
                   </Text>
                 </View>

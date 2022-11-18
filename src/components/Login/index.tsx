@@ -4,14 +4,14 @@ import { TextInput, Checkbox } from "react-native-paper";
 
 import styles from "./styles";
 
-export default function Login({ navigation }) {
+export default function Login({ navigation, tipoPessoa = 'PF'}) {
   const [CPF, setCPF]: any = useState('');
   const [PASS, setPASS]: any = useState('');
   const [isSelected, setSelection] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const setMascaraCpf = function (cpf) {
-    cpf = cpf.replace(/\D/g, "");                          //Remove tudo o que não é dígito
+    cpf = cpf.replace(/\D/g, "").substring(0, 11);                          //Remove tudo o que não é dígito
     cpf = cpf.replace(/^(\d{3})(\d{3})(\d)/g, "$1.$2.$3"); //Coloca a pontuação
     cpf = cpf.replace(/(\d)(\d{2})$/, "$1-$2");            //Coloca hífen entre os dois ultimos digitos e o resto
     setCPF(cpf);
@@ -66,9 +66,17 @@ export default function Login({ navigation }) {
           <Text style={styles.textButtonOutline}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Cadastro')}>
-          <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
-        </TouchableOpacity>
+        {tipoPessoa === 'PF' ? (
+          <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Cadastro')}>
+            <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
+          </TouchableOpacity>
+        ) : null}
+
+        {tipoPessoa === 'PJ' ? (
+          <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('CadastroPJ')}>
+            <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
+          </TouchableOpacity>
+        ) : null}
 
         <Text style={styles.loginInformation}></Text>     
       </View>

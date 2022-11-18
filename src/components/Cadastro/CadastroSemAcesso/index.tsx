@@ -16,6 +16,7 @@ export default function CadastroSemAcesso({ navigation }) {
   const [formUser, setFormUser] = useState({
     'nome': '',
     'CPF': '',
+    'tipoDocumento': '',
     'documento': '',
     'nascimento': '',
     'sexo': '',

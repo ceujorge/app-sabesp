@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { View, Text, Image, Switch, TouchableOpacity, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
+import { Picker } from '@react-native-picker/picker';
 
 import styles from "./../styles";
 
@@ -12,21 +13,21 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const setMascaraCpf = function (cpf) {
-    cpf = cpf.replace(/\D/g, "");                  //Remove tudo o que não é dígito
+    cpf = cpf.replace(/\D/g, "").substring(0, 11);                   //Remove tudo o que não é dígito
     cpf = cpf.replace(/^(\d{3})(\d{3})(\d)/g, "$1.$2.$3"); //Coloca a pontuação
     cpf = cpf.replace(/(\d)(\d{2})$/, "$1-$2");    //Coloca hífen entre os dois ultimos digitos e o resto
     setForm({...form, 'CPF': cpf})
   }
 
   const setMascaraTel = function (tel) {
-    tel = tel.replace(/\D/g, "");                  //Remove tudo o que não é dígito
+    tel = tel.replace(/\D/g, "").substring(0, 11);                   //Remove tudo o que não é dígito
     tel = tel.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
     tel = tel.replace(/(\d)(\d{4})$/, "$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
     setForm({...form, 'telefone': tel})
   }
 
   const setMascaraData = function (data) {
-    data = data.replace(/\D/g, "");                  //Remove tudo o que não é dígito
+    data = data.replace(/\D/g, "").substring(0, 8);                   //Remove tudo o que não é dígito
     data = data.replace(/^(\d{2})(\d)/g, "$1/$2"); // Coloca a barra entre mes e dia
     data = data.replace(/(\d)(\d{4})$/, "$1/$2");    //Coloca a barra entre mes e ano
     setForm({...form, 'nascimento': data})
@@ -54,6 +55,19 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           value={form.CPF} 
           onChangeText={value => { setMascaraCpf(value) }}
         />
+
+        <Text style={{color: '#606060'}}>Documento de identificação</Text>
+        <Picker 
+          style={[styles.cadastroTextoLeft, {backgroundColor: '#e7e7e7'}]}
+          onValueChange={value => { setForm({...form, 'tipoDocumento': value}) }}
+          selectedValue={form.tipoDocumento}>
+          <Picker.Item label="Selecione" value="" />
+          <Picker.Item label="RG" value="RG" />
+          <Picker.Item label="CNH" value="CNH" />
+          <Picker.Item label="OAB" value="OAB" />
+          <Picker.Item label="CREA" value="CREA" />
+          <Picker.Item label="Outros" value="Outros" />
+        </Picker>
 
         <TextInput 
           label='Documento' 
@@ -92,7 +106,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           />
 
           <TextInput 
-            label='Sexo' 
+            label='Gênero' 
             style={styles.cadastroInputHalf}
             theme={{ colors: { primary: '#00a5e4' }}}
             value={form.sexo} 
@@ -122,27 +136,27 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
         <Text style={styles.cadastroTextoBold}>Crie uma senha de acesso para acompanhar o processo de solicitação</Text>
 
         <TextInput 
-            label='Senha'
-            theme={{ colors: { primary: '#00a5e4' }}}
-            style={styles.cadastroInput}
-            textContentType="password"
-            placeholder="Digite sua senha" 
-            value={form.senha} 
-            onChangeText={value => { setForm({...form, 'senha': value}) }} 
-            secureTextEntry={passwordVisible}
-            right={<TextInput.Icon name={passwordVisible ? 'eye' : 'eye-off'} onPress={() => setPasswordVisible(!passwordVisible)}/>}
+          label='Senha'
+          theme={{ colors: { primary: '#00a5e4' }}}
+          style={styles.cadastroInput}
+          textContentType="password"
+          placeholder="Digite sua senha" 
+          value={form.senha} 
+          onChangeText={value => { setForm({...form, 'senha': value}) }} 
+          secureTextEntry={passwordVisible}
+          right={<TextInput.Icon name={passwordVisible ? 'eye' : 'eye-off'} onPress={() => setPasswordVisible(!passwordVisible)}/>}
         />
 
         <TextInput 
-            label='Confirme sua senha'
-            theme={{ colors: { primary: '#00a5e4' }}}
-            style={styles.cadastroInput}
-            textContentType="password"
-            placeholder="Digite sua senha" 
-            value={form.senha2} 
-            onChangeText={value => { setForm({...form, 'senha2': value}) }} 
-            secureTextEntry={passwordVisible2}
-            right={<TextInput.Icon name={passwordVisible2 ? 'eye' : 'eye-off'} onPress={() => setPasswordVisible2(!passwordVisible2)}/>}
+          label='Confirme sua senha'
+          theme={{ colors: { primary: '#00a5e4' }}}
+          style={styles.cadastroInput}
+          textContentType="password"
+          placeholder="Digite sua senha" 
+          value={form.senha2} 
+          onChangeText={value => { setForm({...form, 'senha2': value}) }} 
+          secureTextEntry={passwordVisible2}
+          right={<TextInput.Icon name={passwordVisible2 ? 'eye' : 'eye-off'} onPress={() => setPasswordVisible2(!passwordVisible2)}/>}
         />
 
         <View style={styles.switchContainer}>

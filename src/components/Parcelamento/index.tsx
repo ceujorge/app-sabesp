@@ -249,7 +249,7 @@ export default function Parcelamento({ navigation }) {
                   value={isEnabled}
                 />
                 <Text style={[styles.parcelaTextoLeft, {marginTop: 10}]}>Li e concordo com o⠀
-                  <Text style={styles.hyperlink} onPress={() => Linking.openURL('javascript:void(0)')}>
+                  <Text style={styles.hyperlink} onPress={() => Linking.openURL('https://sabesp.s3.amazonaws.com/termoParcelamento.pdf')}>
                     Termo de acordo de parcelamento
                   </Text> pela internet
                 </Text>

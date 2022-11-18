@@ -4,11 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './src/components/Home';
 import PreLogin from './src/components/PreLogin';
-import Login from './src/components/Login';
+import LoginPage from './src/components/Login/LoginPage';
 import Faturas from './src/components/Faturas';
 import Cadastro from './src/components/Cadastro';
 import CadastroSemAcesso from './src/components/Cadastro/CadastroSemAcesso';
 import CadastroComAcesso from './src/components/Cadastro/CadastroComAcesso';
+import CadastroPJ from './src/components/CadastroPJ';
+import CadastroPJSemAcesso from './src/components/CadastroPJ/CadastroPJSemAcesso';
+import CadastroPJSemCadastro from './src/components/CadastroPJ/CadastroPJSemCadastro';
+import CadastroPJComAcesso from './src/components/CadastroPJ/CadastroPJComAcesso';
+import CadastroPJValidacao from './src/components/CadastroPJ/CadastroPJValidacao';
 import Parcelamento from './src/components/Parcelamento'
 import Acordos from './src/components/Acordos';
 
@@ -21,11 +26,19 @@ export default function App() {
         
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PreLogin" component={PreLogin} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="LoginPage" component={LoginPage} />
         <Stack.Screen name="Faturas" component={Faturas} />
+
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroSemAcesso" component={CadastroSemAcesso} />
         <Stack.Screen name="CadastroComAcesso" component={CadastroComAcesso} />
+
+        <Stack.Screen name="CadastroPJ" component={CadastroPJ} />
+        <Stack.Screen name="CadastroPJComAcesso" component={CadastroPJComAcesso} />
+        <Stack.Screen name="CadastroPJSemAcesso" component={CadastroPJSemAcesso} />
+        <Stack.Screen name="CadastroPJSemCadastro" component={CadastroPJSemCadastro} />
+        <Stack.Screen name="CadastroPJValidacao" component={CadastroPJValidacao} />
+
         <Stack.Screen name="Parcelamento" component={Parcelamento} />
         <Stack.Screen name="Acordos" component={Acordos} />
       </Stack.Navigator>

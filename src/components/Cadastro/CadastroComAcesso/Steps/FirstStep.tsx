@@ -5,7 +5,7 @@ import { TextInput, RadioButton } from "react-native-paper";
 import styles from "./../styles";
 
 export default function FirstStep({ navigation, form, setForm, page, setPage }) {
-  const [checked, setChecked] = useState('');
+  const [checked, setChecked] = useState('email');
   const [confirmado, setConfirmado] = useState(false)
   
   return (
@@ -26,16 +26,8 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           <>
             <Text style={styles.cadastroTextoBold}>Fulano, identificamos a sua conta!</Text>
             <Text style={styles.cadastroTexto}>
-              Escolha como quer receber o código de validação
+              O código de acesso será enviado para o email abaixo
             </Text>
-            <View style={styles.row}>
-              <RadioButton
-                value="sms"
-                status={ checked === 'sms' ? 'checked' : 'unchecked' }
-                onPress={() => setChecked('sms')}
-              />
-              <Text style={styles.radioTexto}>SMS <Text style={{ fontWeight: 'bold'}}>****-4527</Text></Text>
-            </View>
             <View style={styles.row}>
               <RadioButton
                 value="email"
@@ -55,7 +47,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
             <Text style={styles.cadastroTexto}></Text>
 
             <Text style={styles.cadastroTexto}>
-              Caso não tenha mais acesso a esste número de telefone ou conta de email, 
+              Caso não tenha mais acesso a esta conta de email, 
               entre em contato com a Sabesp pelo número <Text style={{ fontWeight: 'bold'}}>2486-2684</Text>
             </Text>
 

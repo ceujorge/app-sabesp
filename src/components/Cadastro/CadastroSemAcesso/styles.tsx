@@ -167,6 +167,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
   },
+  buttonFornecimento:{
+    position: 'absolute',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '15%',
+    backgroundColor: '#00a5e4',
+    paddingTop: 8,
+    paddingBottom: 8,
+    top: 30,
+    right: 35,
+    zIndex: 9999,
+},
+textButtonFornecimento: {
+    fontSize: 14,
+    color: '#fff',
+},
 });
 
 export default styles;
