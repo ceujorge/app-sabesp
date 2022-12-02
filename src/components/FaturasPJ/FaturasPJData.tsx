@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { TextInput } from "react-native-paper";
 import { Picker } from '@react-native-picker/picker';
 import Clipboard from 'expo-clipboard';
 import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
@@ -11,23 +12,38 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
-import moment from "moment";
-import 'moment/locale/pt-br';
 
+import Header from "../Header";
 import styles from "./styles";
-import mocks from "../../../mocks/mocks";
+import mocks from "../../mocks/mocks";
+import Breadcrumb from "../Breadcrumb";
 
-moment.locale('pt-br');
+const breadcrumb = [
+  {label: 'Login', link: 'Login'}, 
+  {label: 'Início', link: ''}, 
+  {label: 'Faturas e pagamentos', link: '', active: true},
+]
 
-function FaturaCard( dados ) {
-  const titles = ['Data de\nEmissão','Valor da fatura','Data de\nvencimento','Situação']
-  const info = dados.dados
+function FaturaCard({ dados, navigation }) {
+  const titles = [
+    'CNPJ',
+    'Fornecimento',
+    'Data de emissão',
+    'Valor da fatura',
+    'Data de vencimento',
+    'Situação'
+  ]
 
   let cardsDataParsed = [
-    [moment(info.dataEmissao).format('DD/MM/YYYY')], 
-    [("R$ " + info.valor).replace('.', ',')], 
-    [moment(info.dataVencimento).format('DD/MM/YYYY')], 
-    [info.statusFatura],
+    [dados.cnpj],
+    [dados.fornecimento],  
+    [dados.dataEmissao], 
+    [dados.valorFatura], 
+    [dados.dataVencimento], 
+    [<>
+      <Text style={dados.situacao == 'Paga' ? styles.situacaoPaga : styles.situacaoAberta }>{dados.situacao}</Text>
+    </>
+    ], 
   ]
 
   return (
@@ -37,16 +53,16 @@ function FaturaCard( dados ) {
           <Col 
             data={titles} 
             style={styles.tableCol} 
-            textStyle={{ color: '#fff', alignSelf: 'flex-end', marginRight: 10, fontWeight: 'bold' }}
+            textStyle={{ color: '#fff', alignSelf: 'flex-end', marginRight: 20, fontWeight: 'bold' }}
             widthArr={[100]}
-            heightArr={[70, 70, 70, 70]}
+            heightArr={[70, 70, 70, 70, 70, 70]}
           />
           <Rows 
             data={cardsDataParsed} 
             style={styles.cardsData}
-            textStyle={{ alignSelf: 'flex-start', marginLeft: 10 }}
-            widthArr={[150]}
-            heightArr={[70, 70, 70, 70]}
+            textStyle={{ alignSelf: 'flex-start', marginLeft: 20, marginRight: 20 }}
+            widthArr={[170]}
+            heightArr={[70, 70, 70, 70, 70, 70]}
           />
         </TableWrapper>
       </Table>
@@ -68,19 +84,22 @@ function FaturaCard( dados ) {
   )
 }
 
-export default function FaturaCompleta({ navigation }) {
+export default function FaturasPJFornecimento({ navigation }) {
   const [situacao, setSituacao] = useState('');
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
+  const [fornecimento, setFornecimento] = useState('')
   const [cardsData, setCardsData] = useState([])
   const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
+  const [dataInicial, setDataInicial] = useState('');
+  const [dataFinal, setDataFinal] = useState('');
 
   useEffect(() => {
     fetchData();
   }, [])
 
   const fetchData = function() {
-    let dados = mocks.faturaSimplificada // fetch
+    let dados = mocks.faturasPJ
 
     setCardsData(dados);
     setCardsDataFiltered(dados);
@@ -109,25 +128,65 @@ export default function FaturaCompleta({ navigation }) {
     return cardsArray;
   }
 
-  const filter = function(sit = situacao) {
+  const filter = function(forn = fornecimento) {
+    setFornecimento(forn);
+    setPage(1);
+
+    let filteredCardsData = cardsData.filter(item => {
+      if((!forn || item.fornecimento.includes(forn)) && true) return true;
+    })
+
+    setCardsDataFiltered(filteredCardsData);
+  }
+
+  const filterSituacao = function(sit = situacao) {
     setSituacao(sit);
     setPage(1);
 
     let filteredCardsData = cardsData.filter(item => {
-      if((!sit || item.statusFatura.includes(sit)) && true) return true;
+      if((!sit || item.situacao.includes(sit)) && true) return true;
     })
 
     setCardsDataFiltered(filteredCardsData);
   }
 
   return (
-    <>
-      <ScrollView>
+    <SafeAreaView>
+      <Header />
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+        <Breadcrumb config={breadcrumb} navigation={navigation} backButton={true}/>
+        <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
+        <Text style={styles.title}>Faturas e pagamentos</Text>
+        <View style={styles.dateContainer}>
+          <View style={{ width: '30%' }}>
+            <Text style={{fontSize: 18}}>Período:</Text>
+          </View>
+          <View style={{ width: '70%' }}>
+            <TextInput 
+              mode="outlined"
+              label='De:'
+              style={styles.dateInput} 
+              theme={{ colors: { primary: '#00a5e4' }}}
+              value={dataInicial} 
+              onChangeText={value => { setDataInicial(value) }} 
+              right={<TextInput.Icon style={styles.dateIcon} name={'calendar-blank'} onPress={() => null}/>}
+            />
+            <TextInput 
+              mode="outlined"
+              label='Até:'
+              style={styles.dateInput} 
+              theme={{ colors: { primary: '#00a5e4' }}}
+              value={dataFinal} 
+              onChangeText={value => { setDataFinal(value) }} 
+              right={<TextInput.Icon style={styles.dateIcon} name={'calendar-blank'} onPress={() => null}/>}
+            />
+          </View>
+        </View>
         <View style={styles.inputContainer}>
-          <Text>Situação</Text>
+          <Text style={{fontSize: 18}}>Situação</Text>
           <Picker 
             selectedValue={situacao}
-            onValueChange={val => filter(val)}
+            onValueChange={val => filterSituacao(val)}
             style={styles.select}>
             <Picker.Item label="Todos" value="" />
             <Picker.Item label="Em Aberto" value="Em Aberto" />
@@ -137,7 +196,6 @@ export default function FaturaCompleta({ navigation }) {
             <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
           </Picker>
         </View>
-
         <View style={styles.container}>
           <Text style={styles.label}>Itens por página:</Text>
           <View style={styles.paginationButtonBar}>
@@ -157,16 +215,16 @@ export default function FaturaCompleta({ navigation }) {
               <Text>{'10'}</Text>
             </TouchableOpacity>
           </View>
-          {/* <TextInput 
+          <TextInput 
             mode="outlined"
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
             placeholder="Digite o fornecimento" 
             value={fornecimento} 
             onChangeText={text => setFornecimento(text)}
-            right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
-          /> */}
-          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
+            right={<TextInput.Icon name={'magnify'} onPress={() => filter(fornecimento)}/>}
+          />
+          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index} navigation={navigation}/>))}
 
           <View style={styles.paginationButtonBar}>
             <TouchableOpacity 
@@ -197,6 +255,6 @@ export default function FaturaCompleta({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   )
 };

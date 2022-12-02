@@ -15,7 +15,13 @@ const styles = StyleSheet.create({
   divisor: {
     paddingLeft: 10,
     paddingRight: 10,
-  }
+  },
+  backButton: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    width: 20,
+  },
 });
 
 export default styles;

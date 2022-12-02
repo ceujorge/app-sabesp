@@ -130,13 +130,18 @@ export default function CadastroPJComAcesso({ navigation }) {
             onChangeText={value => { setMascaraData(value) }}
           />
 
-          <TextInput 
-            label='Gênero' 
-            style={styles.cadastroInputHalfRight}
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={form.sexo} 
-            onChangeText={value => { setForm({...form, 'sexo': value}) }}
-          />
+          <View style={styles.cadastroInputHalfRightContainer}>
+            <Text style={{color: '#606060'}}>Gênero</Text>
+            <Picker 
+              style={styles.cadastroInputHalfRight}
+              onValueChange={val => { setForm({...form, 'sexo': val}) }}
+              selectedValue={form.sexo}>
+              <Picker.Item label="Selecione" value="" />
+              <Picker.Item label="Masculino" value="Masculino" />
+              <Picker.Item label="Feminino" value="Feminino" />
+              <Picker.Item label="Outros" value="Outros" />
+            </Picker>
+          </View>
         </View>
 
         <TextInput 

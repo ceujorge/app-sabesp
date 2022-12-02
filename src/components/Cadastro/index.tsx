@@ -24,7 +24,7 @@ export default function Cadastro({ navigation }) {
   }
 
   const setMascaraCpf = function (cpf) {
-    cpf = cpf.replace(/\D/g, "");                  //Remove tudo o que não é dígito
+    cpf = cpf.replace(/\D/g, "").substring(0, 11);;                  //Remove tudo o que não é dígito
     cpf = cpf.replace(/^(\d{3})(\d{3})(\d)/g, "$1.$2.$3"); //Coloca a pontuação
     cpf = cpf.replace(/(\d)(\d{2})$/, "$1-$2");    //Coloca hífen entre os dois ultimos digitos e o resto
     setCPF(cpf);

@@ -5,8 +5,9 @@ import { TextInput, Checkbox } from "react-native-paper";
 import styles from "./styles";
 
 export default function Login({ navigation, tipoPessoa = 'PF'}) {
-  const [CPF, setCPF]: any = useState('');
-  const [PASS, setPASS]: any = useState('');
+  const [CPF, setCPF] = useState('');
+  const [email, setEmail] = useState('');
+  const [PASS, setPASS] = useState('');
   const [isSelected, setSelection] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(true);
 
@@ -24,16 +25,30 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
         <Text style={styles.loginInformation}>Insira seu login e senha para ter acesso completo aos serviços disponíveis.</Text>
       </View>
       <View>
-        <TextInput 
-          mode="outlined" 
-          placeholder="Digite o seu CPF"
-          style={styles.loginInput}
-          theme={{ colors: { primary: '#00a5e4' }}}
-          label='CPF' 
-          value={CPF} 
-          onChangeText={value => { setMascaraCpf(value) }}
-          maxLength={14}
-        />
+        {tipoPessoa === 'PF' ? (
+          <TextInput 
+            mode="outlined" 
+            placeholder="Digite o seu CPF"
+            style={styles.loginInput}
+            theme={{ colors: { primary: '#00a5e4' }}}
+            label='CPF' 
+            value={CPF} 
+            onChangeText={value => { setMascaraCpf(value) }}
+            maxLength={14}
+          />
+        ) : null}
+
+        {tipoPessoa === 'PJ' ? (
+          <TextInput 
+            mode="outlined" 
+            placeholder="Digite o seu E-mail"
+            style={styles.loginInput}
+            theme={{ colors: { primary: '#00a5e4' }}}
+            label='E-mail' 
+            value={email} 
+            onChangeText={value => { setEmail(value) }}
+          />
+        ) : null}
 
         <TextInput 
           mode="outlined"
@@ -62,20 +77,28 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
           <Text>Mantenha-me conectado</Text>
         </View>
 
-        <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.textButtonOutline}>Entrar</Text>
-        </TouchableOpacity>
-
         {tipoPessoa === 'PF' ? (
-          <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('Home')}>
+              <Text style={styles.textButtonOutline}>Entrar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Cadastro')}>
+              <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
+            </TouchableOpacity>
+          </>
         ) : null}
 
         {tipoPessoa === 'PJ' ? (
-          <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('CadastroPJ')}>
-            <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('HomePJ')}>
+              <Text style={styles.textButtonOutline}>Entrar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('CadastroPJ')}>
+              <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
+            </TouchableOpacity>
+          </>
         ) : null}
 
         <Text style={styles.loginInformation}></Text>     

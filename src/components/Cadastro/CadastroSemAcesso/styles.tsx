@@ -120,6 +120,18 @@ const styles = StyleSheet.create({
     width: '42%',
     margin: 12,
   },
+  cadastroInputHalfRight: {
+    width: '100%',
+    marginLeft: 15,
+  },
+  cadastroInputHalfRightContainer: {
+    marginTop: 10,
+    width: '45%',
+    backgroundColor: '#e7e7e7',
+    height: 65,
+    borderBottomWidth: 1,
+    borderBottomColor: '#606060',
+  },
   scrollArea: {
     width: '100%',
   },

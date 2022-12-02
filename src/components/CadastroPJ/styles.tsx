@@ -42,9 +42,15 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   cadastroInputHalfRight: {
-    width: '45%',
+    width: '100%',
     marginLeft: 15,
-    marginBottom: 30,
+  },
+  cadastroInputHalfRightContainer: {
+    width: '50%',
+    backgroundColor: '#e7e7e7',
+    height: 65,
+    borderBottomWidth: 1,
+    borderBottomColor: '#606060',
   },
   cpfLabel: {
     width: '90%',

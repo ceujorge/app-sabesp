@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Picker } from '@react-native-picker/picker';
-import Clipboard from 'expo-clipboard';
+import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView,  } from "react-native";
+import { TextInput, RadioButton } from "react-native-paper";
 import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
-import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
-import moment from "moment";
-import 'moment/locale/pt-br';
+import { faStar } from '@fortawesome/free-regular-svg-icons/faStar'
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons/faStar'
 
+import Header from "../Header";
 import styles from "./styles";
-import mocks from "../../../mocks/mocks";
+import mocks from "../../mocks/mocks";
+import Breadcrumb from "../Breadcrumb";
 
-moment.locale('pt-br');
+const breadcrumb = [
+  {label: 'Login', link: 'Login'}, 
+  {label: 'Acesso', link: ''}, 
+  {label: 'Raiz CNPJ', link: '', active: true},
+]
 
-function FaturaCard( dados ) {
-  const titles = ['Data de\nEmissão','Valor da fatura','Data de\nvencimento','Situação']
-  const info = dados.dados
+function FaturaCard({ dados, navigation }) {
+  const titles = [
+    <View style={styles.favoritoTitleContainer}>
+      <FontAwesomeIcon icon={ dados.favorito == 'S' ? faStarSolid : faStar } size={18} style={styles.favoritoTitleStar}/>
+      <Text style={styles.favoritoTitle}>Fornecimento</Text>
+    </View>,
+    'CNPJ',
+    'Titularidade',
+    'Unidade',
+    'Endereço',
+  ]
 
   let cardsDataParsed = [
-    [moment(info.dataEmissao).format('DD/MM/YYYY')], 
-    [("R$ " + info.valor).replace('.', ',')], 
-    [moment(info.dataVencimento).format('DD/MM/YYYY')], 
-    [info.statusFatura],
+    [dados.fornecimento], 
+    [dados.cnpj], 
+    [dados.titularidade], 
+    [dados.unidade], 
+    [dados.endereço], 
   ]
 
   return (
@@ -37,50 +48,42 @@ function FaturaCard( dados ) {
           <Col 
             data={titles} 
             style={styles.tableCol} 
-            textStyle={{ color: '#fff', alignSelf: 'flex-end', marginRight: 10, fontWeight: 'bold' }}
+            textStyle={{ color: '#fff', alignSelf: 'flex-end', marginRight: 20, fontWeight: 'bold' }}
             widthArr={[100]}
-            heightArr={[70, 70, 70, 70]}
+            heightArr={[70, 70, 70, 70, 100]}
           />
           <Rows 
             data={cardsDataParsed} 
             style={styles.cardsData}
-            textStyle={{ alignSelf: 'flex-start', marginLeft: 10 }}
-            widthArr={[150]}
-            heightArr={[70, 70, 70, 70]}
+            textStyle={{ alignSelf: 'flex-start', marginLeft: 10, marginRight: 10 }}
+            widthArr={[180]}
+            heightArr={[70, 70, 70, 70, 100]}
           />
         </TableWrapper>
       </Table>
       <View style={styles.buttonCardBar}>
-        <TouchableOpacity style={styles.buttonCard}>
-          <FontAwesomeIcon icon={ faCopy } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Copiar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCard}>
-          <FontAwesomeIcon icon={ faMagnifyingGlass } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Detalhes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCard} onPress={() => Clipboard.setString(info.codigoDeBarras)}>
-          <FontAwesomeIcon icon={ faDownload } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Baixar</Text>
+        <TouchableOpacity style={[styles.buttonSubmit, {width: '30%'}]} onPress={() => null}>
+          <Text style={styles.textButtonSubmit}>Entrar</Text>
         </TouchableOpacity>
       </View>
     </>
   )
 }
 
-export default function FaturaCompleta({ navigation }) {
-  const [situacao, setSituacao] = useState('');
+export default function FaturasPJFornecimento({ navigation }) {
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
+  const [fornecimento, setFornecimento] = useState('')
   const [cardsData, setCardsData] = useState([])
   const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
+  const [checked, setChecked] = useState('Todos');
 
   useEffect(() => {
     fetchData();
   }, [])
 
   const fetchData = function() {
-    let dados = mocks.faturaSimplificada // fetch
+    let dados = mocks.faturasPJ
 
     setCardsData(dados);
     setCardsDataFiltered(dados);
@@ -109,35 +112,57 @@ export default function FaturaCompleta({ navigation }) {
     return cardsArray;
   }
 
-  const filter = function(sit = situacao) {
-    setSituacao(sit);
+  const filter = function(forn = fornecimento) {
+    setFornecimento(forn);
     setPage(1);
 
     let filteredCardsData = cardsData.filter(item => {
-      if((!sit || item.statusFatura.includes(sit)) && true) return true;
+      if((!forn || item.fornecimento.includes(forn)) && true) return true;
     })
 
     setCardsDataFiltered(filteredCardsData);
   }
 
   return (
-    <>
-      <ScrollView>
-        <View style={styles.inputContainer}>
-          <Text>Situação</Text>
-          <Picker 
-            selectedValue={situacao}
-            onValueChange={val => filter(val)}
-            style={styles.select}>
-            <Picker.Item label="Todos" value="" />
-            <Picker.Item label="Em Aberto" value="Em Aberto" />
-            <Picker.Item label="Pendentes" value="Pendente" />
-            <Picker.Item label="Pagas" value="Paga" />
-            <Picker.Item label="Parcialmente pagas" value="Parcialmente paga" />
-            <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
-          </Picker>
+    <SafeAreaView>
+      <Header />
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+        <Breadcrumb config={breadcrumb} navigation={navigation} backButton={true}/>
+        <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
+        <View style={styles.headerPJ}>
+          <Image style={styles.avatar} source={require('../../../assets/avatar.png')} />
+          <View>
+            <Text style={styles.textHeaderPJ}>SILVIA MARIA ROCHA</Text>
+            <Text style={[styles.textHeaderPJ, {fontSize: 16}]}>ENGINEERING DO BRASIL</Text>
+            <Text style={[styles.textHeaderPJ, {fontSize: 14, fontWeight: 'normal'}]}>REPRESENTANTE LEGAL</Text>
+          </View>
         </View>
-
+        <View style={styles.radioBar}>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Todos"
+              status={ checked === 'Todos' ? 'checked' : 'unchecked' }
+              onPress={() => setChecked('Todos')}
+            />
+            <Text style={styles.radioTexto}>Todos</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Ativos"
+              status={ checked === 'Ativos' ? 'checked' : 'unchecked' }
+              onPress={() => setChecked('Ativos')}
+            />
+            <Text style={styles.radioTexto}>Ativos</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Inativos"
+              status={ checked === 'Inativos' ? 'checked' : 'unchecked' }
+              onPress={() => setChecked('Inativos')}
+            />
+            <Text style={styles.radioTexto}>Inativos</Text>
+          </View>
+        </View>
         <View style={styles.container}>
           <Text style={styles.label}>Itens por página:</Text>
           <View style={styles.paginationButtonBar}>
@@ -157,16 +182,16 @@ export default function FaturaCompleta({ navigation }) {
               <Text>{'10'}</Text>
             </TouchableOpacity>
           </View>
-          {/* <TextInput 
+          <TextInput 
             mode="outlined"
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
             placeholder="Digite o fornecimento" 
             value={fornecimento} 
             onChangeText={text => setFornecimento(text)}
-            right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
-          /> */}
-          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
+            right={<TextInput.Icon name={'magnify'} onPress={() => filter(fornecimento)}/>}
+          />
+          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index} navigation={navigation}/>))}
 
           <View style={styles.paginationButtonBar}>
             <TouchableOpacity 
@@ -197,6 +222,6 @@ export default function FaturaCompleta({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   )
 };

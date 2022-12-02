@@ -56,18 +56,20 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           onChangeText={value => { setMascaraCpf(value) }}
         />
 
-        <Text style={{color: '#606060'}}>Documento de identificação</Text>
-        <Picker 
-          style={[styles.cadastroTextoLeft, {backgroundColor: '#e7e7e7'}]}
-          onValueChange={value => { setForm({...form, 'tipoDocumento': value}) }}
-          selectedValue={form.tipoDocumento}>
-          <Picker.Item label="Selecione" value="" />
-          <Picker.Item label="RG" value="RG" />
-          <Picker.Item label="CNH" value="CNH" />
-          <Picker.Item label="OAB" value="OAB" />
-          <Picker.Item label="CREA" value="CREA" />
-          <Picker.Item label="Outros" value="Outros" />
-        </Picker>
+        <View style={{width: '100%', margin: 12,}}>
+          <Text style={[styles.cadastroInput, {color: '#606060'}]}>Documento de identificação</Text>
+          <Picker 
+            style={[styles.cadastroTextoLeft, {backgroundColor: '#e7e7e7', width: '90%'}]}
+            onValueChange={value => { setForm({...form, 'tipoDocumento': value}) }}
+            selectedValue={form.tipoDocumento}>
+            <Picker.Item label="Selecione" value="" />
+            <Picker.Item label="RG" value="RG" />
+            <Picker.Item label="CNH" value="CNH" />
+            <Picker.Item label="OAB" value="OAB" />
+            <Picker.Item label="CREA" value="CREA" />
+            <Picker.Item label="Outros" value="Outros" />
+          </Picker>
+        </View>
 
         <TextInput 
           label='Documento' 
@@ -105,13 +107,18 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
             onChangeText={value => { setMascaraData(value) }}
           />
 
-          <TextInput 
-            label='Gênero' 
-            style={styles.cadastroInputHalf}
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={form.sexo} 
-            onChangeText={value => { setForm({...form, 'sexo': value}) }}
-          />
+          <View style={styles.cadastroInputHalfRightContainer}>
+            <Text style={{color: '#606060'}}>Gênero</Text>
+            <Picker 
+              style={styles.cadastroInputHalfRight}
+              onValueChange={val => { setForm({...form, 'sexo': val}) }}
+              selectedValue={form.sexo}>
+              <Picker.Item label="Selecione" value="" />
+              <Picker.Item label="Masculino" value="Masculino" />
+              <Picker.Item label="Feminino" value="Feminino" />
+              <Picker.Item label="Outros" value="Outros" />
+            </Picker>
+          </View>
         </View>
 
         <TextInput 

@@ -9,11 +9,15 @@ import Faturas from './src/components/Faturas';
 import Cadastro from './src/components/Cadastro';
 import CadastroSemAcesso from './src/components/Cadastro/CadastroSemAcesso';
 import CadastroComAcesso from './src/components/Cadastro/CadastroComAcesso';
+import HomePJ from './src/components/HomePJ';
 import CadastroPJ from './src/components/CadastroPJ';
 import CadastroPJSemAcesso from './src/components/CadastroPJ/CadastroPJSemAcesso';
 import CadastroPJSemCadastro from './src/components/CadastroPJ/CadastroPJSemCadastro';
 import CadastroPJComAcesso from './src/components/CadastroPJ/CadastroPJComAcesso';
 import CadastroPJValidacao from './src/components/CadastroPJ/CadastroPJValidacao';
+import FaturasCNPJ from './src/components/FaturasPJ/FaturasCNPJ';
+import FaturasPJData from './src/components/FaturasPJ/FaturasPJData';
+import FaturasPJFornecimento from './src/components/FaturasPJ/FaturasPJFornecimento';
 import Parcelamento from './src/components/Parcelamento'
 import Acordos from './src/components/Acordos';
 
@@ -24,20 +28,27 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="PreLogin" screenOptions={{ headerShown: false }}>
         
-        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="PreLogin" component={PreLogin} />
         <Stack.Screen name="LoginPage" component={LoginPage} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Faturas" component={Faturas} />
 
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroSemAcesso" component={CadastroSemAcesso} />
         <Stack.Screen name="CadastroComAcesso" component={CadastroComAcesso} />
 
+        {/* PJ */}
+        <Stack.Screen name="HomePJ" component={HomePJ} />
+
         <Stack.Screen name="CadastroPJ" component={CadastroPJ} />
         <Stack.Screen name="CadastroPJComAcesso" component={CadastroPJComAcesso} />
         <Stack.Screen name="CadastroPJSemAcesso" component={CadastroPJSemAcesso} />
         <Stack.Screen name="CadastroPJSemCadastro" component={CadastroPJSemCadastro} />
         <Stack.Screen name="CadastroPJValidacao" component={CadastroPJValidacao} />
+
+        <Stack.Screen name="FaturasCNPJ" component={FaturasCNPJ} />
+        <Stack.Screen name="FaturasPJData" component={FaturasPJData} />
+        <Stack.Screen name="FaturasPJFornecimento" component={FaturasPJFornecimento} />
 
         <Stack.Screen name="Parcelamento" component={Parcelamento} />
         <Stack.Screen name="Acordos" component={Acordos} />

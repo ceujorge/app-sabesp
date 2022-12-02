@@ -1,33 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { Picker } from '@react-native-picker/picker';
-import Clipboard from 'expo-clipboard';
+import { View, Text, Image, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { TextInput } from "react-native-paper";
 import { Table, TableWrapper, Rows, Col } from 'react-native-table-component';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons/faMagnifyingGlass'
-import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons/faAnglesRight'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons/faAnglesLeft'
-import moment from "moment";
-import 'moment/locale/pt-br';
+import { faStar } from '@fortawesome/free-regular-svg-icons/faStar'
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons/faStar'
 
+import Header from "../Header";
 import styles from "./styles";
-import mocks from "../../../mocks/mocks";
+import Breadcrumb from "../Breadcrumb";
 
-moment.locale('pt-br');
+const breadcrumb = [
+  {label: 'Login', link: 'Login'}, 
+  {label: 'Acesso', link: ''}, 
+  {label: 'Raiz CNPJ', link: '', active: true},
+]
 
-function FaturaCard( dados ) {
-  const titles = ['Data de\nEmissão','Valor da fatura','Data de\nvencimento','Situação']
-  const info = dados.dados
+const mock = [{
+    "favorito": "S",
+    "cnpj": "07.313.934/0001-00",
+    "fornecimento": "30 fornecimentos vinculados no CNPJ"
+  },{
+    "favorito": "N",
+    "cnpj": "03.211.302/0001-00",
+    "fornecimento": "160 fornecimentos vinculados no CNPJ"
+  },{
+    "favorito": "N",
+    "cnpj": "06.213.490/0001-00",
+    "fornecimento": "98 fornecimentos vinculados no CNPJ"
+  }]
+
+function FaturaCard({ dados, navigation }) {
+  const titles = [
+    <View style={styles.favoritoTitleContainer}>
+      <FontAwesomeIcon icon={ dados.favorito == 'S' ? faStarSolid : faStar } size={18} style={styles.favoritoTitleStar}/>
+      <Text style={styles.favoritoTitle}>CNPJ</Text>
+    </View>
+    ,'Fornecimento']
 
   let cardsDataParsed = [
-    [moment(info.dataEmissao).format('DD/MM/YYYY')], 
-    [("R$ " + info.valor).replace('.', ',')], 
-    [moment(info.dataVencimento).format('DD/MM/YYYY')], 
-    [info.statusFatura],
+    [dados.cnpj], 
+    [dados.fornecimento], 
   ]
 
   return (
@@ -44,34 +61,25 @@ function FaturaCard( dados ) {
           <Rows 
             data={cardsDataParsed} 
             style={styles.cardsData}
-            textStyle={{ alignSelf: 'flex-start', marginLeft: 10 }}
-            widthArr={[150]}
+            textStyle={{ alignSelf: 'flex-start', marginLeft: 20 }}
+            widthArr={[170]}
             heightArr={[70, 70, 70, 70]}
           />
         </TableWrapper>
       </Table>
       <View style={styles.buttonCardBar}>
-        <TouchableOpacity style={styles.buttonCard}>
-          <FontAwesomeIcon icon={ faCopy } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Copiar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCard}>
-          <FontAwesomeIcon icon={ faMagnifyingGlass } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Detalhes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonCard} onPress={() => Clipboard.setString(info.codigoDeBarras)}>
-          <FontAwesomeIcon icon={ faDownload } size={18} style={styles.buttonCardIcon}/>
-          <Text style={styles.buttonCardText}>Baixar</Text>
+        <TouchableOpacity style={[styles.buttonSubmit, {width: '30%'}]} onPress={() => navigation.navigate('FaturasPJFornecimento')}>
+          <Text style={styles.textButtonSubmit}>Entrar</Text>
         </TouchableOpacity>
       </View>
     </>
   )
 }
 
-export default function FaturaCompleta({ navigation }) {
-  const [situacao, setSituacao] = useState('');
+export default function FaturasCNPJ({ navigation }) {
   const [itensPorPagina, setItensPorPagina] = useState(3);
   const [page, setPage] = useState(1);
+  const [CNPJ, setCNPJ] = useState('')
   const [cardsData, setCardsData] = useState([])
   const [cardsDataFiltered, setCardsDataFiltered] = useState([]);
 
@@ -80,10 +88,8 @@ export default function FaturaCompleta({ navigation }) {
   }, [])
 
   const fetchData = function() {
-    let dados = mocks.faturaSimplificada // fetch
-
-    setCardsData(dados);
-    setCardsDataFiltered(dados);
+    setCardsData(mock);
+    setCardsDataFiltered(mock);
   }
 
   const setPagina = function(pagina) {
@@ -109,35 +115,31 @@ export default function FaturaCompleta({ navigation }) {
     return cardsArray;
   }
 
-  const filter = function(sit = situacao) {
-    setSituacao(sit);
+  const filter = function(cnpj = CNPJ) {
+    setCNPJ(cnpj);
     setPage(1);
 
     let filteredCardsData = cardsData.filter(item => {
-      if((!sit || item.statusFatura.includes(sit)) && true) return true;
+      if((!cnpj || item.cnpj.includes(cnpj)) && true) return true;
     })
 
     setCardsDataFiltered(filteredCardsData);
   }
 
   return (
-    <>
-      <ScrollView>
-        <View style={styles.inputContainer}>
-          <Text>Situação</Text>
-          <Picker 
-            selectedValue={situacao}
-            onValueChange={val => filter(val)}
-            style={styles.select}>
-            <Picker.Item label="Todos" value="" />
-            <Picker.Item label="Em Aberto" value="Em Aberto" />
-            <Picker.Item label="Pendentes" value="Pendente" />
-            <Picker.Item label="Pagas" value="Paga" />
-            <Picker.Item label="Parcialmente pagas" value="Parcialmente paga" />
-            <Picker.Item label="Acordo de parcelamentos" value="Acordo de parcelamento" />
-          </Picker>
+    <SafeAreaView>
+      <Header />
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+        <Breadcrumb config={breadcrumb} navigation={navigation} backButton={true}/>
+        <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
+        <View style={styles.headerPJ}>
+          <Image style={styles.avatar} source={require('../../../assets/avatar.png')} />
+          <View>
+            <Text style={styles.textHeaderPJ}>SILVIA MARIA ROCHA</Text>
+            <Text style={[styles.textHeaderPJ, {fontSize: 16}]}>ENGINEERING DO BRASIL</Text>
+            <Text style={[styles.textHeaderPJ, {fontSize: 14, fontWeight: 'normal'}]}>REPRESENTANTE LEGAL</Text>
+          </View>
         </View>
-
         <View style={styles.container}>
           <Text style={styles.label}>Itens por página:</Text>
           <View style={styles.paginationButtonBar}>
@@ -157,16 +159,16 @@ export default function FaturaCompleta({ navigation }) {
               <Text>{'10'}</Text>
             </TouchableOpacity>
           </View>
-          {/* <TextInput 
+          <TextInput 
             mode="outlined"
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
-            placeholder="Digite o fornecimento" 
-            value={fornecimento} 
-            onChangeText={text => setFornecimento(text)}
-            right={<TextInput.Icon name={'magnify'} onPress={() => null}/>}
-          /> */}
-          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index}/>))}
+            placeholder="Digite o CNPJ" 
+            value={CNPJ} 
+            onChangeText={text => setCNPJ(text)}
+            right={<TextInput.Icon name={'magnify'} onPress={() => filter(CNPJ)}/>}
+          />
+          {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index} navigation={navigation}/>))}
 
           <View style={styles.paginationButtonBar}>
             <TouchableOpacity 
@@ -197,6 +199,6 @@ export default function FaturaCompleta({ navigation }) {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   )
 };
