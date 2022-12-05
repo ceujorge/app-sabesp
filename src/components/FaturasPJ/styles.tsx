@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     dateInput: {
-        height: 30,
+        height: 50,
         width: '100%',
         alignSelf: 'flex-end',
     },

@@ -150,6 +150,13 @@ export default function FaturasPJFornecimento({ navigation }) {
     setCardsDataFiltered(filteredCardsData);
   }
 
+  const setMascaraData = function (data, callback) {
+    data = data.replace(/\D/g, "").substring(0, 8); //Remove tudo o que não é dígito
+    data = data.replace(/^(\d{2})(\d)/g, "$1/$2");  // Coloca a barra entre mes e dia
+    data = data.replace(/(\d)(\d{4})$/, "$1/$2");   //Coloca a barra entre mes e ano
+    callback(data)
+  }
+
   return (
     <SafeAreaView>
       <Header />
@@ -168,7 +175,7 @@ export default function FaturasPJFornecimento({ navigation }) {
               style={styles.dateInput} 
               theme={{ colors: { primary: '#00a5e4' }}}
               value={dataInicial} 
-              onChangeText={value => { setDataInicial(value) }} 
+              onChangeText={value => { setMascaraData(value, setDataInicial) }} 
               right={<TextInput.Icon style={styles.dateIcon} name={'calendar-blank'} onPress={() => null}/>}
             />
             <TextInput 
@@ -177,7 +184,7 @@ export default function FaturasPJFornecimento({ navigation }) {
               style={styles.dateInput} 
               theme={{ colors: { primary: '#00a5e4' }}}
               value={dataFinal} 
-              onChangeText={value => { setDataFinal(value) }} 
+              onChangeText={value => { setMascaraData(value, setDataFinal) }} 
               right={<TextInput.Icon style={styles.dateIcon} name={'calendar-blank'} onPress={() => null}/>}
             />
           </View>
