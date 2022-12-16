@@ -45,6 +45,7 @@ export default function Cadastro({ navigation }) {
         value={CPF} 
         onChangeText={value => { setMascaraCpf(value) }}
         maxLength={14}
+        keyboardType='numeric'
       />
 
       <TouchableOpacity style={styles.buttonSubmit}>

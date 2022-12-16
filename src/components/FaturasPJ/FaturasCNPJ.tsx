@@ -16,7 +16,7 @@ import Breadcrumb from "../Breadcrumb";
 
 const breadcrumb = [
   {label: 'Login', link: 'Login'}, 
-  {label: 'Acesso', link: ''}, 
+  {label: 'Acesso', link: 'HomePJ'}, 
   {label: 'Raiz CNPJ', link: '', active: true},
 ]
 
@@ -126,6 +126,13 @@ export default function FaturasCNPJ({ navigation }) {
     setCardsDataFiltered(filteredCardsData);
   }
 
+  const setMascaraCnpj = function (cnpj) {
+    cnpj = cnpj.replace(/\D/g, "").substring(0, 14);                   //Remove tudo o que não é dígito
+    cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d)/g, "$1.$2.$3/$4"); //Coloca a pontuação
+    cnpj = cnpj.replace(/(\d)(\d{2})$/, "$1-$2");    //Coloca hífen entre os dois ultimos digitos e o resto
+    setCNPJ(cnpj);
+  }
+
   return (
     <SafeAreaView>
       <Header />
@@ -164,8 +171,9 @@ export default function FaturasCNPJ({ navigation }) {
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
             placeholder="Digite o CNPJ" 
+            keyboardType='numeric'
             value={CNPJ} 
-            onChangeText={text => setCNPJ(text)}
+            onChangeText={text => setMascaraCnpj(text)}
             right={<TextInput.Icon name={'magnify'} onPress={() => filter(CNPJ)}/>}
           />
           {cardsArray().map((item, index) => (<FaturaCard dados={item} key={index} navigation={navigation}/>))}

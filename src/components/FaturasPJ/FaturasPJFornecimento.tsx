@@ -17,7 +17,7 @@ import Breadcrumb from "../Breadcrumb";
 
 const breadcrumb = [
   {label: 'Login', link: 'Login'}, 
-  {label: 'Acesso', link: ''}, 
+  {label: 'Acesso', link: 'HomePJ'}, 
   {label: 'Raiz CNPJ', link: '', active: true},
 ]
 
@@ -62,7 +62,7 @@ function FaturaCard({ dados, navigation }) {
         </TableWrapper>
       </Table>
       <View style={styles.buttonCardBar}>
-        <TouchableOpacity style={[styles.buttonSubmit, {width: '30%'}]} onPress={() => null}>
+        <TouchableOpacity style={[styles.buttonSubmit, {width: '30%'}]} onPress={() => navigation.navigate('FornecimentoEncontrado')}>
           <Text style={styles.textButtonSubmit}>Entrar</Text>
         </TouchableOpacity>
       </View>
@@ -187,6 +187,7 @@ export default function FaturasPJFornecimento({ navigation }) {
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
             placeholder="Digite o fornecimento" 
+            keyboardType='numeric'
             value={fornecimento} 
             onChangeText={text => setFornecimento(text)}
             right={<TextInput.Icon name={'magnify'} onPress={() => filter(fornecimento)}/>}

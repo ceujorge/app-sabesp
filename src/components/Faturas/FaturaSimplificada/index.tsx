@@ -78,6 +78,7 @@ export default function FaturaSimplificada({ navigation }) {
               theme={{ colors: { primary: '#00a5e4' }}}
               placeholder="Digite" 
               value={fornecimento} 
+              keyboardType='numeric'
               onChangeText={value => { setFornecimento(value) }} 
               maxLength={15}
               right={found ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFound(false)}/> : null}
@@ -97,7 +98,7 @@ export default function FaturaSimplificada({ navigation }) {
                   <Text style={styles.faturasTextBold}>TOTAL DE DÉBITOS EM ABERTO</Text>
                   <Text style={styles.faturasText}>
                     {'Aqui você tem acesso somente à faturas emitidas\n nos ultimos 90 dias. Para acesso completo às\n faturas, faça login '} 
-                    <Text style={{ textDecorationLine: 'underline' }} onPress={() => Linking.openURL('javascript:void(0)')}>
+                    <Text style={{ textDecorationLine: 'underline' }} onPress={() => navigation.navigate('LoginPage')}>
                       CLICANDO AQUI
                     </Text>
                   </Text>

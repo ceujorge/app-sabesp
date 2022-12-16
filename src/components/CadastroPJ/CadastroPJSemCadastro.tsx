@@ -132,6 +132,7 @@ export default function CadastroPJSemCadastro({ route, navigation }) {
               placeholder="00/00/00" 
               style={styles.cadastroInputHalfLeft}
               theme={{ colors: { primary: '#00a5e4' }}}
+              keyboardType='numeric'
               value={form.nascimento} 
               onChangeText={value => { setMascaraData(value) }}
             />
@@ -155,6 +156,7 @@ export default function CadastroPJSemCadastro({ route, navigation }) {
             placeholder="(00) 00000-0000" 
             style={styles.cadastroTextoLeft}
             theme={{ colors: { primary: '#00a5e4' }}}
+            keyboardType='numeric'
             value={form.telefone} 
             onChangeText={value => { setMascaraTel(value) }}
             maxLength={14}

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, SafeAreaView, Linking } from "react-native";
-import { WebView } from 'react-native-webview';
 import Collapsible from 'react-native-collapsible';
 import * as Animatable from 'react-native-animatable';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons/faCircleUser'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft'
-import * as FileSystem from 'expo-file-system';
-import * as IntentLauncher from 'expo-intent-launcher';
 
 import styles from "./styles";
 import Header from "../Header";
@@ -19,16 +16,6 @@ export default function PreLogin({ navigation }) {
   const toggleExpanded = () => {
     setCollapsed(!collapsed);
   };
-
-  function openPdf() {
-    FileSystem.getContentUriAsync('file:///assets/pdf/termoDeUso.pdf').then(cUri => {
-      IntentLauncher.startActivityAsync("android.intent.action.VIEW", {
-        data: cUri,
-        flags: 1,
-        type: "application/pdf",
-      })
-    });
-  }
 
   return (
     <SafeAreaView>

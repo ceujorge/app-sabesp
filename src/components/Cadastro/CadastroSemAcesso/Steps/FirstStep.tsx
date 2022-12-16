@@ -52,6 +52,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           placeholder="Digite o seu CPF" 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
+          keyboardType='numeric'
           value={form.CPF} 
           onChangeText={value => { setMascaraCpf(value) }}
         />
@@ -127,6 +128,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.telefone} 
+          keyboardType='numeric'
           onChangeText={value => { setMascaraTel(value) }}
           maxLength={14}
         />

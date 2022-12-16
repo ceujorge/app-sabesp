@@ -32,6 +32,7 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
             style={styles.loginInput}
             theme={{ colors: { primary: '#00a5e4' }}}
             label='CPF' 
+            keyboardType='numeric'
             value={CPF} 
             onChangeText={value => { setMascaraCpf(value) }}
             maxLength={14}
@@ -64,7 +65,7 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
         />
 
         <View style={styles.linkContainer}>
-          <Text style={styles.hyperlink} onPress={() => Linking.openURL('javascript:void(0)')}>
+          <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: tipoPessoa })}>
             Esqueci minha senha
           </Text>
         </View>

@@ -18,7 +18,7 @@ export default function HomePJ({ navigation }) {
     <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
       <Breadcrumb config={breadcrumb} navigation={navigation} backButton={true}/>
       <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
-      <Text style={[styles.defaultText, {margin: 12, textAlign: 'center'}]}>Aproveite as facilides deste novo ambiente que oferecemos a sua empresa e selecione a melhor forma que te atende.</Text>
+      <Text style={[styles.defaultText, {margin: 12, textAlign: 'center'}]}>Aproveite as facilidades deste novo ambiente que oferecemos a sua empresa e selecione a melhor forma que te atende.</Text>
       <View style={styles.headerPJ}>
         <Image style={styles.avatar} source={require('../../../assets/avatar.png')} />
         <View style={{ width: '60%' }}>
@@ -27,18 +27,6 @@ export default function HomePJ({ navigation }) {
           <Text style={{fontSize: 14}}>REPRESENTANTE LEGAL</Text>
 
           <Text style={styles.smallText}>Você é o responsável legal por todos os processos solicitados à Sabesp</Text>
-        </View>
-      </View>
-      <View style={styles.cardRow}>
-        <Image style={styles.contatoIcon} source={require('../../../assets/icons/contato.png')} />
-        <View style={{ width: '65%' }}>
-          <Text style={styles.textHeaderPJ}>FALE COM A EQUIPE DE GESTÃO SABESP</Text>
-          <Text style={styles.smallText}>
-            Este não é um canal de emergência, porém é um canal direto e estamos disponíveis para melhor atendê-lo(a).
-          </Text>
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => null}>
-            <Text style={styles.textButtonOutline}>Envie uma mensagem</Text>
-          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.cardRow}>
@@ -60,6 +48,18 @@ export default function HomePJ({ navigation }) {
         <View style={{ width: '65%' }}>
           <Text style={styles.cardText}>{'Consultar fatura por\ndata de vencimento'}</Text>
           <Text style={styles.cardLink} onPress={() => navigation.navigate('FaturasPJData')}>Acesse aqui</Text>
+        </View>
+      </View>
+      <View style={styles.cardRow}>
+        <Image style={styles.contatoIcon} source={require('../../../assets/icons/contato.png')} />
+        <View style={{ width: '60%' }}>
+          <Text style={[styles.defaultText, {fontWeight: 'bold'}]}>FALE COM A EQUIPE DE GESTÃO SABESP</Text>
+          <Text style={styles.smallText}>
+            Este não é um canal de emergência, porém é um canal direto e estamos disponíveis para melhor atendê-lo(a).
+          </Text>
+          <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('FaleComSabesp')}>
+            <Text style={styles.textButtonOutline}>Envie uma mensagem</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

@@ -20,6 +20,9 @@ import FaturasPJData from './src/components/FaturasPJ/FaturasPJData';
 import FaturasPJFornecimento from './src/components/FaturasPJ/FaturasPJFornecimento';
 import Parcelamento from './src/components/Parcelamento'
 import Acordos from './src/components/Acordos';
+import RecuperarSenha from './src/components/RecuperarSenha';
+import FornecimentoEncontrado from './src/components/HomePJ/FornecimentoEncontrado';
+import FaleComSabesp from './src/components/FaleComSabesp';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +35,10 @@ export default function App() {
         <Stack.Screen name="LoginPage" component={LoginPage} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Faturas" component={Faturas} />
+        <Stack.Screen name="Parcelamento" component={Parcelamento} />
+        <Stack.Screen name="Acordos" component={Acordos} />
+        <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} />
+        <Stack.Screen name="FaleComSabesp" component={FaleComSabesp} />
 
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroSemAcesso" component={CadastroSemAcesso} />
@@ -39,6 +46,7 @@ export default function App() {
 
         {/* PJ */}
         <Stack.Screen name="HomePJ" component={HomePJ} />
+        <Stack.Screen name="FornecimentoEncontrado" component={FornecimentoEncontrado} />
 
         <Stack.Screen name="CadastroPJ" component={CadastroPJ} />
         <Stack.Screen name="CadastroPJComAcesso" component={CadastroPJComAcesso} />
@@ -49,9 +57,6 @@ export default function App() {
         <Stack.Screen name="FaturasCNPJ" component={FaturasCNPJ} />
         <Stack.Screen name="FaturasPJData" component={FaturasPJData} />
         <Stack.Screen name="FaturasPJFornecimento" component={FaturasPJFornecimento} />
-
-        <Stack.Screen name="Parcelamento" component={Parcelamento} />
-        <Stack.Screen name="Acordos" component={Acordos} />
       </Stack.Navigator>
     </NavigationContainer>
   );

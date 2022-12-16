@@ -20,7 +20,7 @@ import Breadcrumb from "../Breadcrumb";
 
 const breadcrumb = [
   {label: 'Login', link: 'Login'}, 
-  {label: 'Início', link: ''}, 
+  {label: 'Início', link: 'HomePJ'}, 
   {label: 'Faturas e pagamentos', link: '', active: true},
 ]
 
@@ -227,6 +227,7 @@ export default function FaturasPJFornecimento({ navigation }) {
             style={styles.input} 
             theme={{ colors: { primary: '#00a5e4' }}}
             placeholder="Digite o fornecimento" 
+            keyboardType='numeric'
             value={fornecimento} 
             onChangeText={text => setFornecimento(text)}
             right={<TextInput.Icon name={'magnify'} onPress={() => filter(fornecimento)}/>}

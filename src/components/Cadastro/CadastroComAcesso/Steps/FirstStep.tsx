@@ -18,6 +18,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
           label='CPF' 
           style={styles.cadastroInput}
           value={'111.111.111-11'} 
+          keyboardType='numeric'
           disabled
           right={<TextInput.Icon name={'close-circle-outline'} onPress={() => navigation.navigate('Cadastro')}/>}
         />
@@ -60,12 +61,13 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
               Você recebeu um número de 6 dígitos por SMS no número ****-2684
             </Text>
 
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
               <TextInput 
                 mode="outlined"
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0"
+                keyboardType='numeric'
                 value={'1'}
               />
               <TextInput 
@@ -73,6 +75,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0" 
+                keyboardType='numeric'
                 value={'2'}
               />
               <TextInput 
@@ -80,6 +83,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0" 
+                keyboardType='numeric'
                 value={'3'}
               />
               <TextInput 
@@ -87,6 +91,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0" 
+                keyboardType='numeric'
                 value={'4'}
               />
               <TextInput 
@@ -94,6 +99,7 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0" 
+                keyboardType='numeric'
                 value={'5'}
               />
               <TextInput 
@@ -101,9 +107,18 @@ export default function FirstStep({ navigation, form, setForm, page, setPage }) 
                 style={styles.codConfirma} 
                 theme={{ colors: { primary: '#00a5e4' }}}
                 placeholder="0" 
+                keyboardType='numeric'
                 value={'6'}
               />
-            </View>
+            </View> */}
+            <TextInput 
+              mode="outlined"
+              style={styles.cadastroInput} 
+              theme={{ colors: { primary: '#00a5e4' }}}
+              placeholder="123456"
+              maxLength={6}
+              keyboardType='numeric'
+            />
 
             <TouchableOpacity style={styles.buttonSubmit} onPress={() => setPage(2)}>
               <Text style={styles.textButtonSubmit}>Continuar</Text>

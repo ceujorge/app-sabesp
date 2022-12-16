@@ -26,6 +26,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
             theme={{ colors: { primary: '#00a5e4' }}}
             style={styles.cadastroInput}
             value={fornecimento} 
+            keyboardType='numeric'
             onChangeText={value => { setFornecimento(value) }} 
             maxLength={15}
             right={found ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFound(false)}/> : null}
@@ -45,6 +46,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.cep} 
+          keyboardType='numeric'
           onChangeText={value => { setForm({...form, 'cep': value}) }}
           disabled={true}
         />
@@ -65,6 +67,7 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
           value={form.uf} 
+          keyboardType='numeric'
           onChangeText={value => { setForm({...form, 'uf': value}) }}
           disabled={true}
         />
@@ -74,8 +77,8 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           placeholder="Digite o complemento" 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
-          value={form.numero} 
-          onChangeText={value => { setForm({...form, 'numero': value}) }}
+          value={form.complemento} 
+          onChangeText={value => { setForm({...form, 'complemento': value}) }}
           disabled={true}
         />
 
@@ -84,8 +87,8 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           placeholder="Digite o bairro" 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
-          value={form.complemento} 
-          onChangeText={value => { setForm({...form, 'complemento': value}) }}
+          value={form.bairro} 
+          onChangeText={value => { setForm({...form, 'bairro': value}) }}
           disabled={true}
         />
 
@@ -94,8 +97,8 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           placeholder="Digite a cidade" 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
-          value={form.bairro} 
-          onChangeText={value => { setForm({...form, 'bairro': value}) }}
+          value={form.cidade} 
+          onChangeText={value => { setForm({...form, 'cidade': value}) }}
           disabled={true}
         />
 
@@ -104,8 +107,8 @@ export default function SecondStep({ navigation, form, setForm, page, setPage })
           placeholder="Digite o UF" 
           style={styles.cadastroInput}
           theme={{ colors: { primary: '#00a5e4' }}}
-          value={form.cidade} 
-          onChangeText={value => { setForm({...form, 'cidade': value}) }}
+          value={form.uf} 
+          onChangeText={value => { setForm({...form, 'uf': value}) }}
           disabled={true}
         />
 

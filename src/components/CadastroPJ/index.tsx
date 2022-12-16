@@ -80,6 +80,7 @@ export default function CadastroPJ({ navigation }) {
               placeholder="Digite..." 
               value={CNPJ} 
               onChangeText={value => { setMascaraCnpj(value) }} 
+              keyboardType='numeric'
               maxLength={19}
               right={foundCNPJ ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFoundCNPJ(false)}/> : null}
             />
@@ -97,6 +98,7 @@ export default function CadastroPJ({ navigation }) {
               placeholder="Digite seu CPF" 
               value={CPF}
               onChangeText={value => { setMascaraCpf(value) }} 
+              keyboardType='numeric'
               maxLength={19}
               right={foundCPF ? <TextInput.Icon name={'close-circle-outline'} onPress={() => {setFoundCPF(false); setCpfState('')}}/> : null}
             />
@@ -150,11 +152,12 @@ export default function CadastroPJ({ navigation }) {
                     Você recebeu um código de 6 dígitos no e-mail fu*********@gmail.com
                   </Text>
 
-                  <View style={{ flexDirection: 'row' }}>
+                  {/* <View style={{ flexDirection: 'row' }}>
                     <TextInput 
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0"
                       value={'1'}
                     />
@@ -162,6 +165,7 @@ export default function CadastroPJ({ navigation }) {
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0" 
                       value={'2'}
                     />
@@ -169,6 +173,7 @@ export default function CadastroPJ({ navigation }) {
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0" 
                       value={'3'}
                     />
@@ -176,6 +181,7 @@ export default function CadastroPJ({ navigation }) {
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0" 
                       value={'4'}
                     />
@@ -183,6 +189,7 @@ export default function CadastroPJ({ navigation }) {
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0" 
                       value={'5'}
                     />
@@ -190,10 +197,19 @@ export default function CadastroPJ({ navigation }) {
                       mode="outlined"
                       style={styles.codConfirma} 
                       theme={{ colors: { primary: '#00a5e4' }}}
+                      keyboardType='numeric'
                       placeholder="0" 
                       value={'6'}
                     />
-                  </View>
+                  </View> */}
+                  <TextInput 
+                    mode="outlined"
+                    style={styles.cadastroInput} 
+                    theme={{ colors: { primary: '#00a5e4' }}}
+                    placeholder="123456"
+                    maxLength={6}
+                    keyboardType='numeric'
+                  />
 
                   <View style={styles.linkContainer}>
                     <Text style={styles.hyperlink} onPress={() => Linking.openURL('javascript:void(0)')}>

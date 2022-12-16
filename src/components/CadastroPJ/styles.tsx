@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
+  cadastroInput: {
+    width: '90%',
+    margin: 12,
+  },
   cadastroInputHalfLeft: {
     width: '45%',
     marginRight: 15,
