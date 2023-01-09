@@ -72,8 +72,7 @@ const styles = StyleSheet.create({
   },
   contatoIcon: {
     marginLeft: 25,
-    marginRight: 25
-    ,
+    marginRight: 25,
     width: 50,
     height: 60,
     alignSelf: 'center',

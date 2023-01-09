@@ -92,7 +92,7 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
 
         {tipoPessoa === 'PJ' ? (
           <>
-            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('HomePJ')}>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('ValidacaoUsuario')}>
               <Text style={styles.textButtonOutline}>Entrar</Text>
             </TouchableOpacity>
 

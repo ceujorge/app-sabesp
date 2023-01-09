@@ -56,11 +56,11 @@ export default function FornecimentoEncontrado({ navigation }) {
           <Text style={{fontSize: 16}}>ENGINEERING DO BRASIL</Text>
           <Text style={{fontSize: 14}}>REPRESENTANTE LEGAL</Text>
 
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => null}>
+          <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('GestaoUsuarioPJ')}>
             <Text style={styles.textButtonOutline}>GESTÃO DE USUÁRIO</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => null}>
+          <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('AdicionarUsuarioPJ')}>
             <Text style={styles.textButtonOutline}>ADICIONAR USUÁRIO</Text>
           </TouchableOpacity>
 

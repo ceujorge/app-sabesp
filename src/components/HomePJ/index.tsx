@@ -7,7 +7,7 @@ import Header from "../Header";
 import Breadcrumb from "../Breadcrumb";
 
 const breadcrumb = [
-  {label: 'Login', link: 'Login'}, 
+  {label: 'Login', link: 'LoginPage'}, 
   {label: 'Acesso', link: '', active: true}, 
 ]
 

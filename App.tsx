@@ -18,6 +18,9 @@ import CadastroPJValidacao from './src/components/CadastroPJ/CadastroPJValidacao
 import FaturasCNPJ from './src/components/FaturasPJ/FaturasCNPJ';
 import FaturasPJData from './src/components/FaturasPJ/FaturasPJData';
 import FaturasPJFornecimento from './src/components/FaturasPJ/FaturasPJFornecimento';
+import GestaoUsuarioPJ from './src/components/GestaoUsuarioPJ';
+import ValidacaoUsuario from './src/components/ValidacaoUsuario';
+import AdicionarUsuarioPJ from './src/components/AdicionarUsuarioPJ';
 import Parcelamento from './src/components/Parcelamento'
 import Acordos from './src/components/Acordos';
 import RecuperarSenha from './src/components/RecuperarSenha';
@@ -57,6 +60,10 @@ export default function App() {
         <Stack.Screen name="FaturasCNPJ" component={FaturasCNPJ} />
         <Stack.Screen name="FaturasPJData" component={FaturasPJData} />
         <Stack.Screen name="FaturasPJFornecimento" component={FaturasPJFornecimento} />
+
+        <Stack.Screen name="GestaoUsuarioPJ" component={GestaoUsuarioPJ} />
+        <Stack.Screen name="ValidacaoUsuario" component={ValidacaoUsuario} />
+        <Stack.Screen name="AdicionarUsuarioPJ" component={AdicionarUsuarioPJ} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -411,6 +411,103 @@ let mocks = {
       "dataVencimento": "25/11/2021",
       "situacao": "Paga",
     },
+  ],
+  gestaoUsuarioPj: [
+    {
+      "favorito": "S",
+      "nome": "Antônio Nogueira",
+      "email": "antonio.nogueira@engineeringbr.com.br",
+      "perfil": "Nível III",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Luciane Almeida",
+      "email": "luciane.almeida@engineeringbr.com.br",
+      "perfil": "SUPERVISOR",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Orlando Martins Souza",
+      "email": "orlandom.souza@engineeringbr.com.br",
+      "perfil": "Nível II",
+      "situacao": "INATIVO"
+    },
+    {
+      "favorito": "N",
+      "nome": "Antônio Nogueira",
+      "email": "antonio.nogueira@engineeringbr.com.br",
+      "perfil": "Nível III",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Luciane Almeida",
+      "email": "luciane.almeida@engineeringbr.com.br",
+      "perfil": "SUPERVISOR",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Orlando Martins Souza",
+      "email": "orlandom.souza@engineeringbr.com.br",
+      "perfil": "Nível II",
+      "situacao": "INATIVO"
+    },
+    {
+      "favorito": "N",
+      "nome": "Antônio Nogueira",
+      "email": "antonio.nogueira@engineeringbr.com.br",
+      "perfil": "Nível III",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Luciane Almeida",
+      "email": "luciane.almeida@engineeringbr.com.br",
+      "perfil": "SUPERVISOR",
+      "situacao": "ATIVO"
+    },{
+      "favorito": "N",
+      "nome": "Orlando Martins Souza",
+      "email": "orlandom.souza@engineeringbr.com.br",
+      "perfil": "Nível II",
+      "situacao": "INATIVO"
+    },
+    {
+      "favorito": "N",
+      "nome": "Antônio Nogueira",
+      "email": "antonio.nogueira@engineeringbr.com.br",
+      "perfil": "Nível III",
+      "situacao": "Ativo"
+    },{
+      "favorito": "N",
+      "nome": "Luciane Almeida",
+      "email": "luciane.almeida@engineeringbr.com.br",
+      "perfil": "SUPERVISOR",
+      "situacao": "Ativo"
+    },{
+      "favorito": "N",
+      "nome": "Orlando Martins Souza",
+      "email": "orlandom.souza@engineeringbr.com.br",
+      "perfil": "Nível II",
+      "situacao": "Inativo"
+    }
+  ],
+  permissoesPerfilPj: [
+    ['Cadastro de Representante Legal'],
+
+    ['Gestão de faturas e consumo',
+    'Alterar modalidade de entrega da fatura',
+    'Alterar dia de vencimento',
+    'Enviar faturas por e-mail'],
+
+    ['Estou sem água',
+    'Pressão da água',
+    'Vazamentos',
+    'Qualidade da água',
+    'Conserto do cavalete',
+    'Trocar registro do cavalete',
+    'Trocar hidrômetro'],
+
+    ['Religação',
+    'Desligamento Temporário']
   ]
 }
 
