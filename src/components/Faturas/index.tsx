@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, useWindowDimensions, SafeAreaView } from "react-native";
+import { View, useWindowDimensions, ScrollView, SafeAreaView } from "react-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 
 import styles from "./styles";
 import Header from "../Header";
-import FaturaCompleta from "./FaturaCompleta";
 import FaturaSimplificada from "./FaturaSimplificada";
+import Servicos from "../Servicos";
 import Login from "../Login";
 
 export default function Faturas({ navigation }) {
@@ -13,8 +13,7 @@ export default function Faturas({ navigation }) {
 
     const renderScene = SceneMap({
         first: () => <FaturaSimplificada navigation={navigation}/>,
-        // second: () => <FaturaCompleta navigation={navigation}/>,
-        second: () => <Login navigation={navigation}/>,
+        second: () => <ScrollView><Login navigation={navigation}/><Servicos navigation={navigation}/></ScrollView>,
     });
 
     const renderTabBar = props => (

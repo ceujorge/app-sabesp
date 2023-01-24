@@ -26,6 +26,11 @@ import Acordos from './src/components/Acordos';
 import RecuperarSenha from './src/components/RecuperarSenha';
 import FornecimentoEncontrado from './src/components/HomePJ/FornecimentoEncontrado';
 import FaleComSabesp from './src/components/FaleComSabesp';
+import TransferenciaTitularidade from './src/components/TransferenciaTitularidade';
+import TransferenciaComAcesso from './src/components/TransferenciaTitularidade/caminhos/TransferenciaComAcesso';
+import TransferenciaSemAcesso from './src/components/TransferenciaTitularidade/caminhos/TransferenciaSemAcesso';
+import TransferenciaSemCadastro from './src/components/TransferenciaTitularidade/caminhos/TransferenciaSemCadastro';
+import TransferenciaValidacao from './src/components/TransferenciaTitularidade/caminhos/TransferenciaValidacao';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +69,15 @@ export default function App() {
         <Stack.Screen name="GestaoUsuarioPJ" component={GestaoUsuarioPJ} />
         <Stack.Screen name="ValidacaoUsuario" component={ValidacaoUsuario} />
         <Stack.Screen name="AdicionarUsuarioPJ" component={AdicionarUsuarioPJ} />
+
+        {/* Serviços */}
+
+        <Stack.Screen name="TransferenciaTitularidade" component={TransferenciaTitularidade} />
+        <Stack.Screen name="TransferenciaComAcesso" component={TransferenciaComAcesso} />
+        <Stack.Screen name="TransferenciaSemAcesso" component={TransferenciaSemAcesso} />
+        <Stack.Screen name="TransferenciaSemCadastro" component={TransferenciaSemCadastro} />
+        <Stack.Screen name="TransferenciaValidacao" component={TransferenciaValidacao} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

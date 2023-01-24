@@ -11,6 +11,8 @@ import 'moment/locale/pt-br';
 import styles from "../styles";
 import mocks from "../../../mocks/mocks";
 import Pagamento from "../../Pagamento";
+import Servicos from "../../Servicos"
+import FaturaPorEmail from "../../FaturaPorEmail";
 
 moment.locale('pt-br');
 
@@ -142,6 +144,8 @@ export default function FaturaSimplificada({ navigation }) {
               </>
             )}
         </View>
+        <Servicos navigation={navigation}/>
+        <FaturaPorEmail/>
       </ScrollView>
   );
 }

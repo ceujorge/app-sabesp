@@ -20,7 +20,7 @@ export default function HomePJ({ navigation }) {
       <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
       <Text style={[styles.defaultText, {margin: 12, textAlign: 'center'}]}>Aproveite as facilidades deste novo ambiente que oferecemos a sua empresa e selecione a melhor forma que te atende.</Text>
       <View style={styles.headerPJ}>
-        <Image style={styles.avatar} source={require('../../../assets/avatar.png')} />
+        <Image style={styles.avatar} source={require('../../../assets/imagens/avatar.png')} />
         <View style={{ width: '60%' }}>
           <Text style={styles.textHeaderPJ}>SILVIA MARIA ROCHA</Text>
           <Text style={{fontSize: 14}}>ENGINEERING DO BRASIL</Text>

@@ -140,7 +140,7 @@ export default function FaturasCNPJ({ navigation }) {
         <Breadcrumb config={breadcrumb} navigation={navigation} backButton={true}/>
         <Text style={styles.title}>Bem vindo à Sabesp | Mobile</Text>
         <View style={styles.headerPJ}>
-          <Image style={styles.avatar} source={require('../../../assets/avatar.png')} />
+          <Image style={styles.avatar} source={require('../../../assets/imagens/avatar.png')} />
           <View>
             <Text style={styles.textHeaderPJ}>SILVIA MARIA ROCHA</Text>
             <Text style={[styles.textHeaderPJ, {fontSize: 16}]}>ENGINEERING DO BRASIL</Text>

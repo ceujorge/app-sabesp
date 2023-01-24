@@ -10,27 +10,28 @@ import Breadcrumb from "../Breadcrumb"
 
 import styles from "./styles";
 
-export default function CadastroPJ({ navigation }) {
-  const [CNPJ, setCNPJ] = useState('');
-  const [foundCNPJ, setFoundCNPJ] = useState(false);
+export default function TransferenciaTitularidade({ navigation }) {
+  const [fornecimento, setFornecimento] = useState('');
+  const [foundFornecimento, setFoundFornecimento] = useState(false);
   const [CPF, setCPF] = useState('');
   const [foundCPF, setFoundCPF] = useState(false);
   const [cpfState, setCpfState] = useState('');
-  const [PASS, setPASS]: any = useState('');
+  const [PASS, setPASS] = useState('');
   const [isSelected, setSelection] = useState(false);
+  const [isSelected2, setSelection2] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [checked, setChecked] = useState('email');
 
   const breadcrumb = [
     {label: 'Home', link: 'Home'}, 
-    {label: 'Representante Legal', link: '', active: true}
+    {label: 'Transferência de Titularidade', link: '', active: true}
   ]
 
   const handleCpfSubmit = () => {
     setFoundCPF(true)
     if(CPF.replace(/\D/g, '') == '00000000000') { setCpfState('com acesso') }
     else if(CPF.replace(/\D/g, '') == '11111111111') { setCpfState('sem acesso') } 
-    else { navigation.navigate('CadastroPJSemCadastro', { cpf: CPF}) }
+    else { navigation.navigate('TransferenciaSemCadastro', { cpf: CPF }) }
   }
 
   const setMascaraCpf = function (cpf) {
@@ -38,13 +39,6 @@ export default function CadastroPJ({ navigation }) {
     cpf = cpf.replace(/^(\d{3})(\d{3})(\d)/g, "$1.$2.$3"); //Coloca a pontuação
     cpf = cpf.replace(/(\d)(\d{2})$/, "$1-$2");    //Coloca hífen entre os dois ultimos digitos e o resto
     setCPF(cpf);
-  }
-
-  const setMascaraCnpj = function (cnpj) {
-    cnpj = cnpj.replace(/\D/g, "").substring(0, 14);                   //Remove tudo o que não é dígito
-    cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d)/g, "$1.$2.$3/$4"); //Coloca a pontuação
-    cnpj = cnpj.replace(/(\d)(\d{2})$/, "$1-$2");    //Coloca hífen entre os dois ultimos digitos e o resto
-    setCNPJ(cnpj);
   }
 
   return (
@@ -57,19 +51,20 @@ export default function CadastroPJ({ navigation }) {
           <Text style={styles.activeStep}>Identificação</Text>
           <FontAwesomeIcon icon={ faMinus } size={14} style={ styles.inactiveStep}/>
           <FontAwesomeIcon icon={ faCircle } size={14} style={ styles.inactiveStep}/>
-          <Text style={ styles.inactiveStep}>Validação</Text>
+          <Text style={ styles.inactiveStep}>Dados do hidrômetro</Text>
           <FontAwesomeIcon icon={ faMinus } size={14} style={ styles.inactiveStep}/>
           <FontAwesomeIcon icon={ faCircle } size={14} style={ styles.inactiveStep}/>
           <Text style={ styles.inactiveStep}>Confirmação</Text>
         </View>
 
         <View style={styles.container}>
-          <Text style={styles.cadastroTextoBold}>Verificação de Cadastro do Representante Legal Pessoa Jurídica</Text>
-          <Text style={styles.cadastroTexto}>Informe o CNPJ da empresa que você pretende se vincular</Text>
-          
+          <Text style={styles.cadastroTextoBold}>Transferência de titularidade</Text>
+          <Text style={styles.cadastroTexto}>Para fazer a transferência de titularidade é necessário informar o Fornecimento</Text>
+
+          <Text style={styles.cadastroTexto}>Fornecimento</Text>    
           <View>
-            {!foundCNPJ ? (
-              <TouchableOpacity style={styles.floatingInputButton} onPress={() => setFoundCNPJ(true)}>
+            {!foundFornecimento ? (
+              <TouchableOpacity style={styles.floatingInputButton} onPress={() => setFoundFornecimento(true)}>
                 <Text style={styles.textFloatingInputButton}>Entrar</Text>
               </TouchableOpacity>
             ) : null}
@@ -78,19 +73,31 @@ export default function CadastroPJ({ navigation }) {
               mode="outlined"
               theme={{ colors: { primary: '#00a5e4' }}}
               placeholder="Digite..." 
-              value={CNPJ} 
-              onChangeText={value => { setMascaraCnpj(value) }} 
+              value={fornecimento} 
+              onChangeText={value => setFornecimento(value)} 
               keyboardType='numeric'
-              maxLength={19}
-              right={foundCNPJ ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFoundCNPJ(false)}/> : null}
+              right={foundFornecimento ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFoundFornecimento(false)}/> : null}
             />
+
+            <View style={styles.linkContainer}>
+              <Text style={styles.hyperlink} onPress={() => Linking.openURL('https://sabesp.s3.amazonaws.com/guiaFatura.pdf')}>
+                Onde encontrar o número
+              </Text>
+            </View>
+
+            <View style={styles.checkBoxContainer}>
+              <Checkbox
+                status={isSelected2 ? 'checked' : 'unchecked'}
+                onPress={() => setSelection2(!isSelected2)}
+              />
+              <Text>Salve meu fornecimento</Text>
+            </View>
           </View>
-          {foundCNPJ ? (<>
-            <Text style={styles.cadastroTextoBold}>Eng****** do Brasil S/A</Text>
+          {foundFornecimento ? (<>
+            <Text style={styles.cadastroTextoBold}>Walter de ***</Text>
             <Text style={styles.cadastroTexto}>AV. PRESIDENTE C******** - PRAIA GRANDE - SP</Text>
 
-            <Text style={styles.cadastroTextoBold}>Informe o CPF do representante</Text>
-            <Text style={styles.cadastroTexto}>O seu CPF será validado</Text>
+            <Text style={styles.cadastroTextoBold}>Informe o CPF do novo titular</Text>
 
             <TextInput 
               mode="outlined"
@@ -126,7 +133,7 @@ export default function CadastroPJ({ navigation }) {
               />
 
               <View style={styles.linkContainer}>
-                <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: 'PJ' })}>
+                <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: 'PF' })}>
                   Esqueci minha senha
                 </Text>
               </View>
@@ -139,7 +146,7 @@ export default function CadastroPJ({ navigation }) {
                 <Text>Mantenha-me conectado</Text>
               </View>
 
-              <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('CadastroPJComAcesso')}>
+              <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('TransferenciaComAcesso')}>
                 <Text style={styles.textButtonSubmit}>Continuar</Text>
               </TouchableOpacity>
 
@@ -152,56 +159,6 @@ export default function CadastroPJ({ navigation }) {
                     Você recebeu um código de 6 dígitos no e-mail fu*********@gmail.com
                   </Text>
 
-                  {/* <View style={{ flexDirection: 'row' }}>
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0"
-                      value={'1'}
-                    />
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0" 
-                      value={'2'}
-                    />
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0" 
-                      value={'3'}
-                    />
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0" 
-                      value={'4'}
-                    />
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0" 
-                      value={'5'}
-                    />
-                    <TextInput 
-                      mode="outlined"
-                      style={styles.codConfirma} 
-                      theme={{ colors: { primary: '#00a5e4' }}}
-                      keyboardType='numeric'
-                      placeholder="0" 
-                      value={'6'}
-                    />
-                  </View> */}
                   <TextInput 
                     mode="outlined"
                     style={styles.cadastroInput} 
@@ -217,7 +174,7 @@ export default function CadastroPJ({ navigation }) {
                     </Text>
                   </View>
 
-                  <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('CadastroPJSemAcesso')}>
+                  <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('TransferenciaSemAcesso')}>
                     <Text style={styles.textButtonSubmit}>Continuar</Text>
                   </TouchableOpacity>
 

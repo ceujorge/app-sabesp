@@ -51,7 +51,7 @@ export default function FornecimentoEncontrado({ navigation }) {
           <Text style={styles.textHeaderPJ}>CNPJ: <Text style={{fontWeight: 'normal'}}>09.433.094/0001-00</Text></Text>
           <Text style={styles.textHeaderPJ}>Fornecimento: <Text style={{fontWeight: 'normal'}}>0073027707</Text></Text>
           
-          <Image style={styles.avatarCenter} source={require('../../../assets/avatar.png')} />
+          <Image style={styles.avatarCenter} source={require('../../../assets/imagens/avatar.png')} />
           <Text style={styles.textHeaderPJ}>SILVIA MARIA ROCHA</Text>
           <Text style={{fontSize: 16}}>ENGINEERING DO BRASIL</Text>
           <Text style={{fontSize: 14}}>REPRESENTANTE LEGAL</Text>

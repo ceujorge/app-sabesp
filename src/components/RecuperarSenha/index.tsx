@@ -57,7 +57,6 @@ export default function RecuperarSenha({ route, navigation }) {
                 label='E-mail' 
                 style={styles.cadastroInput}
                 value={email}
-                keyboardType='numeric'
                 onChangeText={value => setEmail(value)}
                 right={found ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFound(false)}/> : null}
               />
