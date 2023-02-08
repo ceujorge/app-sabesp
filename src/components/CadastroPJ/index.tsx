@@ -7,6 +7,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
 
 import Header from "../Header";
 import Breadcrumb from "../Breadcrumb"
+import Servicos from "../Servicos";
 
 import styles from "./styles";
 
@@ -84,6 +85,8 @@ export default function CadastroPJ({ navigation }) {
               maxLength={19}
               right={foundCNPJ ? <TextInput.Icon name={'close-circle-outline'} onPress={() => setFoundCNPJ(false)}/> : null}
             />
+
+            <Servicos navigation={navigation}/>
           </View>
           {foundCNPJ ? (<>
             <Text style={styles.cadastroTextoBold}>Eng****** do Brasil S/A</Text>

@@ -31,6 +31,9 @@ import TransferenciaComAcesso from './src/components/TransferenciaTitularidade/c
 import TransferenciaSemAcesso from './src/components/TransferenciaTitularidade/caminhos/TransferenciaSemAcesso';
 import TransferenciaSemCadastro from './src/components/TransferenciaTitularidade/caminhos/TransferenciaSemCadastro';
 import TransferenciaValidacao from './src/components/TransferenciaTitularidade/caminhos/TransferenciaValidacao';
+import DesligamentoAgua from './src/components/DesligamentoAgua';
+import ReligamentoAgua from './src/components/ReligamentoAgua';
+import LigacaoAgua from './src/components/LigacaoAgua';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +80,12 @@ export default function App() {
         <Stack.Screen name="TransferenciaSemAcesso" component={TransferenciaSemAcesso} />
         <Stack.Screen name="TransferenciaSemCadastro" component={TransferenciaSemCadastro} />
         <Stack.Screen name="TransferenciaValidacao" component={TransferenciaValidacao} />
+
+        <Stack.Screen name="DesligamentoAgua" component={DesligamentoAgua} />
+
+        <Stack.Screen name="ReligamentoAgua" component={ReligamentoAgua} />
+
+        <Stack.Screen name="LigacaoAgua" component={LigacaoAgua} />
 
       </Stack.Navigator>
     </NavigationContainer>

@@ -4,7 +4,7 @@ import { TextInput, Checkbox } from "react-native-paper";
 
 import styles from "./styles";
 
-export default function Login({ navigation, tipoPessoa = 'PF'}) {
+export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}) {
   const [CPF, setCPF] = useState('');
   const [email, setEmail] = useState('');
   const [PASS, setPASS] = useState('');
@@ -80,7 +80,7 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
 
         {tipoPessoa === 'PF' ? (
           <>
-            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => redirect ? navigation.navigate(redirect) : navigation.navigate('Home')}>
               <Text style={styles.textButtonOutline}>Entrar</Text>
             </TouchableOpacity>
 
@@ -92,7 +92,7 @@ export default function Login({ navigation, tipoPessoa = 'PF'}) {
 
         {tipoPessoa === 'PJ' ? (
           <>
-            <TouchableOpacity style={styles.buttonOutline} onPress={() => navigation.navigate('ValidacaoUsuario')}>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => redirect ? navigation.navigate(redirect) : navigation.navigate('ValidacaoUsuario')}>
               <Text style={styles.textButtonOutline}>Entrar</Text>
             </TouchableOpacity>
 

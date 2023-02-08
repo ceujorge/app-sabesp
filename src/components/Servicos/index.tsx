@@ -19,22 +19,25 @@ const dadosCard = [
     link: '',
   }, 
   {
-    servico: 'Conheça a qualidade da água',
+    servico: 'Religação',
     icon: require('../../../assets/icons/qualidadeagua.png'),
     iconStyle: { width: 45, height: 45, margin: 5 },
-    link: '',
+    link: 'LoginPage',
+    redirect: 'ReligamentoAgua'
   }, 
   {
-    servico: 'Veja os serviços que prestamos para você',
+    servico: 'Desligamento Temporário',
     icon: require('../../../assets/icons/docs3.png'),
     iconStyle: { width: 40, height: 52, margin: 5 },
-    link: '',
+    link: 'LoginPage',
+    redirect: 'DesligamentoAgua'
   }, 
   {
-    servico: 'Procure uma agência mais perto de você',
+    servico: 'Ligação de água e esgoto',
     icon: require('../../../assets/icons/pin.png'),
     iconStyle: { width: 35, height: 52, margin: 5 },
-    link: '',
+    link: 'LoginPage',
+    redirect: 'LigacaoAgua'
   }, 
   {
     servico: 'Encontre mais serviços que prestamos para você',
@@ -49,7 +52,7 @@ function ServicoCard({ dados, navigation }) {
     <View style={styles.card}>
       <Image style={dados.iconStyle} source={dados.icon} />
       <Text style={styles.cardText}>{dados.servico}</Text>
-      <Text style={styles.cardLink} onPress={() => navigation.navigate(dados.link)}>Acesse aqui</Text>
+      <Text style={styles.cardLink} onPress={() => dados.redirect ? navigation.navigate(dados.link, { 'redirect': dados.redirect }) : navigation.navigate(dados.link)}>Acesse aqui</Text>
     </View>
   )
 }

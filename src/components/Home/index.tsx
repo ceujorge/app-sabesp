@@ -10,6 +10,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
 import Header from "../Header";
 import FaturaCompleta from "../Faturas/FaturaCompleta";
 import HistoricoPagamento from "../HistoricoPagamento";
+import Servicos from "../Servicos";
 
 import styles from "./styles";
 
@@ -110,6 +111,7 @@ export default function Home({ navigation }) {
             <HistoricoPagamento navigation={{ navigation }}/>
           </Animatable.View>
         </Collapsible>
+        <Servicos navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   )
