@@ -20,7 +20,8 @@ const breadcrumb = [
 ]
 
 export default function TransferenciaValidacao({ navigation }) {
-  const [progression, setProgression] = useState(0)
+  const [progression, setProgression] = useState(0);
+  const [leitura, setLeitura] = useState('');
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -83,6 +84,9 @@ export default function TransferenciaValidacao({ navigation }) {
                 label='Leirura do hidrômetro' 
                 style={styles.cadastroInputHidrometro}
                 theme={{ colors: { primary: '#00a5e4' }}}
+                onChangeText={text => setLeitura(text.replace(/[^0-9]/g, ''))}
+                value={leitura}
+                keyboardType='numeric'
               />
               <Text style={styles.textoHidrometro}>m3</Text>
             </View>
@@ -221,8 +225,6 @@ export default function TransferenciaValidacao({ navigation }) {
               <FontAwesomeIcon icon={ faCircle } size={14} style={ styles.activeStep}/>
               <Text style={ styles.activeStep}>Confirmação</Text>
             </View>
-            {/* <Text style={styles.cadastroTextoBold}>Fulano, validamos seu cadastro</Text>
-            <Text style={styles.cadastroTexto}>Agora crie uma senha de acesso</Text> */}
 
             <Text style={styles.cadastroTituloBold}>{'Confirmação da\nTransferência de titularidade'}</Text>
 

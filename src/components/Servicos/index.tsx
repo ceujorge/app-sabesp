@@ -40,10 +40,25 @@ const dadosCard = [
     redirect: 'LigacaoAgua'
   }, 
   {
-    servico: 'Encontre mais serviços que prestamos para você',
+    servico: 'Falta de água ou pouca pressão',
     icon: require('../../../assets/icons/docsplus.png'),
     iconStyle: { width: 40, height: 52, margin: 5 },
-    link: '',
+    link: 'LoginPage',
+    redirect: 'FaltaDeAgua'
+  }, 
+  {
+    servico: 'Qualidade da água',
+    icon: require('../../../assets/icons/qualidadeagua.png'),
+    iconStyle: { width: 45, height: 45, margin: 5 },
+    link: 'LoginPage',
+    redirect: 'QualidadeAgua'
+  }, 
+  {
+    servico: 'Alteração de endereço da Fatura',
+    icon: require('../../../assets/icons/pin.png'),
+    iconStyle: { width: 35, height: 52, margin: 5 },
+    link: 'LoginPage',
+    redirect: 'AlterarEndereco'
   }, 
 ]
 

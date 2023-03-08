@@ -63,6 +63,9 @@ export default function CadastroPJValidacao({ navigation }) {
               style={styles.cadastroTextoLeft}
               selectedValue={''}>
               <Picker.Item label="Selecione" value="" />
+              <Picker.Item label="Contrato Social" value="Contrato Social" />
+              <Picker.Item label="Cartão do MEI" value="Cartão do MEI" />
+              <Picker.Item label="Procuração com firma reconhecida" value="Procuração com firma reconhecida" />
             </Picker>
   
             <View style={{ flexDirection: 'row'}}>

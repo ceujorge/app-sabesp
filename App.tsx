@@ -34,6 +34,9 @@ import TransferenciaValidacao from './src/components/TransferenciaTitularidade/c
 import DesligamentoAgua from './src/components/DesligamentoAgua';
 import ReligamentoAgua from './src/components/ReligamentoAgua';
 import LigacaoAgua from './src/components/LigacaoAgua';
+import FaltaDeAgua from './src/components/FaltaDeAgua';
+import QualidadeAgua from './src/components/QualidadeAgua';
+import AlterarEndereco from './src/components/AlterarEndereco';
 
 const Stack = createNativeStackNavigator();
 
@@ -87,16 +90,13 @@ export default function App() {
 
         <Stack.Screen name="LigacaoAgua" component={LigacaoAgua} />
 
+        <Stack.Screen name="FaltaDeAgua" component={FaltaDeAgua} />
+
+        <Stack.Screen name="QualidadeAgua" component={QualidadeAgua} />
+
+        <Stack.Screen name="AlterarEndereco" component={AlterarEndereco} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, // comentar com Navigation
-    backgroundColor: '#f0f6f6',
-    alignItems: 'center',
-    justifyContent: 'center', // comentar com Navigation
-  },
-});
