@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
         color: '#303030',
         fontWeight: 'bold',
         marginBottom: 30,
-        marginTop: 30,
+        marginTop: 15,
     },
     loginInformation: {
         fontSize: 14,
         color: '#606060',
         textAlign: 'center',
         marginBottom: 30,
+        marginTop: 30,
     },
     loginOuterLabel: {
         fontSize: 14,
@@ -42,14 +43,18 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         width: '90%',
+        backgroundColor: 'white',
+        height: 55,
         margin: 12,
     },
     loginPassword: {
         width: '90%',
+        backgroundColor: 'white',
+        height: 55,
         margin: 12,
     },
     buttonSubmit: {
-        borderRadius: 5,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
         width: '90%',
@@ -62,6 +67,17 @@ const styles = StyleSheet.create({
     textButtonSubmit: {
         fontSize: 20,
         color: '#fff',
+    },
+    buttonSubmitDisabled: {
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '90%',
+        backgroundColor: '#aeaeae',
+        paddingTop: 14,
+        paddingBottom: 14,
+        marginLeft: 12,
+        marginTop: 30,
     },
     buttonOutline: {
         borderRadius: 5,
@@ -97,11 +113,12 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     checkBoxContainer: {
+        width: '58%',
         alignItems: 'center',
         textAlign: 'center',
         paddingHorizontal: 15,
         flexDirection: "row",
-        justifyContent: 'center',
+        left: -10
     },
     checkBoxLabel: {
         fontSize: 14,
@@ -112,18 +129,20 @@ const styles = StyleSheet.create({
     },
     hyperlink: {
         fontSize: 14,
-        color: 'blue',
-        alignSelf: 'center',
-        textAlign: 'center',
+        color: '#00a5e4',
         textDecorationLine: "underline",
         marginBottom: 10,
-        marginTop: 10,
+        marginTop: 20,
     },
     linkContainer: {
         alignItems: 'center',
         textAlign: 'center',
         justifyContent: 'center',
         marginBottom: 10,
+    },
+    row: {
+        width: '100%',
+        flexDirection: 'row',
     },
 });
 

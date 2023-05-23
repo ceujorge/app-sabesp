@@ -1,45 +1,58 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, SafeAreaView, Linking } from "react-native";
-import Collapsible from 'react-native-collapsible';
-import * as Animatable from 'react-native-animatable';
+import { View, Text, Modal, TouchableOpacity, StatusBar, ScrollView, SafeAreaView, Image, Linking, ImageBackground } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons/faCircleUser'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown'
-import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 
 import styles from "./styles";
-import Header from "../Header";
 
 export default function PreLogin({ navigation }) {
-  const [collapsed, setCollapsed]: any = useState(true);
-
-  const toggleExpanded = () => {
-    setCollapsed(!collapsed);
-  };
+  const [showModal, setShowModal] = useState(true);
 
   return (
     <SafeAreaView>
-      <Header />
-      <View style={styles.row}>
-        <FontAwesomeIcon icon={ faCircleUser } size={32} style={styles.userIcon}/>
-        <Text style={styles.text}>Entrar</Text>
-      </View>
-      <Text style={styles.listItem} onPress={() => navigation.navigate('Faturas')}>Para você</Text>
+      <StatusBar backgroundColor="transparent" translucent={true} />
+      <ScrollView>
+      
+        <View style={styles.logoLoginContainer}>
+          <Image style={styles.logoLogin} source={require('../../../assets/brand/loginLogo.png')} />
+        </View>
 
-      <TouchableOpacity style={styles.collapsibleHeader} onPress={toggleExpanded}>
-        <Text style={styles.collapsibleHeaderText}>Para Empresas</Text>
-        <FontAwesomeIcon icon={ collapsed ? faCaretDown : faCaretLeft} size={22} style={styles.caret}/>
-      </TouchableOpacity>
-      <Collapsible style={styles.collapsible} collapsed={collapsed}>
-        <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver >
-          <Text style={styles.collapsibleItem} onPress={() => navigation.navigate('LoginPage', { tipoPessoa: 'PJ' })}>- Empresa</Text>
-        </Animatable.Text>
-        <Animatable.Text animation={collapsed ? undefined : 'fadeInDown'} duration={300} useNativeDriver>
-          <Text style={styles.collapsibleItem}>- Imobiliária</Text>
-        </Animatable.Text>
-      </Collapsible>
+        <View style={styles.menu}>
+          <FontAwesomeIcon icon={ faBars } size={24} style={{ color: '#ffffff'}}/>
+        </View>
 
-      <Text style={styles.listItem} onPress={() => Linking.openURL('https://sabesp.s3.amazonaws.com/termoParcelamento.pdf')}>Políticas de privacidade</Text>
+        <View style={styles.main}>
+          <Text style={styles.title}>{'Bem vindo ao\nSabesp Mobile'}</Text>
+          <Text style={styles.hyperlink}>Termos de serviço e Política de Privacidade</Text>
+          <View style={styles.row}>
+
+            <View style={styles.halfRow}>
+              <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Faturas')}>
+                <Text style={styles.textButtonSubmitHalf}>Para você</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.halfRow}>
+              <TouchableOpacity style={styles.buttonSubmit} onPress={() => null}>
+                <Text style={styles.textButtonSubmitHalf}>Para negócios</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.socialRow}>
+            <TouchableOpacity onPress={() => Linking.openURL('https://m.facebook.com/SabespOficial/?mibextid=LQQJ4d')}>
+              <Image source={require('../../../assets/icons/facebook.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('https://instagram.com/sabespcia?igshid=YmMyMTA2M2Y=')}>
+              <Image source={require('../../../assets/icons/instagram.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('https://twitter.com/sabesp?s=11&t=ahx8Vp2bokWSF_DoKZ5sQg')}>
+              <Image source={require('../../../assets/icons/twitter.png')} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/@SabespCia')}>
+              <Image source={require('../../../assets/icons/youtube.png')} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }

@@ -1,49 +1,64 @@
 import React, { useState } from "react";
-import { View, useWindowDimensions, ScrollView, SafeAreaView } from "react-native";
+import { View, Image, TouchableOpacity, useWindowDimensions, StatusBar,ScrollView, SafeAreaView, ImageBackground, Touchable } from "react-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 
 import styles from "./styles";
-import Header from "../Header";
 import FaturaSimplificada from "./FaturaSimplificada";
 import Servicos from "../Servicos";
 import Login from "../Login";
 
 export default function Faturas({ navigation }) {
-    const layout = useWindowDimensions();
+  const layout = useWindowDimensions();
 
-    const renderScene = SceneMap({
-        first: () => <FaturaSimplificada navigation={navigation}/>,
-        second: () => <ScrollView><Login navigation={navigation}/><Servicos navigation={navigation}/></ScrollView>,
-    });
+  const renderScene = SceneMap({
+    first: () => <FaturaSimplificada navigation={navigation}/>,
+    second: () => <ScrollView><Login navigation={navigation}/></ScrollView>,
+  });
 
-    const renderTabBar = props => (
-        <TabBar
-          {...props}
-          indicatorStyle={{ backgroundColor: '#00a5e4' }}
-          style={{ backgroundColor: '#fff' }}
-          labelStyle={{ color: '#303030', fontWeight: 'bold', textTransform: 'capitalize' }}
-          activeColor='#00a5e4'
-        />
-    );
+  const renderTabBar = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: '#00a5e4' }}
+      style={{ backgroundColor: '#fff' }}
+      labelStyle={{ color: '#303030', fontWeight: 'bold', textTransform: 'capitalize' }}
+      activeColor='#00a5e4'
+    />
+  );
 
-    const [index, setIndex] = React.useState(0);
-    const [routes] = React.useState([
-        { key: 'first', title: 'Fatura\nSimplificada' },
-        { key: 'second', title: 'Fatura\nCompleta' },
-    ]);
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'first', title: 'Fatura Simplificada' },
+    { key: 'second', title: 'Fatura Completa' },
+  ]);
 
-    return (
-        <SafeAreaView style={{flex: 1}}>    
-            <Header />
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
-                renderTabBar={renderTabBar}
-                style={styles.tabView}
-                swipeEnabled={false}
-            />
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={{flex: 1}}>    
+      <StatusBar backgroundColor="transparent" translucent={true} />
+
+      <ImageBackground source={require('../../../assets/imagens/background.png')}  style={styles.image}>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.leftMenu} onPress={() => navigation.navigate('PreLogin')}>
+            <FontAwesomeIcon icon={ faArrowLeft } size={24} style={{color: 'white'}}/>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.rightMenu} onPress={() => null}>
+            <FontAwesomeIcon icon={ faBars } size={24} style={{color: 'white'}}/>
+          </TouchableOpacity>
+        </View>
+        <Image source={require('../../../assets/brand/logo_branco.png')} />
+      </ImageBackground>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        renderTabBar={renderTabBar}
+        style={styles.tabView}
+        swipeEnabled={false}
+      />
+    </SafeAreaView>
+  );
 }

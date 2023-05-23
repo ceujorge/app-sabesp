@@ -26,14 +26,15 @@ const styles = StyleSheet.create({
     center: {
         alignItems: 'center',
         textAlign: 'center',
-        paddingHorizontal: 15
+        marginTop: 15,
+        marginBottom: 15,
     },
     loginTitle: {
         fontSize: 18,
         color: '#303030',
         fontWeight: 'bold',
         marginBottom: 30,
-        marginTop: 30,
+        marginTop: 15,
     },
     loginBold: {
         fontSize: 18,
@@ -44,9 +45,11 @@ const styles = StyleSheet.create({
     },
     loginInformation: {
         fontSize: 14,
+        width: '80%',
         color: '#606060',
         textAlign: 'center',
         marginBottom: 30,
+        marginTop: 30,
     },
     loginOuterLabel: {
         fontSize: 14,
@@ -62,6 +65,8 @@ const styles = StyleSheet.create({
     },
     loginInput: {
         width: '90%',
+        backgroundColor: 'white',
+        height: 55,
         margin: 12,
     },
     loginPassword: {
@@ -81,6 +86,32 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10,
+    },
+    buttonSubmit: {
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '90%',
+        backgroundColor: '#00a5e4',
+        paddingTop: 14,
+        paddingBottom: 14,
+        marginLeft: 12,
+        marginTop: 30,
+    },
+    textButtonSubmit: {
+        fontSize: 20,
+        color: '#fff',
+    },
+    buttonSubmitDisabled: {
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '90%',
+        backgroundColor: '#aeaeae',
+        paddingTop: 14,
+        paddingBottom: 14,
+        marginLeft: 12,
+        marginTop: 30,
     },
     buttonOutline: {
         borderRadius: 5,
@@ -128,7 +159,7 @@ const styles = StyleSheet.create({
     checkBoxContainer: {
         alignItems: 'center',
         textAlign: 'center',
-        paddingHorizontal: 15,
+        marginTop: 30,
         flexDirection: "row",
         justifyContent: 'center',
     },
@@ -141,12 +172,10 @@ const styles = StyleSheet.create({
     },
     hyperlink: {
         fontSize: 14,
-        color: 'blue',
-        alignSelf:'center',
-        textAlign:'center',
+        color: '#00a5e4',
         textDecorationLine: "underline",
         marginBottom: 10,
-        marginTop: 10,
+        marginTop: 20,
     },
     linkContainer: {
         alignItems: 'center',
@@ -259,7 +288,64 @@ const styles = StyleSheet.create({
         color: '#00a5e4',
         fontWeight: 'bold',
     },
-
+    image: {
+        width: '100%',
+        height: 160,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rightMenu: {
+        flexDirection: 'row',
+        alignContent: 'space-between',
+        position: 'absolute',
+        right: 15,
+        top: 0,
+        color: 'white'
+    },
+    leftMenu: {
+        marginLeft: 15,
+    },
+    modalView: {
+        margin: 15,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalTitle: {
+        textAlign: 'center',
+        fontSize: 14,
+        marginBottom: 10,
+        color: '#00a5e4',
+        fontWeight: 'bold',
+    },
+    modalText: {
+        textAlign: 'center',
+        fontSize: 14,
+    },
+    modalImagem: {
+        borderRadius: 20,
+        width: '100%',
+        marginTop: 15,
+        marginBottom: 15,
+    },
+    modalButton: {
+        alignSelf: 'flex-end',
+        marginBottom: 10,
+        marginRight: 15,
+    },
+    modalButtonText: {
+        color: '#00a5e4',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
 });
 
 export default styles;

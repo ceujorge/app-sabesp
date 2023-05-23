@@ -21,14 +21,12 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
   return (
     <ScrollView style={styles.container}>
       <View style={styles.center}>
-        <Text style={styles.loginTitle}>Bem-vindo à Sabesp</Text>
-        <Text style={styles.loginInformation}>Insira seu login e senha para ter acesso completo aos serviços disponíveis.</Text>
+        <Text style={styles.loginTitle}>Bem-vindo ao Sabesp Mobile</Text>
+        <Text style={styles.loginInformation}>Realize seu login para ter acesso {'\n'}completo aos serviços disponíveis.</Text>
       </View>
       <View>
         {tipoPessoa === 'PF' ? (
           <TextInput 
-            mode="outlined" 
-            placeholder="Digite o seu CPF"
             style={styles.loginInput}
             theme={{ colors: { primary: '#00a5e4' }}}
             label='CPF' 
@@ -41,8 +39,6 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
 
         {tipoPessoa === 'PJ' ? (
           <TextInput 
-            mode="outlined" 
-            placeholder="Digite o seu E-mail"
             style={styles.loginInput}
             theme={{ colors: { primary: '#00a5e4' }}}
             label='E-mail' 
@@ -52,41 +48,41 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
         ) : null}
 
         <TextInput 
-          mode="outlined"
           label='Senha'
           style={styles.loginPassword} 
           theme={{ colors: { primary: '#00a5e4' }}}
           textContentType="password"
-          placeholder="Digite sua senha" 
           value={PASS} 
           onChangeText={value => { setPASS(value) }} 
           secureTextEntry={passwordVisible}
           right={<TextInput.Icon name={passwordVisible ? 'eye' : 'eye-off'} onPress={() => setPasswordVisible(!passwordVisible)}/>}
         />
 
-        <View style={styles.linkContainer}>
-          <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: tipoPessoa })}>
-            Esqueci minha senha
-          </Text>
-        </View>
+        <View style={styles.row}>
+          <View style={styles.checkBoxContainer}>
+            <Checkbox
+              status={isSelected ? 'checked' : 'unchecked'}
+              onPress={() => setSelection(!isSelected)}
+            />
+            <Text style={{fontSize: 14}}>Manter-se conectado</Text>
+          </View>
 
-        <View style={styles.checkBoxContainer}>
-          <Checkbox
-            status={isSelected ? 'checked' : 'unchecked'}
-            onPress={() => setSelection(!isSelected)}
-          />
-          <Text>Mantenha-me conectado</Text>
+          <View style={styles.linkContainer}>
+            <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: tipoPessoa })}>
+              Esqueceu sua senha?
+            </Text>
+          </View>
+
         </View>
 
         {tipoPessoa === 'PF' ? (
           <>
-            <TouchableOpacity style={styles.buttonOutline} onPress={() => redirect ? navigation.navigate(redirect) : navigation.navigate('Home')}>
-              <Text style={styles.textButtonOutline}>Entrar</Text>
+            <TouchableOpacity style={(CPF && PASS) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
+              onPress={() => navigation.navigate('Cadastro')}
+              disabled={!(CPF && PASS)}>
+              <Text style={styles.textButtonSubmit}>Entrar</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.buttonSubmit} onPress={() => navigation.navigate('Cadastro')}>
-              <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
-            </TouchableOpacity>
+            <Text style={styles.loginInformation}>Primeiro acesso? <Text style={styles.hyperlink} onPress={() => navigation.navigate('Cadastro')}>Registre-se</Text></Text>
           </>
         ) : null}
 
@@ -100,9 +96,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
               <Text style={styles.textButtonSubmit}>Meu primeiro acesso</Text>
             </TouchableOpacity>
           </>
-        ) : null}
-
-        <Text style={styles.loginInformation}></Text>     
+        ) : null}  
       </View>
     </ScrollView>
   )
