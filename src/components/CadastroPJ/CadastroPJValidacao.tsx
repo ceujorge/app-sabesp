@@ -105,7 +105,7 @@ export default function CadastroPJValidacao({ navigation }) {
             </Text>
 
             <View style={[styles.checkBoxContainer, {marginBottom: 20}]}>
-              <Checkbox
+              <Checkbox.Android
                 status={isSelected ? 'checked' : 'unchecked'}
                 onPress={() => setSelection(!isSelected)}
               />
@@ -113,7 +113,7 @@ export default function CadastroPJValidacao({ navigation }) {
             </View>
 
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={isSelected ? 'checked' : chk1 ? 'checked' : 'unchecked'}
                 onPress={() => setChk1(!chk1)}
               />
@@ -124,7 +124,7 @@ export default function CadastroPJValidacao({ navigation }) {
             </View>
 
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={isSelected ? 'checked' : chk2 ? 'checked' : 'unchecked'}
                 onPress={() => setChk2(!chk2)}
               />
@@ -136,7 +136,7 @@ export default function CadastroPJValidacao({ navigation }) {
             </View>
 
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={isSelected ? 'checked' : chk3 ? 'checked' : 'unchecked'}
                 onPress={() => setChk3(!chk3)}
               />

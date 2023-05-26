@@ -160,7 +160,7 @@ export default function FaltaDeAgua({ navigation }) {
           <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Preço: </Text>Gratuíto</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={checked ? 'checked' : 'unchecked'}
               onPress={() => setChecked(!checked)}
             />

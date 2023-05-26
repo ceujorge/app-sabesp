@@ -86,7 +86,7 @@ export default function TransferenciaTitularidade({ navigation }) {
             </View>
 
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={isSelected2 ? 'checked' : 'unchecked'}
                 onPress={() => setSelection2(!isSelected2)}
               />
@@ -139,7 +139,7 @@ export default function TransferenciaTitularidade({ navigation }) {
               </View>
 
               <View style={styles.checkBoxContainer}>
-                <Checkbox
+                <Checkbox.Android
                   status={isSelected ? 'checked' : 'unchecked'}
                   onPress={() => setSelection(!isSelected)}
                 />

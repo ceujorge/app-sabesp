@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   halfRow: {
-    width: '45%',
+    width: '50%',
     justifyContent: 'center',
     padding: 10,
   },

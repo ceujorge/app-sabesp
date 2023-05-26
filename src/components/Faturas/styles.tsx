@@ -1,8 +1,11 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 
 const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
+    container: {
+        margin: 15,
+    },
     tabView:{
         backgroundColor: '#fff',
         textAlign: 'center',
@@ -16,8 +19,12 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        width: '100%',
     },
+    rowHeader: {
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: Platform.os = 'android' ? 20 : 0,
+    },  
     rowSpace: {
         flexDirection: 'row',
         width: '100%',
@@ -37,11 +44,10 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     loginBold: {
-        fontSize: 18,
+        fontSize: 14,
         color: '#303030',
         fontWeight: 'bold',
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 15,
     },
     loginInformation: {
         fontSize: 14,
@@ -75,13 +81,17 @@ const styles = StyleSheet.create({
     },
     textfatura: {
         fontSize: 14,
-        color: '#606060',
+        marginBottom: 7,
+    },
+    textfaturaBanco: {
+        fontSize: 14,
         marginTop: 10,
-        marginBottom: 10,
+    },
+    textCardFatura: {
+        fontSize: 14,
     },
     textfaturaRightBold: {
         fontSize: 14,
-        color: '#606060',
         alignSelf: 'flex-end',
         fontWeight: 'bold',
         marginTop: 10,
@@ -114,7 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     buttonOutline: {
-        borderRadius: 5,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
         width: '90%',
@@ -263,13 +273,14 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: 10,
+        marginTop: 10,
     },
     buttonCard: {
         width: 60,
         height: 60,
         borderWidth: 0.5,
         borderColor: '#d0d0d0',
+        backgroundColor: '#00a5e4',
         borderRadius: 5,
         margin: 20,
         marginTop: 5,
@@ -277,14 +288,17 @@ const styles = StyleSheet.create({
     },
     buttonCardIcon: {
         alignSelf: 'center',
-        marginTop: 17,
+        marginTop: 10,
+        color: 'white',
     },
     buttonCardText: {
-        fontSize: 8,
+        fontSize: 10,
+        color: 'white',
     },
     itemNumber: {
         marginTop: 10,
         marginRight: 20,
+        fontSize: 16,
         color: '#00a5e4',
         fontWeight: 'bold',
     },
@@ -304,6 +318,8 @@ const styles = StyleSheet.create({
     },
     leftMenu: {
         marginLeft: 15,
+        justifyContent: 'flex-start',
+        flex: 1,
     },
     modalView: {
         margin: 15,
@@ -344,6 +360,41 @@ const styles = StyleSheet.create({
     modalButtonText: {
         color: '#00a5e4',
         fontWeight: 'bold',
+        fontSize: 16,
+    },
+    headerFaturas: {
+        width: '100%',
+        height: 80,
+        paddingBottom: 50,
+        borderBottomColor: '#909090',
+        borderBottomWidth: 1,
+    },
+    logoHorizontal: {
+        marginTop: 20,
+        height: 20,
+        width: 100,
+        alignSelf: 'center',
+    },
+    pagamentoCard: {
+        padding: 15,
+        borderRadius: 20,
+        borderColor: '#909090',
+        elevation: 2,
+        shadowColor: '#000000',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+    miniText: {
+        fontSize: 12,
+        color: '#c0c0c0',
+        alignSelf: 'center',
+    },
+    codigoFatura: {
+        fontWeight: 'bold',
+        alignSelf: 'center',
         fontSize: 16,
     },
 });

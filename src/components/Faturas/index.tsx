@@ -6,15 +6,14 @@ import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 
 import styles from "./styles";
-import FaturaSimplificada from "./FaturaSimplificada";
-import Servicos from "../Servicos";
+import BuscaFornecimento from "./FaturaSimplificada/BuscaFornecimento";
 import Login from "../Login";
 
 export default function Faturas({ navigation }) {
   const layout = useWindowDimensions();
 
   const renderScene = SceneMap({
-    first: () => <FaturaSimplificada navigation={navigation}/>,
+    first: () => <BuscaFornecimento navigation={navigation}/>,
     second: () => <ScrollView><Login navigation={navigation}/></ScrollView>,
   });
 
@@ -36,10 +35,10 @@ export default function Faturas({ navigation }) {
 
   return (
     <SafeAreaView style={{flex: 1}}>    
-      <StatusBar backgroundColor="transparent" translucent={true} />
+      <StatusBar backgroundColor="rgba(0, 0, 0, 0.3)" translucent={true} />
 
       <ImageBackground source={require('../../../assets/imagens/background.png')}  style={styles.image}>
-        <View style={styles.row}>
+        <View style={styles.rowHeader}>
           <TouchableOpacity style={styles.leftMenu} onPress={() => navigation.navigate('PreLogin')}>
             <FontAwesomeIcon icon={ faArrowLeft } size={24} style={{color: 'white'}}/>
           </TouchableOpacity>

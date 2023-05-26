@@ -6,6 +6,7 @@ import Home from './src/components/Home';
 import PreLogin from './src/components/PreLogin';
 import LoginPage from './src/components/Login/LoginPage';
 import Faturas from './src/components/Faturas';
+import FaturaSimplificada from './src/components/Faturas/FaturaSimplificada';
 import Cadastro from './src/components/Cadastro';
 import CadastroSemAcesso from './src/components/Cadastro/CadastroSemAcesso';
 import CadastroComAcesso from './src/components/Cadastro/CadastroComAcesso';
@@ -38,6 +39,7 @@ import FaltaDeAgua from './src/components/FaltaDeAgua';
 import QualidadeAgua from './src/components/QualidadeAgua';
 import AlterarEndereco from './src/components/AlterarEndereco';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -49,6 +51,7 @@ export default function App() {
         <Stack.Screen name="LoginPage" component={LoginPage} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Faturas" component={Faturas} />
+        <Stack.Screen name="FaturaSimplificada" component={FaturaSimplificada} />
         <Stack.Screen name="Parcelamento" component={Parcelamento} />
         <Stack.Screen name="Acordos" component={Acordos} />
         <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} />
