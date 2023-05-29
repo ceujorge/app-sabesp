@@ -39,7 +39,7 @@ function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
 
   let dataEmissao = capitalize(moment(dados.dataEmissao).utcOffset('-0300').format('MMMM YYYY'));
   let dataVencimento = moment(dados.dataVencimento).utcOffset('-0300').format('DD/MM/YYYY')
-  let valorFatura = `R$ ${dados.valor.toString().replace('.', ',')}`;
+  let valorFatura = `R$ ${dados.valor.toFixed(2).toString().replace('.', ',')}`;
 
   return pagamento ? (
     <View>
@@ -49,7 +49,7 @@ function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
       <Text style={styles.textCardFatura}>Status: <Text style={{ color: color, fontWeight: 'bold' }}>{situacao}</Text></Text>
     </View>
   ) : (
-    <TouchableOpacity style={{ marginTop: 20 }} onPress={() => dados.situacaoDaFatura != 'PAGA' ? geraFatura(index, fornecimento) : null}>
+    <TouchableOpacity  style={styles.buttonFatura} onPress={() => dados.situacaoDaFatura != 'PAGA' ? geraFatura(index, fornecimento) : null}>
       <View style={styles.row}>
         <Text style={styles.textCardFatura}>{dataEmissao}</Text>
         <View style={styles.rightMenu}>
@@ -102,13 +102,9 @@ export default function FaturaSimplificada({ route, navigation }) {
       element.situacaoDaFatura == 'EM ATRASO' ? emAtraso+= element.valor : null;
       element.situacaoDaFatura == 'EM ABERTO' ? emAberto+= element.valor : null;
     });
-    let soma = (emAberto + emAtraso).toString().replace('.', ',')
-    emAberto = emAberto.toString().replace('.', ',')
-    emAtraso = emAtraso.toString().replace('.', ',')
-
-    soma = soma.slice(0, soma.indexOf(',') + 3);
-    emAberto = emAberto.slice(0, emAberto.indexOf(',') + 3);
-    emAtraso = emAtraso.slice(0, emAtraso.indexOf(',') + 3);
+    let soma = (emAberto + emAtraso).toFixed(2).toString().replace('.', ',')
+    emAberto = emAberto.toFixed(2).toString().replace('.', ',')
+    emAtraso = emAtraso.toFixed(2).toString().replace('.', ',')
 
     return [emAberto, emAtraso, soma]
   }
@@ -134,7 +130,7 @@ export default function FaturaSimplificada({ route, navigation }) {
   return(
     <SafeAreaView style={{flex: 1}}>    
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
         <View style={styles.headerFaturas}>
           <View style={[styles.row, { marginTop: 40 }]}>
             <TouchableOpacity style={styles.leftMenu} onPress={() => pagamento != null ? setPagamento(null) : navigation.navigate('Faturas') }>
@@ -146,14 +142,16 @@ export default function FaturaSimplificada({ route, navigation }) {
           </View>
         </View>
         {enderecoFornecimento && dadosCliente && pagamento === null ? (
-          <View style={styles.container}>
-            <Text style={[styles.textfatura, { fontSize: 24, fontWeight: 'bold' }]}>{dadosCliente.nome + ' ' + dadosCliente.sobrenome}</Text>
-            <Text style={styles.textfatura}>{capitalize(`${enderecoFornecimento.toponimo} ${enderecoFornecimento.nomeLogradouro}, ${enderecoFornecimento.bairro}`)}</Text>
-            <Text style={styles.textfatura}>{capitalize(enderecoFornecimento.nomeMunicipio) + ' - ' + enderecoFornecimento.estado}</Text>          
-            <Text style={[styles.textfatura, { marginTop: 15, marginBottom: 0 }]}>Débito Total: </Text>
-            <Text style={[styles.textfatura, { fontSize: 32, fontWeight: 'bold' }]}>{calculaDebitos()[2] != '0' ? 'R$ ' + calculaDebitos()[2] : '-' }</Text>
-            <Text style={styles.textfatura}>Contas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? calculaDebitos()[0] : '-' }</Text></Text>
-            <Text style={styles.textfatura}>Contas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? calculaDebitos()[1] : '-' }</Text></Text>
+          <>
+            <View style={styles.container}>
+              <Text style={[styles.textfatura, { fontSize: 24, fontWeight: 'bold' }]}>{dadosCliente.nome + ' ' + dadosCliente.sobrenome}</Text>
+              <Text style={styles.textfatura}>{capitalize(`${enderecoFornecimento.toponimo} ${enderecoFornecimento.nomeLogradouro}, ${enderecoFornecimento.bairro}`)}</Text>
+              <Text style={styles.textfatura}>{capitalize(enderecoFornecimento.nomeMunicipio) + ' - ' + enderecoFornecimento.estado}</Text>          
+              <Text style={[styles.textfatura, { marginTop: 15, marginBottom: 0 }]}>Débito Total: </Text>
+              <Text style={[styles.textfatura, { fontSize: 32, fontWeight: 'bold' }]}>{calculaDebitos()[2] != '0' ? 'R$ ' + calculaDebitos()[2] : '-' }</Text>
+              <Text style={styles.textfatura}>Contas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? 'R$ ' + calculaDebitos()[0] : '-' }</Text></Text>
+              <Text style={styles.textfatura}>Contas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? 'R$ ' + calculaDebitos()[1] : '-' }</Text></Text>
+            </View>
 
             {dadosFornecimento.map((item, index) => (
               <CardFatura 
@@ -164,16 +162,17 @@ export default function FaturaSimplificada({ route, navigation }) {
                 key={index}/>
               )
             )}
-
-            <View style={styles.center}>
-              <Text style={[styles.textfatura, { textAlign: 'center'}]}>
-                Aqui você tem acesso somente a faturas emitidas nos últimos 180 dias. Para obter acesso completo as faturas, <Text style={styles.hyperlink} onPress={() => navigation.navigate('Faturas')}>faça login ou registre-se</Text>
-              </Text>
+            <View style={styles.container}>
+              <View style={styles.center}>
+                <Text style={[styles.textfatura, { textAlign: 'center'}]}>
+                  Aqui você tem acesso somente a faturas emitidas nos últimos 180 dias. Para obter acesso completo as faturas, <Text style={styles.hyperlink} onPress={() => navigation.navigate('Faturas', { tab: 1 })}>faça login ou registre-se</Text>
+                </Text>
+              </View>
             </View>
-          </View>
+          </>
         ) : null}
         {pagamento != null ? (
-          <View style={styles.container}>
+          <View style={[styles.container, { backgroundColor: '#F1F6F9'}]}>
             <View style={styles.pagamentoCard}>
               <CardFatura 
                 dados={dadosFornecimento[pagamento]} 

@@ -240,6 +240,15 @@ const styles = StyleSheet.create({
         height: '100%',
         alignSelf: 'center'
     },
+    buttonFatura: {
+        marginTop: 20,
+        marginLeft: 15,
+        backgroundColor: '#ffffff',
+        borderTopColor: '#909090',
+        borderBottomColor: '#909090',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+    },
     cardText: {
         fontSize: 14,
         color: '#303030', 
@@ -323,7 +332,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 15,
-        backgroundColor: "white",
+        backgroundColor: "#F1F6F9",
         borderRadius: 20,
         padding: 15,
         shadowColor: "#000",
@@ -369,6 +378,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
         borderBottomColor: '#909090',
         borderBottomWidth: 1,
+        backgroundColor: '#ffffff',
     },
     logoHorizontal: {
         marginTop: 20,
@@ -380,13 +390,10 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 20,
         borderColor: '#909090',
-        elevation: 2,
-        shadowColor: '#000000',
-        shadowOffset: {width: -2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+        borderWidth: 1,
         textAlign: 'center',
         marginBottom: 20,
+        backgroundColor: '#ffffff'
     },
     miniText: {
         fontSize: 12,

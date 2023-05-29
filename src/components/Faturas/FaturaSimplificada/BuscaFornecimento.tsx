@@ -32,7 +32,7 @@ export default function BuscaFornecimento({ navigation }) {
             } else {
               setTextModal2([
                 '',
-                'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
+                'Houve um problema e não conseguimos processar o seu pedido. Por favor, tente novamente mais tarde.'
               ])
               setShowModal2(true);
             }
@@ -68,18 +68,20 @@ export default function BuscaFornecimento({ navigation }) {
       });
 
       let dividas = faturas.filter(fatura => fatura.situacaoDaFatura != 'PAGA');
-      let dividasAntigas = faturasPos.map(fatura => fatura.situacaoDaFatura == 'EM ATRASO')
-      
-      if(dividas == 0) {
-        if(dividasAntigas > 0) {
+      let dividasAntigas = faturasPos.filter(fatura => fatura.situacaoDaFatura == 'EM ATRASO')
+    
+      if(dividas.length == 0) {
+        if(dividasAntigas.length > 0) {
           setTextModal2([
             'Nada por aqui.',
-            'Este fornecimento não possui faturas em aberto, entre as emitidas nos últimos 180 dias. Mas existem faturas em atraso emitidas há mais tempo ou indisponíveis para Fatura Simplificada.'
+            'Este fornecimento não possui faturas em aberto, entre as emitidas nos últimos 180 dias. Mas existem faturas em atraso emitidas há mais tempo ou indisponíveis para fatura simplificada. Para consultá-las, faça login ',
+            'Clicando aqui',
           ])
         } else {
           setTextModal2([
             'Parabéns!',
-            'Este fornecimento ainda não possui nenhuma fatura não paga!'
+            'Parabéns! Este fornecimento não possui nenhuma fatura não paga. Para consultar suas faturas completas e histórico de consumo, faça login ',
+            'Clicando aqui',
           ])
         }
         setShowModal2(true);
@@ -90,7 +92,7 @@ export default function BuscaFornecimento({ navigation }) {
     }
 
     return (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
         <View style={styles.center}>
           <Text style={styles.loginTitle}>Bem-vindo ao Sabesp Mobile</Text>
           <Text style={styles.loginInformation}>Insira abaixo o seu código de fornecimento para ter acesso à 2ª via das contas emitidas nos <Text style={{fontWeight: 'bold'}}>últimos 180 dias.</Text></Text>
@@ -149,7 +151,10 @@ export default function BuscaFornecimento({ navigation }) {
                 <Image source={require('../../../../assets/icons/exclamation.png')} style={{ width: 100, height: 100}}/>
               </View>
               <Text style={styles.modalTitle}>{textModal2[0]}</Text>
-              <Text style={styles.modalText}>{textModal2[1]}</Text>
+              <Text style={styles.modalText}>
+                {textModal2[1]}
+                <Text style={styles.hyperlink} onPress={() => navigation.navigate('Faturas', { tab: 1 })}>{textModal2[2] || ''}</Text>
+              </Text>
 
               <TouchableOpacity style={styles.modalButton} onPress={() => setShowModal2(false)}>
                 <Text style={styles.modalButtonText}>Ok</Text>

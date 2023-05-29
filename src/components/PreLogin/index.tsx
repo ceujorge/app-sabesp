@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StatusBar, ScrollView, SafeAreaView, Image, Linking, ImageBackground } from "react-native";
+import { View, Text, Modal, TouchableOpacity, StatusBar, ScrollView, SafeAreaView, Image, Linking} from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 
 import styles from "./styles";
-import { Link } from "@react-navigation/native";
 
 export default function PreLogin({ navigation }) {
   const [showModal, setShowModal] = useState(true);
@@ -12,7 +11,7 @@ export default function PreLogin({ navigation }) {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor="rgba(0, 0, 0, 0.3)" translucent={true} />
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
       
         <View style={styles.logoLoginContainer}>
           <Image style={styles.logoLogin} source={require('../../../assets/brand/loginLogo.png')} />

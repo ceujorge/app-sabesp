@@ -19,7 +19,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: '#F1F6F9' }]}>
       <View style={styles.center}>
         <Text style={styles.loginTitle}>Bem-vindo ao Sabesp Mobile</Text>
         <Text style={styles.loginInformation}>Realize seu login para acessar nossos serviços</Text>

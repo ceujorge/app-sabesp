@@ -9,7 +9,8 @@ import styles from "./styles";
 import BuscaFornecimento from "./FaturaSimplificada/BuscaFornecimento";
 import Login from "../Login";
 
-export default function Faturas({ navigation }) {
+export default function Faturas({ route, navigation }) {
+  const tab = route.params ? route.params.tab : 0;
   const layout = useWindowDimensions();
 
   const renderScene = SceneMap({
@@ -27,7 +28,7 @@ export default function Faturas({ navigation }) {
     />
   );
 
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(tab);
   const [routes] = React.useState([
     { key: 'first', title: 'Fatura Simplificada' },
     { key: 'second', title: 'Fatura Completa' },
