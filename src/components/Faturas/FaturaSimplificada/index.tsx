@@ -7,7 +7,6 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
-import { Picker } from '@react-native-picker/picker';
 import Clipboard from '@react-native-clipboard/clipboard';
 import axios from "axios";
 import moment from "moment";
@@ -22,29 +21,14 @@ const capitalize = (string) => {
 
   const words = str.split(" ");
   for (let i = 0; i < words.length; i++) {
-      words[i] = words[i][0].toUpperCase() + words[i].substr(1).toLowerCase();
+    words[i] = words[i][0].toUpperCase() + words[i].substr(1).toLowerCase();
   }
   str = words.join(' ');
 
   return str
 }
 
-const bancos = [
-  {
-    icon: require('../../../../assets/icons/codigodebarras.png'),
-  },
-  {
-    icon: require('../../../../assets/icons/bradesco.png'),
-  },
-  {
-    icon: require('../../../../assets/icons/itau.png'), 
-  },
-  {
-    icon: require('../../../../assets/icons/santander.png'),
-  }
-]
-
-function CardFatura({ dados, index, setPagamento, pagamento = false }) {
+function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
   let color = 'orange';
   if(dados.situacaoDaFatura == 'PAGA') color = 'green';
   if(dados.situacaoDaFatura == 'EM ATRASO') color = 'red';
@@ -65,7 +49,7 @@ function CardFatura({ dados, index, setPagamento, pagamento = false }) {
       <Text style={styles.textCardFatura}>Status: <Text style={{ color: color, fontWeight: 'bold' }}>{situacao}</Text></Text>
     </View>
   ) : (
-    <TouchableOpacity style={{ marginTop: 20 }} onPress={() => setPagamento(index)}>
+    <TouchableOpacity style={{ marginTop: 20 }} onPress={() => dados.situacaoDaFatura != 'PAGA' ? geraFatura(index, fornecimento) : null}>
       <View style={styles.row}>
         <Text style={styles.textCardFatura}>{dataEmissao}</Text>
         <View style={styles.rightMenu}>
@@ -75,9 +59,11 @@ function CardFatura({ dados, index, setPagamento, pagamento = false }) {
       <Text style={[styles.textCardFatura, { fontSize: 32, fontWeight: 'bold'}]}>{valorFatura}</Text>
       <View style={styles.row}>
         <Text style={styles.textCardFatura}>Vencimento: {dataVencimento}</Text>
-        <View style={styles.rightMenu}>
+        {dados.situacaoDaFatura != 'PAGA' ? (
+          <View style={styles.rightMenu}>
             <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4', marginTop: -5 }}/>
-        </View>
+          </View>
+        ) : null}
       </View>
     </TouchableOpacity>
   ) 
@@ -88,18 +74,23 @@ export default function FaturaSimplificada({ route, navigation }) {
   const fornecimento = route.params.fornecimento;
 
   const [enderecoFornecimento, setEnderecoFornecimento] = useState('');
+  const [dadosCliente, setDadosCliente] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [pagamento, setPagamento] = useState(null)
-  const [formaPagamento, setFormaPagamento] = useState('');
   const [segundaVia, setSegundaVia] = useState({});
-  const [banco, setBanco] = useState('');
 
   useEffect(() => {
-    axios.get('http://pwa-api-nsqua.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
-    .then(res => {
-      setEnderecoFornecimento(res.data)
-    })
-  })
+    axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+      .then(res => {
+        setEnderecoFornecimento(res.data)
+      })
+
+    axios.get('https://pwa-api-nsint.sabesp.com.br/cliente/fornecimento/' + fornecimento)
+      .then(res => {
+        setDadosCliente(res.data)
+      })
+  }, [])
+
 
   const calculaDebitos = () => {
     let emAberto:any = 0;
@@ -112,14 +103,18 @@ export default function FaturaSimplificada({ route, navigation }) {
     emAberto = emAberto.toString().replace('.', ',')
     emAtraso = emAtraso.toString().replace('.', ',')
 
+    soma = soma.slice(0, soma.indexOf(',') + 3);
+    emAberto = emAberto.slice(0, emAberto.indexOf(',') + 3);
+    emAtraso = emAtraso.slice(0, emAtraso.indexOf(',') + 3);
+
     return [emAberto, emAtraso, soma]
   }
 
-  const geraFatura = (fatura, fornecimento) => {
-    axios.post('http://pwa-api-nsqua.sabesp.com.br/download', {
+  const geraFatura = (index, fornecimento) => {
+    axios.post('https://pwa-api-nsint.sabesp.com.br/download', {
       "codigoFornecimento": fornecimento,
       "codelineFaturas": [
-        fatura.codigoPagamento
+        dadosFornecimento[index].codigoPagamento,
       ],
       "motivoSolicitacao": "1",
       "formaEntrega": "0",
@@ -129,6 +124,8 @@ export default function FaturaSimplificada({ route, navigation }) {
     }).then(res => {
       setSegundaVia(res.data);
     })
+
+    setPagamento(index);
   }
 
   return(
@@ -145,9 +142,9 @@ export default function FaturaSimplificada({ route, navigation }) {
             </View>
           </View>
         </View>
-        {enderecoFornecimento && pagamento === null ? (
+        {enderecoFornecimento && dadosCliente && pagamento === null ? (
           <View style={styles.container}>
-            <Text style={[styles.textfatura, { fontSize: 24, fontWeight: 'bold' }]}>Raul Pontes Barbosa</Text>
+            <Text style={[styles.textfatura, { fontSize: 24, fontWeight: 'bold' }]}>{dadosCliente.nome + ' ' + dadosCliente.sobrenome}</Text>
             <Text style={styles.textfatura}>{capitalize(`${enderecoFornecimento.toponimo} ${enderecoFornecimento.nomeLogradouro}, ${enderecoFornecimento.bairro}`)}</Text>
             <Text style={styles.textfatura}>{capitalize(enderecoFornecimento.nomeMunicipio) + ' - ' + enderecoFornecimento.estado}</Text>          
             <Text style={[styles.textfatura, { marginTop: 15, marginBottom: 0 }]}>Débito Total: </Text>
@@ -159,7 +156,8 @@ export default function FaturaSimplificada({ route, navigation }) {
               <CardFatura 
                 dados={item} 
                 index={index} 
-                setPagamento={setPagamento} 
+                fornecimento={fornecimento}
+                geraFatura={geraFatura}
                 key={index}/>
               )
             )}
@@ -181,36 +179,16 @@ export default function FaturaSimplificada({ route, navigation }) {
                 pagamento={true}
               />
 
-              <View style={{ marginTop: 20, borderBottomColor: '#000', borderBottomWidth: 1 }}>
-                <Text style={[styles.cadastroInput, {color: '#606060'}]}>Documento de identificação</Text>
-                <Picker 
-                  style={{backgroundColor: '#fff' }}
-                  onValueChange={(value, index) => {
-                    geraFatura(dadosFornecimento[pagamento], fornecimento)
-                    setFormaPagamento(value);
-                    setBanco(bancos[index - 1]);
-                  }}
-                  placeholder="Forma de pagamento"
-                  selectedValue={formaPagamento}>
-                  <Picker.Item label="" value="" />
-                  <Picker.Item label="Conta Sabesp" value="codigodebarras" />
-                  <Picker.Item label="Bradesco" value="bradesco" />
-                  <Picker.Item label="Itau" value="itau" />
-                  <Picker.Item label="Santander" value="santander" />
-                </Picker>
-              </View>
-              <Text style={styles.miniText}>Como deseja realizar o pagamento da sua fatura?</Text>
+              <View style={styles.center}>
+                <Text style={styles.codigoFatura}>{dadosFornecimento[pagamento].codigoDeBarras}</Text>
 
-              {formaPagamento ? (
-                <View style={styles.center}>
-                  <Text style={styles.codigoFatura}>{dadosFornecimento[pagamento].codigoDeBarras}</Text>
-
+                {segundaVia ? (
                   <View style={styles.buttonCardBar}>
                     <TouchableOpacity style={styles.buttonCard} onPress={() => null}>
                       <FontAwesomeIcon icon={ faCopy } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Copiar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL('data:application/pdf;base64,' + segundaVia.file.file)}>
+                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL('data:application/octet-stream;base64,' + segundaVia.file.file)}>
                       <FontAwesomeIcon icon={ faDownload } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Baixar</Text>
                     </TouchableOpacity>
@@ -219,23 +197,21 @@ export default function FaturaSimplificada({ route, navigation }) {
                       <Text style={styles.buttonCardText}>Visualizar</Text>
                     </TouchableOpacity>
                   </View>
+                ) : null}
 
-                  <Image style={{ margin: 5, width: '90%' }} source={require('../../../../assets/icons/codigoDeBarrasLongo.png')}></Image>
-                </View>
-              ) : null}
+                <Image style={{ margin: 5, width: '90%' }} source={require('../../../../assets/icons/codigoDeBarrasLongo.png')}></Image>
+              </View>
 
             </View>
-            {formaPagamento ? (
               <View style={styles.pagamentoCard}>
                 <View style={styles.center}>
                   <View style={styles.rowCenter}>
-                    <Image style={{ marginRight: 7, marginTop: 3 }} source={banco.icon}></Image>
-                    <Text style={styles.loginBold}>Pague pelo {formaPagamento == 'codigodebarras' ? 'aplicativo do seu banco' : capitalize(formaPagamento)}</Text>
+                    <Image style={{ marginRight: 7, marginTop: 3 }} source={require('../../../../assets/icons/codigodebarras.png')}></Image>
+                    <Text style={styles.loginBold}>Pague pelo aplicativo do seu banco</Text>
                   </View>
                   <Text style={[styles.textfatura, {textAlign: 'center'}]}>
-                    { formaPagamento == 'codigodebarras' ?
-                    'Escolha o banco de sua preferência e pague pelo código de barras.' :
-                    'Você será redirecionado para o aplicativo do banco para realizar o pagamento.'}</Text>
+                    Escolha o banco de sua preferência e pague pelo código de barras.
+                  </Text>
                 </View>
                 <View style={styles.row}>
                   <Text style={styles.itemNumber}>1</Text>
@@ -257,14 +233,7 @@ export default function FaturaSimplificada({ route, navigation }) {
                   <Text style={styles.itemNumber}>5</Text>
                   <Text style={styles.textfaturaBanco}>Efetue o pagamento.</Text>
                 </View>
-
-                { formaPagamento != 'codigodebarras' ? (
-                  <TouchableOpacity style={styles.buttonOutline} onPress={() => setShowModal(true)}>
-                    <Text style={styles.textButtonOutline}>Acessar o Banco</Text>
-                  </TouchableOpacity>
-                ) : null}
               </View>
-            ) : null}
           </View>
         ) : null}
 

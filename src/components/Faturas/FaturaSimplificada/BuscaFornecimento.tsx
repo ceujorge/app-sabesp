@@ -1,23 +1,85 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Linking, TouchableOpacity, ScrollView, Modal, Image } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Modal, Image } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { TextInput, Checkbox } from "react-native-paper";
 import axios from "axios";
+import moment from "moment";
+import 'moment/locale/pt-br';
+
+moment.locale('pt-br');
 
 import styles from "../styles";
 
 export default function BuscaFornecimento({ navigation }) {
     const [fornecimento, setFornecimento] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const [textModal, setTextModal] = useState('');
+    const [showModal2, setShowModal2] = useState(false);
+    const [textModal2, setTextModal2] = useState([]);
     const [isSelected, setSelection] = useState(false);
 
     const getFaturaFornecimento = (fornecimento:string) => {
-      axios.get('http://pwa-api-nsqua.sabesp.com.br/fatura/fornecimento/' + fornecimento)
+      axios.get('https://pwa-api-nsint.sabesp.com.br/fatura/fornecimento/' + fornecimento)
         .then(res => {
-          navigation.navigate('FaturaSimplificada', { dadosFornecimento: res.data, fornecimento: fornecimento })
+          processaFaturas(res.data)
+        }).catch(error => {
+          if(error.response.data.message == 'Fornecimento não encontrado') {
+            setTextModal2([
+              '',
+              'Fornecimento não encontrado. Verifique se o número foi digitado corretamente. Caso o erro continue, acesse o chat ou ligue para 0800 055 0195.'
+            ])
+            setShowModal2(true);
+          } else {
+            setTextModal2([
+              '',
+              'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
+            ])
+            setShowModal2(true);
+          }
         })
+    }
+
+    const processaFaturas = (dados) => {
+      if(dados.length < 1) {
+        setTextModal2([
+          '',
+          'Este fornecimento ainda não possui nenhuma fatura fechada.\n\nApós o fechamento da fatura, ela aparecerá aqui.'
+        ])
+        setShowModal2(true);
+        return;
+      }
+
+      let limite = moment().subtract(180, 'days');
+      let faturas = [];
+      let faturasPos = [];
+
+      dados.forEach(fatura => {
+        if(moment(fatura.dataEmissao).diff(limite, 'days') > 0) {
+          faturas.push(fatura);
+        } else {
+          faturasPos.push(fatura);
+        }
+      });
+
+      let dividas = faturas.filter(fatura => fatura.situacaoDaFatura != 'PAGA');
+      let dividasAntigas = faturasPos.map(fatura => fatura.situacaoDaFatura == 'EM ATRASO')
+      
+      if(dividas == 0) {
+        if(dividasAntigas > 0) {
+          setTextModal2([
+            'Nada por aqui.',
+            'Este fornecimento não possui faturas em aberto, entre as emitidas nos últimos 180 dias. Mas existem faturas em atraso emitidas há mais tempo ou indisponíveis para Fatura Simplificada.'
+          ])
+        } else {
+          setTextModal2([
+            'Parabéns!',
+            'Este fornecimento ainda não possui nenhuma fatura não paga!'
+          ])
+        }
+        setShowModal2(true);
+        return
+      }
+
+      navigation.navigate('FaturaSimplificada', { dadosFornecimento: faturas, fornecimento: fornecimento })
     }
 
     return (
@@ -72,6 +134,23 @@ export default function BuscaFornecimento({ navigation }) {
             </View>
           </ScrollView>
         </Modal>
+
+        <Modal animationType="slide" visible={showModal2} transparent={true}>
+          <ScrollView style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.modalView}>
+              <View style={styles.center}>
+                <Image source={require('../../../../assets/icons/exclamation.png')} style={{ width: 100, height: 100}}/>
+              </View>
+              <Text style={styles.modalTitle}>{textModal2[0]}</Text>
+              <Text style={styles.modalText}>{textModal2[1]}</Text>
+
+              <TouchableOpacity style={styles.modalButton} onPress={() => setShowModal2(false)}>
+                <Text style={styles.modalButtonText}>Ok</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </Modal>
+
       </ScrollView>
   );
 }
