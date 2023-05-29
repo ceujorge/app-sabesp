@@ -21,7 +21,7 @@ function CheckBox({ text }) {
 
   return (
     <View style={styles.checkBoxContainer}>
-      <Checkbox
+      <Checkbox.Android
         status={checked ? 'checked' : 'unchecked'}
         onPress={() => setChecked(!checked)}
       />
@@ -144,49 +144,49 @@ export default function AdicionarUsuarioPJ({ navigation }) {
           </View>
 
           <TouchableOpacity style={styles.collapsibleHeader} onPress={toggleExpanded1}>
-            <CheckBox text='Meu Cadastro' />
+            <Checkbox.Android text='Meu Cadastro' />
             <FontAwesomeIcon icon={ collapsed1 ? faPlus : faMinus } size={22} style={styles.caret}/>
           </TouchableOpacity>
           <Collapsible style={styles.collapsible} collapsed={collapsed1}>
             <Animatable.Text animation={collapsed1 ? undefined : 'fadeInDown'} duration={300} useNativeDriver >
               {mocks.permissoesPerfilPj[0].map((item, index) => (
-                <CheckBox text={item} key={index}/>
+                <Checkbox.Android text={item} key={index}/>
               ))}
             </Animatable.Text>
           </Collapsible>
 
           <TouchableOpacity style={styles.collapsibleHeader} onPress={toggleExpanded2}>
-            <CheckBox text='Minhas Faturas' />
+            <Checkbox.Android text='Minhas Faturas' />
             <FontAwesomeIcon icon={ collapsed2 ? faPlus : faMinus } size={22} style={styles.caret}/>
           </TouchableOpacity>
           <Collapsible style={styles.collapsible} collapsed={collapsed2}>
             <Animatable.Text animation={collapsed2 ? undefined : 'fadeInDown'} duration={300} useNativeDriver >
               {mocks.permissoesPerfilPj[1].map((item, index) => (
-                <CheckBox text={item} key={index} />
+                <Checkbox.Android text={item} key={index} />
               ))}
             </Animatable.Text>
           </Collapsible>
 
           <TouchableOpacity style={styles.collapsibleHeader} onPress={toggleExpanded3}>
-            <CheckBox text='Emergências e Consertos' />
+            <Checkbox.Android text='Emergências e Consertos' />
             <FontAwesomeIcon icon={ collapsed3 ? faPlus : faMinus } size={22} style={styles.caret}/>
           </TouchableOpacity>
           <Collapsible style={styles.collapsible} collapsed={collapsed3}>
             <Animatable.Text animation={collapsed3 ? undefined : 'fadeInDown'} duration={300} useNativeDriver >
               {mocks.permissoesPerfilPj[2].map((item, index) => (
-                <CheckBox text={item} key={index}/>
+                <Checkbox.Android text={item} key={index}/>
               ))}
             </Animatable.Text>
           </Collapsible>
           
           <TouchableOpacity style={styles.collapsibleHeader} onPress={toggleExpanded4}>
-            <CheckBox text='Ligação de água e esgoto' />
+            <Checkbox.Android text='Ligação de água e esgoto' />
             <FontAwesomeIcon icon={ collapsed4 ? faPlus : faMinus } size={22} style={styles.caret}/>
           </TouchableOpacity>
           <Collapsible style={styles.collapsible} collapsed={collapsed4}>
             <Animatable.Text animation={collapsed4 ? undefined : 'fadeInDown'} duration={300} useNativeDriver >
               {mocks.permissoesPerfilPj[3].map((item, index) => (
-                <CheckBox text={item} key={index} />
+                <Checkbox.Android text={item} key={index} />
               ))}
             </Animatable.Text>
           </Collapsible>

@@ -56,7 +56,7 @@ export default function AlterarEndereco({ navigation }) {
           <Text style={styles.title}>Selecione o que deseja fazer:</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={checkFaturas ? 'checked' : 'unchecked'}
               onPress={() => setCheckFaturas(!checkFaturas)}
             />
@@ -72,7 +72,7 @@ export default function AlterarEndereco({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={checkCorrespondencias ? 'checked' : 'unchecked'}
               onPress={() => setCheckCorrespondencias(!checkCorrespondencias)}
             />
@@ -97,7 +97,7 @@ export default function AlterarEndereco({ navigation }) {
 
           {checkFaturas ? (<>
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={'checked'}
                 disabled={true}
               />
@@ -228,7 +228,7 @@ export default function AlterarEndereco({ navigation }) {
 
           {checkCorrespondencias ? (<>
             <View style={styles.checkBoxContainer}>
-              <Checkbox
+              <Checkbox.Android
                 status={'checked'}
                 disabled={true}
               />
@@ -392,7 +392,7 @@ export default function AlterarEndereco({ navigation }) {
 
           <Text style={styles.textLeftBold}>Preço: <Text style={styles.textLeft}>Gratuíto</Text></Text>
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={checked ? 'checked' : 'unchecked'}
               onPress={() => setChecked(!checked)}
             />

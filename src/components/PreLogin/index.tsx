@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 
 import styles from "./styles";
+import { Link } from "@react-navigation/native";
 
 export default function PreLogin({ navigation }) {
   const [showModal, setShowModal] = useState(true);
 
   return (
     <SafeAreaView>
-      <StatusBar backgroundColor="transparent" translucent={true} />
+      <StatusBar backgroundColor="rgba(0, 0, 0, 0.3)" translucent={true} />
       <ScrollView>
       
         <View style={styles.logoLoginContainer}>
@@ -22,8 +23,10 @@ export default function PreLogin({ navigation }) {
         </View>
 
         <View style={styles.main}>
-          <Text style={styles.title}>{'Bem vindo ao\nSabesp Mobile'}</Text>
-          <Text style={styles.hyperlink}>Termos de serviço e Política de Privacidade</Text>
+          <Text style={styles.title}>{'Bem-vindo ao\nSabesp Mobile'}</Text>
+          <Text style={styles.hyperlink} onPress={() => Linking.openURL('https://p1bfdgrrns4j9qsuyuaioa.s3.amazonaws.com/2023/05/VVRzd1BRTUptUFRIenV6Z05PV1Y1UTo6.pdf ')}>
+            Termos de serviço e Política de Privacidade
+          </Text>
           <View style={styles.row}>
 
             <View style={styles.halfRow}>
@@ -31,11 +34,11 @@ export default function PreLogin({ navigation }) {
                 <Text style={styles.textButtonSubmitHalf}>Para você</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.halfRow}>
+            {/* <View style={styles.halfRow}>
               <TouchableOpacity style={styles.buttonSubmit} onPress={() => null}>
                 <Text style={styles.textButtonSubmitHalf}>Para negócios</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
           <View style={styles.socialRow}>
             <TouchableOpacity onPress={() => Linking.openURL('https://m.facebook.com/SabespOficial/?mibextid=LQQJ4d')}>

@@ -65,7 +65,7 @@ export default function QualidadeAgua({ navigation }) {
           <Text style={styles.textLeft}>Em quais locais do seu imóvel a água apresenta problema? Seleciona uma ou mais opções:</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check1 ? 'checked' : 'unchecked'}
               onPress={() => setCheck1(!check1)}
             />
@@ -73,7 +73,7 @@ export default function QualidadeAgua({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check2 ? 'checked' : 'unchecked'}
               onPress={() => setCheck2(!check2)}
             />
@@ -81,7 +81,7 @@ export default function QualidadeAgua({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check3 ? 'checked' : 'unchecked'}
               onPress={() => setCheck3(!check3)}
             />
@@ -124,7 +124,7 @@ export default function QualidadeAgua({ navigation }) {
           <Text style={styles.textLeft}>Qual a situação da sua água?</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check4 ? 'checked' : 'unchecked'}
               onPress={() => setCheck4(!check4)}
             />
@@ -132,7 +132,7 @@ export default function QualidadeAgua({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check5 ? 'checked' : 'unchecked'}
               onPress={() => setCheck5(!check5)}
             />
@@ -140,7 +140,7 @@ export default function QualidadeAgua({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={check6 ? 'checked' : 'unchecked'}
               onPress={() => setCheck6(!check6)}
             />
@@ -242,7 +242,7 @@ export default function QualidadeAgua({ navigation }) {
           <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Importante: </Text>No momento da execução do serviço, ser for constatada divergência entre as informações aqui registradas e as condições do local, pode haver alteração no preço e/ou prazo informados.</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={checked ? 'checked' : 'unchecked'}
               onPress={() => setChecked(!checked)}
             />

@@ -215,7 +215,7 @@ export default function ReligamentoAgua({ navigation }) {
           <Text style={styles.textLeft}>A religação somente poderá ser solicitada pelo titular ou representante com procuração em um de nossos canais de atendimento e haverá cobrança pelo serviço.</Text>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={isSelected2 ? 'checked' : 'unchecked'}
               onPress={() => setSelection2(!isSelected2)}
             />
@@ -223,7 +223,7 @@ export default function ReligamentoAgua({ navigation }) {
           </View>
 
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={isSelected3 ? 'checked' : 'unchecked'}
               onPress={() => setSelection3(!isSelected3)}
             />

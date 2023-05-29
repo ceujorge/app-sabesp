@@ -135,7 +135,7 @@ export default function CadastroPJ({ navigation }) {
               </View>
 
               <View style={styles.checkBoxContainer}>
-                <Checkbox
+                <Checkbox.Android
                   status={isSelected ? 'checked' : 'unchecked'}
                   onPress={() => setSelection(!isSelected)}
                 />

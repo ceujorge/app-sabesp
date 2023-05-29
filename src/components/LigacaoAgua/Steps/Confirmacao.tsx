@@ -70,7 +70,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       <Text style={styles.title}>Documentos</Text>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check1 ? 'checked' : 'unchecked'}
           onPress={() => setCheck1(!check1)}
         />
@@ -78,7 +78,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       </View>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check2 ? 'checked' : 'unchecked'}
           onPress={() => setCheck2(!check2)}
         />
@@ -86,7 +86,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       </View>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check3 ? 'checked' : 'unchecked'}
           onPress={() => setCheck3(!check3)}
         />
@@ -94,7 +94,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       </View>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check4 ? 'checked' : 'unchecked'}
           onPress={() => setCheck4(!check4)}
         />
@@ -102,7 +102,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       </View>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check5 ? 'checked' : 'unchecked'}
           onPress={() => setCheck5(!check5)}
         />
@@ -110,7 +110,7 @@ export default function Confirmacao({ navigation, step, setStep }) {
       </View>
 
       <View style={styles.row}>
-        <Checkbox
+        <Checkbox.Android
           status={check6 ? 'checked' : 'unchecked'}
           onPress={() => setCheck6(!check6)}
         />

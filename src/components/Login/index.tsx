@@ -22,7 +22,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
     <ScrollView style={styles.container}>
       <View style={styles.center}>
         <Text style={styles.loginTitle}>Bem-vindo ao Sabesp Mobile</Text>
-        <Text style={styles.loginInformation}>Realize seu login para ter acesso {'\n'}completo aos serviços disponíveis.</Text>
+        <Text style={styles.loginInformation}>Realize seu login para acessar nossos serviços</Text>
       </View>
       <View>
         {tipoPessoa === 'PF' ? (
@@ -60,15 +60,16 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
 
         <View style={styles.row}>
           <View style={styles.checkBoxContainer}>
-            <Checkbox
+            <Checkbox.Android
               status={isSelected ? 'checked' : 'unchecked'}
+              color={'#00a5e4'}
               onPress={() => setSelection(!isSelected)}
             />
             <Text style={{fontSize: 14}}>Manter-se conectado</Text>
           </View>
 
           <View style={styles.linkContainer}>
-            <Text style={styles.hyperlink} onPress={() => navigation.navigate('RecuperarSenha', { tipoPessoa: tipoPessoa })}>
+            <Text style={styles.hyperlink} onPress={() => null /*navigation.navigate('RecuperarSenha', { tipoPessoa: tipoPessoa })*/}>
               Esqueceu sua senha?
             </Text>
           </View>
@@ -82,7 +83,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
               disabled={!(CPF && PASS)}>
               <Text style={styles.textButtonSubmit}>Entrar</Text>
             </TouchableOpacity>
-            <Text style={styles.loginInformation}>Primeiro acesso? <Text style={styles.hyperlink} onPress={() => navigation.navigate('Cadastro')}>Registre-se</Text></Text>
+            <Text style={styles.loginInformation}>Primeiro acesso? <Text style={styles.hyperlink} onPress={() => null /*navigation.navigate('Cadastro')*/}>Registre-se</Text></Text>
           </>
         ) : null}
 
