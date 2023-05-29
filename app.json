@@ -18,7 +18,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.comunix.agenciavirtual",
+      "buildNumber": "11"
     },
     "android": {
       "adaptiveIcon": {
@@ -37,7 +39,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "40e625ff-a93a-4a14-8974-5f4ebb824e5e"
+        "projectId": "cdf2d246-bdeb-4489-882c-8e2789c1b307"
       }
     }
   }
