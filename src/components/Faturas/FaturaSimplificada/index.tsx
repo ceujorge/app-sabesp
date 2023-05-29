@@ -7,7 +7,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
-import Clipboard from '@react-native-clipboard/clipboard';
+import * as Clipboard from 'expo-clipboard';
 import axios from "axios";
 import moment from "moment";
 import 'moment/locale/pt-br';
@@ -91,6 +91,9 @@ export default function FaturaSimplificada({ route, navigation }) {
       })
   }, [])
 
+  const copyToClipboard = async (texto) => {
+    await Clipboard.setStringAsync(texto);
+  };
 
   const calculaDebitos = () => {
     let emAberto:any = 0;
@@ -184,7 +187,7 @@ export default function FaturaSimplificada({ route, navigation }) {
 
                 {segundaVia ? (
                   <View style={styles.buttonCardBar}>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => null}>
+                    <TouchableOpacity style={styles.buttonCard} onPress={() => copyToClipboard(dadosFornecimento[pagamento].codigoDeBarras)}>
                       <FontAwesomeIcon icon={ faCopy } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Copiar</Text>
                     </TouchableOpacity>

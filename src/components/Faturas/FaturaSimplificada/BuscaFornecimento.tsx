@@ -22,19 +22,26 @@ export default function BuscaFornecimento({ navigation }) {
         .then(res => {
           processaFaturas(res.data)
         }).catch(error => {
-          if(error.response.data.message == 'Fornecimento não encontrado') {
-            setTextModal2([
-              '',
-              'Fornecimento não encontrado. Verifique se o número foi digitado corretamente. Caso o erro continue, acesse o chat ou ligue para 0800 055 0195.'
-            ])
-            setShowModal2(true);
-          } else {
-            setTextModal2([
-              '',
-              'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
-            ])
-            setShowModal2(true);
+          if(error.response) {
+            if(error.response.data.message == 'Fornecimento não encontrado') {
+              setTextModal2([
+                '',
+                'Fornecimento não encontrado. Verifique se o número foi digitado corretamente. Caso o erro continue, acesse o chat ou ligue para 0800 055 0195.'
+              ])
+              setShowModal2(true);
+            } else {
+              setTextModal2([
+                '',
+                'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
+              ])
+              setShowModal2(true);
+            }
           }
+          setTextModal2([
+            '',
+            'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
+          ])
+          setShowModal2(true);
         })
     }
 
