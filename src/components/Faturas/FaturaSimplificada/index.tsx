@@ -8,6 +8,7 @@ import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
 import * as Clipboard from 'expo-clipboard';
+import * as Progress from 'react-native-progress';
 import axios from "axios";
 import moment from "moment";
 import 'moment/locale/pt-br';
@@ -39,7 +40,7 @@ function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
 
   let dataEmissao = capitalize(moment(dados.dataEmissao).utcOffset('-0300').format('MMMM YYYY'));
   let dataVencimento = moment(dados.dataVencimento).utcOffset('-0300').format('DD/MM/YYYY')
-  let valorFatura = `R$ ${dados.valor.toFixed(2).toString().replace('.', ',')}`;
+  let valorFatura = dados.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
   return pagamento ? (
     <View>
@@ -77,7 +78,7 @@ export default function FaturaSimplificada({ route, navigation }) {
   const [dadosCliente, setDadosCliente] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [pagamento, setPagamento] = useState(null)
-  const [segundaVia, setSegundaVia] = useState({});
+  const [pdfFatura, setPdfFatura] = useState('');
 
   useEffect(() => {
     axios.get('http://pwa-api-nsqua.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
@@ -102,9 +103,9 @@ export default function FaturaSimplificada({ route, navigation }) {
       element.situacaoDaFatura == 'EM ATRASO' ? emAtraso+= element.valor : null;
       element.situacaoDaFatura == 'EM ABERTO' ? emAberto+= element.valor : null;
     });
-    let soma = (emAberto + emAtraso).toFixed(2).toString().replace('.', ',')
-    emAberto = emAberto.toFixed(2).toString().replace('.', ',')
-    emAtraso = emAtraso.toFixed(2).toString().replace('.', ',')
+    let soma = (emAberto + emAtraso).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    emAberto = emAberto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    emAtraso = emAtraso.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 
     return [emAberto, emAtraso, soma]
   }
@@ -121,10 +122,18 @@ export default function FaturaSimplificada({ route, navigation }) {
       "isTotem": false,
       "codigoClienteRL": ""
     }).then(res => {
-      setSegundaVia(res.data);
+      getLinkFatura(dadosFornecimento[index].codigoPagamento, res.data.file.file)
     })
 
     setPagamento(index);
+  }
+
+  const getLinkFatura = (codigo, pdf) => {
+    axios.post('https://bot-comercial.metasix.solutions/sabesp-64topdf?codigo=' + codigo, pdf, {headers: {"Content-Type": "text/plain"}})
+      .then(res => {
+        setPdfFatura(res.data.link);
+        return res.data.link;
+      })
   }
 
   return(
@@ -148,9 +157,9 @@ export default function FaturaSimplificada({ route, navigation }) {
               <Text style={styles.textfatura}>{capitalize(`${enderecoFornecimento.toponimo} ${enderecoFornecimento.nomeLogradouro}, ${enderecoFornecimento.bairro}`)}</Text>
               <Text style={styles.textfatura}>{capitalize(enderecoFornecimento.nomeMunicipio) + ' - ' + enderecoFornecimento.estado}</Text>          
               <Text style={[styles.textfatura, { marginTop: 15, marginBottom: 0 }]}>Débito Total: </Text>
-              <Text style={[styles.textfatura, { fontSize: 32, fontWeight: 'bold' }]}>{calculaDebitos()[2] != '0' ? 'R$ ' + calculaDebitos()[2] : '-' }</Text>
-              <Text style={styles.textfatura}>Contas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? 'R$ ' + calculaDebitos()[0] : '-' }</Text></Text>
-              <Text style={styles.textfatura}>Contas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? 'R$ ' + calculaDebitos()[1] : '-' }</Text></Text>
+              <Text style={[styles.textfatura, { fontSize: 32, fontWeight: 'bold' }]}>{calculaDebitos()[2] != '0' ? calculaDebitos()[2] : '-' }</Text>
+              <Text style={styles.textfatura}>Contas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? calculaDebitos()[0] : '-' }</Text></Text>
+              <Text style={styles.textfatura}>Contas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? calculaDebitos()[1] : '-' }</Text></Text>
             </View>
 
             {dadosFornecimento.map((item, index) => (
@@ -184,22 +193,22 @@ export default function FaturaSimplificada({ route, navigation }) {
               <View style={styles.center}>
                 <Text style={styles.codigoFatura}>{dadosFornecimento[pagamento].codigoDeBarras}</Text>
 
-                {segundaVia ? (
+                {pdfFatura ? (
                   <View style={styles.buttonCardBar}>
                     <TouchableOpacity style={styles.buttonCard} onPress={() => copyToClipboard(dadosFornecimento[pagamento].codigoDeBarras)}>
                       <FontAwesomeIcon icon={ faCopy } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Copiar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL('data:application/octet-stream;base64,' + segundaVia.file.file)}>
+                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL(pdfFatura)}>
                       <FontAwesomeIcon icon={ faDownload } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Baixar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL('data:application/pdf;base64,' + segundaVia.file.file)}>
+                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL(pdfFatura)}>
                       <FontAwesomeIcon icon={ faEye } size={22} style={styles.buttonCardIcon}/>
                       <Text style={styles.buttonCardText}>Visualizar</Text>
                     </TouchableOpacity>
                   </View>
-                ) : null}
+                ) : <Progress.Circle size={50} indeterminate={true} color="#00a5e4" style={{ margin: 10 }} />}
 
                 <Image style={{ margin: 5, width: '90%' }} source={require('../../../../assets/icons/codigoDeBarrasLongo.png')}></Image>
               </View>

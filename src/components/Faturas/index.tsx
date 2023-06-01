@@ -15,7 +15,7 @@ export default function Faturas({ route, navigation }) {
 
   const renderScene = SceneMap({
     first: () => <BuscaFornecimento navigation={navigation}/>,
-    second: () => <ScrollView><Login navigation={navigation}/></ScrollView>,
+    second: () => <Login navigation={navigation}/>,
   });
 
   const renderTabBar = props => (
@@ -50,6 +50,7 @@ export default function Faturas({ route, navigation }) {
         </View>
         <Image source={require('../../../assets/brand/logo_branco.png')} />
       </ImageBackground>
+
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
@@ -59,6 +60,7 @@ export default function Faturas({ route, navigation }) {
         style={styles.tabView}
         swipeEnabled={false}
       />
+
     </SafeAreaView>
   );
 }

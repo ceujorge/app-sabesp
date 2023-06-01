@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         margin: 15,
     },
     tabView:{
-        backgroundColor: '#fff',
+        backgroundColor: '#F1F6F9',
         textAlign: 'center',
         justifyContent: 'center',
     },
@@ -364,6 +364,7 @@ const styles = StyleSheet.create({
     },
     modalButton: {
         alignSelf: 'flex-end',
+        marginTop: 10,
         marginBottom: 10,
         marginRight: 15,
     },

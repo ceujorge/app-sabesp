@@ -29,12 +29,14 @@ export default function BuscaFornecimento({ navigation }) {
                 'Fornecimento não encontrado. Verifique se o número foi digitado corretamente. Caso o erro continue, acesse o chat ou ligue para 0800 055 0195.'
               ])
               setShowModal2(true);
+              return;
             } else {
               setTextModal2([
                 '',
                 'Houve um problema e não conseguimos processar o seu pedido. Por favor, tente novamente mais tarde.'
               ])
               setShowModal2(true);
+              return;
             }
           }
           setTextModal2([
@@ -42,6 +44,7 @@ export default function BuscaFornecimento({ navigation }) {
             'Houve um problema e não conseguimos processar o seu pedido. Por favor tente novamente mais tarde.'
           ])
           setShowModal2(true);
+          return;
         })
     }
 
@@ -55,7 +58,8 @@ export default function BuscaFornecimento({ navigation }) {
         return;
       }
 
-      let limite = moment().subtract(180, 'days');
+      // let limite = moment().subtract(180, 'days');
+      let limite = moment().subtract(365, 'days');
       let faturas = [];
       let faturasPos = [];
 
@@ -80,13 +84,15 @@ export default function BuscaFornecimento({ navigation }) {
         } else {
           setTextModal2([
             'Parabéns!',
-            'Parabéns! Este fornecimento não possui nenhuma fatura não paga. Para consultar suas faturas completas e histórico de consumo, faça login ',
+            'Este fornecimento não possui nenhuma fatura não paga. Para consultar suas faturas completas e histórico de consumo, faça login ',
             'Clicando aqui',
           ])
         }
         setShowModal2(true);
         return
       }
+
+      faturas.sort((a,b) => new Date(b.dataEmissao) - new Date(a.dataEmissao));
 
       navigation.navigate('FaturaSimplificada', { dadosFornecimento: faturas, fornecimento: fornecimento })
     }

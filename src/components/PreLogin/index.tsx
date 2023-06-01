@@ -9,9 +9,9 @@ export default function PreLogin({ navigation }) {
   const [showModal, setShowModal] = useState(true);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#F1F6F9' }}>
       <StatusBar backgroundColor="rgba(0, 0, 0, 0.3)" translucent={true} />
-      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
+      <ScrollView>
       
         <View style={styles.logoLoginContainer}>
           <Image style={styles.logoLogin} source={require('../../../assets/brand/loginLogo.png')} />
