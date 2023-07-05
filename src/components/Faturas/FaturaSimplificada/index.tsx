@@ -57,7 +57,7 @@ function CardFatura({ dados, setPagamento, setFatura }) {
         <Text style={[styles.textCardFatura, { fontSize: 32, fontWeight: 'bold'}]}>{valorFatura}</Text>
         <View style={styles.row}>
           <Text style={styles.textCardFatura}>Vencimento: {dataVencimento}</Text>
-          {dados.situacaoDaFatura != 'PAGA' ? (
+          {dados.pagar ? (
             <View style={styles.rightMenu}>
               <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4', marginTop: -5 }}/>
             </View>
