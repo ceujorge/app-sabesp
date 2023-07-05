@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Linking, TouchableOpacity, ScrollView} from "react-native";
 import { TextInput, Checkbox } from "react-native-paper";
+import axios from "axios";
 
 import styles from "./styles";
 
@@ -16,6 +17,13 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
     cpf = cpf.replace(/^(\d{3})(\d{3})(\d)/g, "$1.$2.$3"); //Coloca a pontuação
     cpf = cpf.replace(/(\d)(\d{2})$/, "$1-$2");            //Coloca hífen entre os dois ultimos digitos e o resto
     setCPF(cpf);
+  }
+
+  const processCpf = function(cpf) {
+    axios.get('https://pwa-api-nsint.sabesp.com.br/cliente/cpf/' + cpf)
+      .then(res => {
+        navigation.navigate('Home', { dadosCliente: res.data })
+      })
   }
 
   return (
@@ -78,9 +86,9 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
 
         {tipoPessoa === 'PF' ? (
           <>
-            <TouchableOpacity style={(CPF && PASS) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
-              onPress={() => navigation.navigate('Cadastro')}
-              disabled={!(CPF && PASS)}>
+            <TouchableOpacity style={(CPF) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
+              onPress={() => processCpf(CPF)}
+              disabled={!(CPF)}>
               <Text style={styles.textButtonSubmit}>Entrar</Text>
             </TouchableOpacity>
             <Text style={styles.loginInformation}>Primeiro acesso? <Text style={styles.hyperlink} onPress={() => null /*navigation.navigate('Cadastro')*/}>Registre-se</Text></Text>
@@ -89,7 +97,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
 
         {tipoPessoa === 'PJ' ? (
           <>
-            <TouchableOpacity style={styles.buttonOutline} onPress={() => redirect ? navigation.navigate(redirect) : navigation.navigate('ValidacaoUsuario')}>
+            <TouchableOpacity style={styles.buttonOutline} onPress={() => redirect ? navigation.navigate(redirect) : navigation.navigate('HomePJ')}>
               <Text style={styles.textButtonOutline}>Entrar</Text>
             </TouchableOpacity>
 

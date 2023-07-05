@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, useWindowDimensions, StatusBar,ScrollView, SafeAreaView, ImageBackground, Touchable } from "react-native";
+import { View, Image, TouchableOpacity, useWindowDimensions, StatusBar, SafeAreaView, ImageBackground, Touchable } from "react-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'

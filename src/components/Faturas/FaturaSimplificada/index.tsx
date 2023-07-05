@@ -3,12 +3,7 @@ import { View, Text, Image, TouchableOpacity, Linking, StatusBar, ScrollView, Sa
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
-import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
-import { faCopy } from '@fortawesome/free-regular-svg-icons/faCopy'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
-import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
-import * as Clipboard from 'expo-clipboard';
-import * as Progress from 'react-native-progress';
 import axios from "axios";
 import moment from "moment";
 import 'moment/locale/pt-br';
@@ -16,6 +11,8 @@ import 'moment/locale/pt-br';
 moment.locale('pt-br');
 
 import styles from "../styles";
+import Pagamento from "../../Pagamento";
+import Header from "../../Header";
 
 const capitalize = (string) => {
   let str = string;
@@ -29,7 +26,7 @@ const capitalize = (string) => {
   return str
 }
 
-function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
+function CardFatura({ dados, setPagamento, setFatura }) {
   let color = 'orange';
   if(dados.situacaoDaFatura == 'PAGA') color = 'green';
   if(dados.situacaoDaFatura == 'EM ATRASO') color = 'red';
@@ -42,66 +39,66 @@ function CardFatura({ dados, index, pagamento, fornecimento , geraFatura }) {
   let dataVencimento = moment(dados.dataVencimento).utcOffset('-0300').format('DD/MM/YYYY')
   let valorFatura = dados.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-  return pagamento ? (
-    <View>
-      <Text style={styles.textCardFatura}>{dataEmissao}</Text>
-      <Text style={[styles.textCardFatura, { fontSize: 32, fontWeight: 'bold'}]}>{valorFatura}</Text>
-      <Text style={styles.textCardFatura}>Vencimento: {dataVencimento}</Text>
-      <Text style={styles.textCardFatura}>Status: <Text style={{ color: color, fontWeight: 'bold' }}>{situacao}</Text></Text>
-    </View>
-  ) : (
-    <TouchableOpacity  style={styles.buttonFatura} onPress={() => dados.situacaoDaFatura != 'PAGA' ? geraFatura(index, fornecimento) : null}>
-      <View style={styles.row}>
-        <Text style={styles.textCardFatura}>{dataEmissao}</Text>
-        <View style={styles.rightMenu}>
-        <Text style={[styles.textCardFatura, { color: color, fontWeight: 'bold' }]}>{situacao}</Text>
-        </View>
-      </View>
-      <Text style={[styles.textCardFatura, { fontSize: 32, fontWeight: 'bold'}]}>{valorFatura}</Text>
-      <View style={styles.row}>
-        <Text style={styles.textCardFatura}>Vencimento: {dataVencimento}</Text>
-        {dados.situacaoDaFatura != 'PAGA' ? (
+  const pagar = () => {
+    setPagamento(true); 
+    setFatura(dados);
+  }
+
+  return (
+    <>
+    {dados.mostrar ? (
+      <TouchableOpacity  style={styles.buttonFatura} onPress={() => dados.pagar ? pagar() : null}>
+        <View style={styles.row}>
+          <Text style={styles.textCardFatura}>{dataEmissao}</Text>
           <View style={styles.rightMenu}>
-            <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4', marginTop: -5 }}/>
+          <Text style={[styles.textCardFatura, { color: color, fontWeight: 'bold' }]}>{situacao}</Text>
           </View>
-        ) : null}
-      </View>
-    </TouchableOpacity>
+        </View>
+        <Text style={[styles.textCardFatura, { fontSize: 32, fontWeight: 'bold'}]}>{valorFatura}</Text>
+        <View style={styles.row}>
+          <Text style={styles.textCardFatura}>Vencimento: {dataVencimento}</Text>
+          {dados.situacaoDaFatura != 'PAGA' ? (
+            <View style={styles.rightMenu}>
+              <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4', marginTop: -5 }}/>
+            </View>
+          ) : null}
+        </View>
+      </TouchableOpacity>
+      ) : null }
+    </>
   ) 
 }
 
 export default function FaturaSimplificada({ route, navigation }) {
-  const dadosFornecimento = route.params.dadosFornecimento;
   const fornecimento = route.params.fornecimento;
 
+  const [faturas, setFaturas] = useState(route.params.dadosFornecimento);
   const [enderecoFornecimento, setEnderecoFornecimento] = useState('');
   const [dadosCliente, setDadosCliente] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [pagamento, setPagamento] = useState(null)
-  const [pdfFatura, setPdfFatura] = useState('');
+  const [fatura, setFatura] = useState('');
 
   useEffect(() => {
-    axios.get('http://pwa-api-nsqua.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+    axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
       .then(res => {
         setEnderecoFornecimento(res.data)
       })
 
-    axios.get('http://pwa-api-nsqua.sabesp.com.br/cliente/fornecimento/' + fornecimento)
+    axios.get('https://pwa-api-nsint.sabesp.com.br/cliente/fornecimento/' + fornecimento)
       .then(res => {
         setDadosCliente(res.data)
       })
-  }, [])
 
-  const copyToClipboard = async (texto) => {
-    await Clipboard.setStringAsync(texto);
-  };
+    setFaturas(setShowInfoFaturas(faturas));
+  }, [])
 
   const calculaDebitos = () => {
     let emAberto:any = 0;
     let emAtraso:any = 0;
-    dadosFornecimento.forEach(element => {
-      element.situacaoDaFatura == 'EM ATRASO' ? emAtraso+= element.valor : null;
-      element.situacaoDaFatura == 'EM ABERTO' ? emAberto+= element.valor : null;
+    faturas.forEach(fatura => {
+      fatura.situacaoDaFatura == 'EM ATRASO' ? emAtraso+= fatura.valor : null;
+      fatura.situacaoDaFatura == 'EM ABERTO' ? emAberto+= fatura.valor : null;
     });
     let soma = (emAberto + emAtraso).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
     emAberto = emAberto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -110,46 +107,49 @@ export default function FaturaSimplificada({ route, navigation }) {
     return [emAberto, emAtraso, soma]
   }
 
-  const geraFatura = (index, fornecimento) => {
-    axios.post('http://pwa-api-nsqua.sabesp.com.br/download', {
-      "codigoFornecimento": fornecimento,
-      "codelineFaturas": [
-        dadosFornecimento[index].codigoPagamento,
-      ],
-      "motivoSolicitacao": "1",
-      "formaEntrega": "0",
-      "isResume": true,
-      "isTotem": false,
-      "codigoClienteRL": ""
-    }).then(res => {
-      getLinkFatura(dadosFornecimento[index].codigoPagamento, res.data.file.file)
-    })
+  const setShowInfoFaturas = faturas => {
+    const deveriaAparecer = fatura => {
+      let aparecer = true;
 
-    setPagamento(index);
-  }
+      if(fatura.situacaoDaFatura === 'CONTA REVISADA' && fatura.estadoSaldoPagamento === "R") aparecer = false;
+      if(fatura.situacaoDaFatura === 'ANULADA') aparecer = false
+      if(fatura.situacaoDaFatura === 'EM ATRASO' && fatura.cobrancaJuridica) aparecer = false;
+      if(fatura.situacaoDaFatura === 'PAGA') aparecer = false
+      if(fatura.situacaoDaFatura === 'EM ACORDO DE PARCELAMENTO') aparecer = false
 
-  const getLinkFatura = (codigo, pdf) => {
-    axios.post('https://bot-comercial.metasix.solutions/sabesp-64topdf?codigo=' + codigo, pdf, {headers: {"Content-Type": "text/plain"}})
-      .then(res => {
-        setPdfFatura(res.data.link);
-        return res.data.link;
+      return aparecer
+    }
+
+    const podePagar = fatura => {
+      let pagar = true
+
+      if(fatura.situacaoDaFatura === 'SUSPENSA PARA ANÁLISE' && fatura.statusFatura === 'FATURA EMITIDA') pagar = false;
+      if(fatura.situacaoDaFatura === 'SUSPENSA PARA ANÁLISE' && fatura.statusFatura === 'CANCELÁVEL') pagar = false;
+      if(fatura.situacaoDaFatura === 'EM ATRASO' && fatura.cobrancaJuridica) pagar = false;
+      if(fatura.situacaoDaFatura === 'AGUARDANDO CONFIRMAÇÃO DO BANCO' && fatura.pagamentoInformado === "S") pagar = false;
+      if(fatura.situacaoDaFatura === 'CONTA REVISADA' && fatura.estadoSaldoPagamento === "R") pagar = false;
+      if(fatura.situacaoDaFatura === 'PAGA') pagar = false
+      if(fatura.situacaoDaFatura === 'EM ACORDO DE PARCELAMENTO') pagar = false
+      if(fatura.situacaoDaFatura === 'ANULADA') pagar = false;
+
+      return pagar
+    }
+
+    const faturasComInfo = faturas.map(fatura => 
+      ({... fatura,
+        mostrar: deveriaAparecer(fatura),
+        pagar: podePagar(fatura)
       })
+    )
+
+    return faturasComInfo;
   }
 
   return(
     <SafeAreaView style={{flex: 1}}>    
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
+      <Header navigation={navigation} backButton={() => pagamento != null ? setPagamento(null) : navigation.navigate('Faturas')}/>
       <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
-        <View style={styles.headerFaturas}>
-          <View style={[styles.row, { marginTop: 40 }]}>
-            <TouchableOpacity style={styles.leftMenu} onPress={() => pagamento != null ? setPagamento(null) : navigation.navigate('Faturas') }>
-              <FontAwesomeIcon icon={ faArrowLeft } size={24} style={{color: 'black'}}/>
-            </TouchableOpacity>
-            <View style={styles.rowCenter}>
-              <Image source={require('../../../../assets/brand/logo_horizontal.png')} style={styles.logoHorizontal}/>
-            </View>
-          </View>
-        </View>
         {enderecoFornecimento && dadosCliente && pagamento === null ? (
           <>
             <View style={styles.container}>
@@ -158,16 +158,15 @@ export default function FaturaSimplificada({ route, navigation }) {
               <Text style={styles.textfatura}>{capitalize(enderecoFornecimento.nomeMunicipio) + ' - ' + enderecoFornecimento.estado}</Text>          
               <Text style={[styles.textfatura, { marginTop: 15, marginBottom: 0 }]}>Débito Total: </Text>
               <Text style={[styles.textfatura, { fontSize: 32, fontWeight: 'bold' }]}>{calculaDebitos()[2] != '0' ? calculaDebitos()[2] : '-' }</Text>
-              <Text style={styles.textfatura}>Contas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? calculaDebitos()[0] : '-' }</Text></Text>
-              <Text style={styles.textfatura}>Contas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? calculaDebitos()[1] : '-' }</Text></Text>
+              <Text style={styles.textfatura}>Faturas em aberto: <Text style={{ fontWeight: 'bold' }}>{calculaDebitos()[0] != '0' ? calculaDebitos()[0] : '-' }</Text></Text>
+              <Text style={styles.textfatura}>Faturas vencidas: <Text style={{ fontWeight: 'bold', color: 'red'}}>{calculaDebitos()[1] != '0' ? calculaDebitos()[1] : '-' }</Text></Text>
             </View>
 
-            {dadosFornecimento.map((item, index) => (
+            {faturas.map((item, index) => (
               <CardFatura 
                 dados={item} 
-                index={index} 
-                fornecimento={fornecimento}
-                geraFatura={geraFatura}
+                setPagamento={setPagamento}
+                setFatura={setFatura}
                 key={index}/>
               )
             )}
@@ -181,71 +180,7 @@ export default function FaturaSimplificada({ route, navigation }) {
           </>
         ) : null}
         {pagamento != null ? (
-          <View style={[styles.container, { backgroundColor: '#F1F6F9'}]}>
-            <View style={styles.pagamentoCard}>
-              <CardFatura 
-                dados={dadosFornecimento[pagamento]} 
-                index={pagamento} 
-                setPagamento={setPagamento} 
-                pagamento={true}
-              />
-
-              <View style={styles.center}>
-                <Text style={styles.codigoFatura}>{dadosFornecimento[pagamento].codigoDeBarras}</Text>
-
-                {pdfFatura ? (
-                  <View style={styles.buttonCardBar}>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => copyToClipboard(dadosFornecimento[pagamento].codigoDeBarras)}>
-                      <FontAwesomeIcon icon={ faCopy } size={22} style={styles.buttonCardIcon}/>
-                      <Text style={styles.buttonCardText}>Copiar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL(pdfFatura)}>
-                      <FontAwesomeIcon icon={ faDownload } size={22} style={styles.buttonCardIcon}/>
-                      <Text style={styles.buttonCardText}>Baixar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCard} onPress={() => Linking.openURL(pdfFatura)}>
-                      <FontAwesomeIcon icon={ faEye } size={22} style={styles.buttonCardIcon}/>
-                      <Text style={styles.buttonCardText}>Visualizar</Text>
-                    </TouchableOpacity>
-                  </View>
-                ) : <Progress.Circle size={50} indeterminate={true} color="#00a5e4" style={{ margin: 10 }} />}
-
-                <Image style={{ margin: 5, width: '90%' }} source={require('../../../../assets/icons/codigoDeBarrasLongo.png')}></Image>
-              </View>
-
-            </View>
-              <View style={styles.pagamentoCard}>
-                <View style={styles.center}>
-                  <View style={styles.rowCenter}>
-                    <Image style={{ marginRight: 7, marginTop: 3 }} source={require('../../../../assets/icons/codigodebarras.png')}></Image>
-                    <Text style={styles.loginBold}>Pague pelo aplicativo do seu banco</Text>
-                  </View>
-                  <Text style={[styles.textfatura, {textAlign: 'center'}]}>
-                    Escolha o banco de sua preferência e pague pelo código de barras.
-                  </Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.itemNumber}>1</Text>
-                  <Text style={styles.textfaturaBanco}>Clique no ícone "Copiar" código de barras.</Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.itemNumber}>2</Text>
-                  <Text style={styles.textfaturaBanco}>Abra o aplicativo do seu banco.</Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.itemNumber}>3</Text>
-                  <Text style={styles.textfaturaBanco}>Escolha digitar código de barras.</Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.itemNumber}>4</Text>
-                  <Text style={styles.textfaturaBanco}>Verifique se as informações estão corretas.</Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.itemNumber}>5</Text>
-                  <Text style={styles.textfaturaBanco}>Efetue o pagamento.</Text>
-                </View>
-              </View>
-          </View>
+          <Pagamento fatura={fatura} fornecimento={fornecimento}/>
         ) : null}
 
         <Modal animationType="slide" visible={showModal} transparent={true}>

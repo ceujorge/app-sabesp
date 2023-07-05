@@ -30,58 +30,16 @@ const styles = StyleSheet.create({
         borderColor: '#909090',
         borderWidth: 1,
         textAlign: 'center',
-        marginTop: 20,
+        marginBottom: 20,
         backgroundColor: '#ffffff'
     },
     halfContainer: {
         width: '50%',
     },
-    modalView: {
-        margin: 15,
-        backgroundColor: "#F1F6F9",
-        borderRadius: 20,
-        padding: 15,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        textAlign: 'left',
-    },
-    modalButton: {
-        alignSelf: 'flex-end',
-        marginTop: 10,
-        marginBottom: 10,
-        marginRight: 15,
-    },
-    modalButtonText: {
-        color: '#00a5e4',
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    modalTitle: {
-        alignSelf: 'center',
-        color: '#00a5e4',
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginBottom: 10,
-    },
     leftMenu: {
         marginLeft: 15,
         justifyContent: 'flex-start',
         flex: 1,
-    },
-    hyperlink: {
-        fontSize: 14,
-        color: 'blue',
-        alignSelf:'center',
-        textAlign:'center',
-        textDecorationLine: "underline",
-        marginBottom: 10,
-        marginTop: 10,
     },
     logoHorizontal: {
         marginTop: 20,
@@ -91,10 +49,6 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-    },
-    textBold: {
-        fontSize: 14,
-        fontWeight: 'bold',
     },
     textAzul: {
         fontSize: 14,
@@ -140,8 +94,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         marginRight: 10,
         marginBottom: 3,
-        color: '#00a5e4',
-        marginTop: 5,
     },
     collapsible: {
         flex: 1,
@@ -159,6 +111,25 @@ const styles = StyleSheet.create({
         paddingBottom: 14,
         marginLeft: 12,
         marginTop: 30,
+    },
+    buttonFilter: {
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      width: '45%',
+      backgroundColor: '#00a5e4',
+      paddingTop: 5,
+      paddingBottom: 5,
+      marginRight: 10,
+      marginTop: 15,
+      height: 30,
+    },
+    textButtonSubmitFilter: {
+      marginTop: -3,
+      fontWeight: 'bold',
+      fontSize: 14,
+      color: '#fff',
     },
     buttonSubmitMini: {
         borderRadius: 5,
@@ -179,8 +150,6 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     listItem: {
-        paddingTop: 10,
-        paddingBottom: 10,
         flexDirection: 'row',
         borderTopWidth: 1,
         borderTopColor: '#ccc',
@@ -195,10 +164,41 @@ const styles = StyleSheet.create({
         top: 0,
         color: 'white'
     },
+    buttonFatura: {
+      marginTop: 20,
+      backgroundColor: '#ffffff',
+      borderTopColor: '#909090',
+      borderBottomColor: '#909090',
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+    },
     contadorText: {
-        marginTop: 20,
-        fontStyle: 'italic',
-        color: '#a0a0a0',
+      marginTop: 20,
+      fontStyle: 'italic',
+      color: '#a0a0a0',
+    },
+    hyperlink: {
+      fontSize: 14,
+      color: 'blue',
+      alignSelf: 'center',
+      textAlign: 'center',
+      textDecorationLine: "underline",
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    modalView: {
+      backgroundColor: "white",
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
+      padding: 15,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5
     },
 });
 

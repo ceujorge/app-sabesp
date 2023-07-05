@@ -14,7 +14,6 @@ export default function LoginPage({ route, navigation }) {
       <Header />
       <ScrollView  contentContainerStyle={{ paddingBottom: 100 }}>
         <Login navigation={navigation} tipoPessoa={tipoPessoa} redirect={redirect}/>
-        <Servicos navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   )

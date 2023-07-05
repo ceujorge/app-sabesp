@@ -1,38 +1,35 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
+    header: {
         width: '100%',
-        display: 'flex',
         height: 80,
-        paddingVertical: 10,
-        paddingStart: 10,
+        paddingBottom: 50,
+        borderBottomColor: '#909090',
+        borderBottomWidth: 1,
+        backgroundColor: '#ffffff',
+    },
+    row: {
+        width: '100%',
         flexDirection: 'row',
-        alignItems: 'center',
-        alignContent: 'space-between'
+        justifyContent: 'space-between',
     },
-    tinyLogo: {
-        width: 50,
-        height: 50,
-        marginRight: 10,
-    },
-    title: {
-        height: 50,
-        paddingLeft: 10,
-        fontSize: 16,
-        textAlign: 'left',
-        fontWeight: 'bold',
-        borderLeftWidth: 2,
-        borderLeftColor: '#e0e0e0',
-    },
-    searchIcon: {
-        marginRight: 10
-    },
-    rightMenu: {
+    rowCenter: {
         flexDirection: 'row',
-        alignContent: 'space-between',
-        position: 'absolute',
-        right: 15,
+        width: '100%',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    leftMenu: {
+        marginLeft: 15,
+        justifyContent: 'flex-start',
+        flex: 1,
+    },
+    logoHorizontal: {
+        marginTop: 20,
+        height: 20,
+        width: 100,
+        alignSelf: 'center',
     },
 });
 
