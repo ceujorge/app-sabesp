@@ -122,7 +122,7 @@ export default function Pagamento({ fatura, fornecimento, simples = true }) {
         </View>
         <View style={styles.row}>
           <Text style={styles.itemNumber}>2</Text>
-          <Text style={styles.textfaturaBanco}>Abra o aplicativo da sua instituição financeira.</Text>
+          <Text style={styles.textfaturaBanco}>{'Abra o aplicativo da sua \ninstituição financeira.'}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.itemNumber}>3</Text>
