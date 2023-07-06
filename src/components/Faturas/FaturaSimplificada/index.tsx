@@ -148,8 +148,9 @@ export default function FaturaSimplificada({ route, navigation }) {
   return(
     <SafeAreaView style={{flex: 1}}>    
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <Header navigation={navigation} backButton={() => pagamento != null ? setPagamento(null) : navigation.navigate('Faturas')}/>
       <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
+        <Header navigation={navigation} backButton={() => pagamento != null ? setPagamento(null) : navigation.navigate('Faturas')}/>
+
         {enderecoFornecimento && dadosCliente && pagamento === null ? (
           <>
             <View style={styles.container}>

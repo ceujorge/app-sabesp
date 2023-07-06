@@ -227,7 +227,7 @@ export default function HistoricoPagamento({ navigation, faturas, fornecimento }
             </Modal>
           </>
         ) : (
-          <Pagamento fatura={fatura} fornecimento={fornecimento.codigo} simples={false}/>
+          <Pagamento fatura={fatura} fornecimento={fornecimento} simples={false}/>
         )}
         </>
       ) : (

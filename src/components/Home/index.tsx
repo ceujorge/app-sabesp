@@ -135,9 +135,11 @@ export default function Home({ route, navigation }) {
   return (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <Header navigation={navigation} backButton={() => tela === 0 ? navigation.navigate('Faturas') : setTela(0)}/>
-      <ScrollView style={{ backgroundColor: '#F1F6F9', height: '76%' }}>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
+        <Header navigation={navigation} backButton={() => tela === 0 ? navigation.navigate('Faturas') : setTela(0)}/>
+
         {tela == 0 ? (
+          <>
           <View style={styles.container}>
             <Text style={[styles.text, { fontSize: 24, fontWeight: 'bold', marginBottom: 10 }]}>Resumo</Text>
             <View style={styles.borderedContainer}>
@@ -162,7 +164,7 @@ export default function Home({ route, navigation }) {
                   {faturas.length ? (
                     <>
                     <Text style={styles.text}>Fatura Atual:</Text>
-                    <Text style={[styles.text, { fontSize: 32, fontWeight: 'bold'}]}>{faturas.length ? `R$ ${faturas[0].valor}`.replace('.', ',') : ''}</Text>
+                    <Text style={[styles.text, { fontSize: 32, fontWeight: 'bold'}]}>{faturas.length ? faturas[0].valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : ''}</Text>
                     <Text style={styles.text}>Próximo vencimento: {faturas.length ? moment(faturas[0].dataVencimento).utcOffset('-0300').format('DD/MM/YYYY') : ''}</Text>
 
                     <View style={{ borderBottomColor: '#ccc', borderBottomWidth: 1, marginTop: 5, marginBottom: 5 }}/>
@@ -223,6 +225,7 @@ export default function Home({ route, navigation }) {
             )}
 
           </View>
+          <Footer/></>
         ) : null}
 
         {tela == 1 && fornecimentos ? (<SelecaoFornecimento 
@@ -239,9 +242,8 @@ export default function Home({ route, navigation }) {
         />) : null}
         
         {tela == 3 ? (<></>) : null}
-        
+
       </ScrollView>
-      <Footer/>
     </SafeAreaView>
   )
 }
