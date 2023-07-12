@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderedContainer: {
         padding: 15,
         borderRadius: 20,
-        borderColor: '#909090',
+        borderColor: '#d9d9d9',
         borderWidth: 1,
         textAlign: 'center',
         marginTop: 20,
@@ -32,15 +32,6 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         textAlign: 'center',
-    },
-    borderedContainer: {
-        padding: 15,
-        borderRadius: 20,
-        borderColor: '#909090',
-        borderWidth: 1,
-        textAlign: 'center',
-        marginBottom: 20,
-        backgroundColor: '#ffffff'
     },
     halfContainer: {
         width: '50%',

@@ -21,7 +21,7 @@ import Header from "../Header";
 export default function Home({ route, navigation }) {
   const dadosCliente = route.params.dadosCliente
 
-  const [tela, setTela] = useState(0);
+  const [tela, setTela] = useState(1);
   const [fornecimentos, setFornecimentos] = useState('');
   const [fornecimento, setFornecimento] = useState('');
   const [endereco, setEndereco] = useState('');
@@ -76,9 +76,9 @@ export default function Home({ route, navigation }) {
     let length = faturas.length >= 4 ? 4 : faturas.length
 
     for(let i = 0; i < length; i++) {
-      labels.push(moment(faturas[i].dataEmissao).format('MMM'));
-      data.push(faturas[i].valor);
-      colors.push(faturas[i].situacaoDaFatura == 'EM ABERTO' ? '#red' : '#30ACDC')
+      labels.unshift(moment(faturas[i].dataEmissao).format('MMM'));
+      data.unshift(faturas[i].valor);
+      colors.unshift(faturas[i].situacaoDaFatura == 'EM ABERTO' ? '#red' : '#30ACDC')
     }
 
     let dados = {

@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "agencia-virtual",
-    "slug": "agencia-virtual",
+    "name": "Sabesp Mobile",
+    "slug": "sabesp-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -39,7 +39,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "40e625ff-a93a-4a14-8974-5f4ebb824e5e"
+        "projectId": "c73cb0f4-8f3d-4e88-8682-d2113d407b76"
       }
     }
   }

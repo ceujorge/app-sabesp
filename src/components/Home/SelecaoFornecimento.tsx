@@ -71,12 +71,12 @@ export default function SelecaoFornecimento({ fornecimentos, setFornecimento, se
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Text style={[styles.textBold, {fontSize: 18}]}>Meus fornecimentos</Text>
+        <Text style={[styles.textBold, {fontSize: 18}]}>Fornecimentos em seu nome.</Text>
         <TouchableOpacity onPress={() => setShowModal(true)}>
           <FontAwesomeIcon icon={ faCircleQuestion } size={20} style={styles.caret}/>
         </TouchableOpacity>
       </View>
-      <Text style={[styles.text, {color: '#a0a0a0'}]}>Selecione um dos fornecimentos para exibir sua fatura detalhada</Text>
+      <Text style={[styles.text, {color: '#a0a0a0'}]}>Selecione o fornecimento para exibir sua fatura.</Text>
 
 
       {fornecimentos.map(fornecimento => (
