@@ -3,10 +3,12 @@ import { View, Text, Modal, TouchableOpacity, StatusBar, ScrollView, SafeAreaVie
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 
+import { ServicosMenu } from "../Servicos";
+
 import styles from "./styles";
 
 export default function PreLogin({ navigation }) {
-  const [showModal, setShowModal] = useState(true);
+  const [menuServicos, setMenuServicos] = useState(false)
 
   return (
     <SafeAreaView style={{ backgroundColor: '#F1F6F9' }}>
@@ -17,9 +19,9 @@ export default function PreLogin({ navigation }) {
           <Image style={styles.logoLogin} source={require('../../../assets/brand/loginLogo.png')} />
         </View>
 
-        <View style={styles.menu}>
+        <TouchableOpacity style={styles.menu} onPress={() => setMenuServicos(true)}>
           <FontAwesomeIcon icon={ faBars } size={24} style={{ color: '#ffffff'}}/>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.main}>
           <Text style={styles.title}>{'Bem-vindo ao\nSabesp Mobile'}</Text>
@@ -55,6 +57,9 @@ export default function PreLogin({ navigation }) {
           </View>
         </View>
       </ScrollView>
+
+      <ServicosMenu navigation={navigation} showMenu={menuServicos} setShowMenu={setMenuServicos} />
+
     </SafeAreaView>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, TouchableOpacity, useWindowDimensions, StatusBar, SafeAreaView, ImageBackground, Touchable } from "react-native";
+import { View, Text, Image, TouchableOpacity, useWindowDimensions, StatusBar, SafeAreaView, ImageBackground, Touchable } from "react-native";
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
@@ -8,8 +8,11 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
 import styles from "./styles";
 import BuscaFornecimento from "./FaturaSimplificada/BuscaFornecimento";
 import Login from "../Login";
+import { ServicosMenu } from "../Servicos";
 
 export default function Faturas({ route, navigation }) {
+  const [menuServicos, setMenuServicos] = useState(false)
+
   const tab = route.params ? route.params.tab : 0;
   const layout = useWindowDimensions();
 
@@ -44,7 +47,7 @@ export default function Faturas({ route, navigation }) {
             <FontAwesomeIcon icon={ faArrowLeft } size={24} style={{color: 'white'}}/>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.rightMenu} onPress={() => null}>
+          <TouchableOpacity style={styles.rightMenu} onPress={() => setMenuServicos(true)}>
             <FontAwesomeIcon icon={ faBars } size={24} style={{color: 'white'}}/>
           </TouchableOpacity>
         </View>
@@ -61,6 +64,7 @@ export default function Faturas({ route, navigation }) {
         swipeEnabled={false}
       />
 
+      <ServicosMenu navigation={navigation} showMenu={menuServicos} setShowMenu={setMenuServicos} />
     </SafeAreaView>
   );
 }

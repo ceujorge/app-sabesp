@@ -20,6 +20,7 @@ import Header from "../Header";
 
 export default function Home({ route, navigation }) {
   const dadosCliente = route.params.dadosCliente
+  const height = Dimensions.get('window').height
 
   const [tela, setTela] = useState(1);
   const [fornecimentos, setFornecimentos] = useState('');
@@ -135,7 +136,7 @@ export default function Home({ route, navigation }) {
   return (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
+      <ScrollView style={{ backgroundColor: '#F1F6F9', height: height - 60 }}>
         <Header navigation={navigation} backButton={() => tela === 0 ? navigation.navigate('Faturas') : setTela(0)}/>
 
         {tela == 0 ? (
@@ -225,7 +226,7 @@ export default function Home({ route, navigation }) {
             )}
 
           </View>
-          <Footer/></>
+          </>
         ) : null}
 
         {tela == 1 && fornecimentos ? (<SelecaoFornecimento 
@@ -244,6 +245,7 @@ export default function Home({ route, navigation }) {
         {tela == 3 ? (<></>) : null}
 
       </ScrollView>
+      <Footer navigation={navigation}/>
     </SafeAreaView>
   )
 }

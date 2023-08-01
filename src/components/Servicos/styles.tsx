@@ -1,51 +1,218 @@
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+    header: {
+        width: '100%',
+        height: 80,
+        paddingBottom: 50,
+        borderBottomColor: '#909090',
+        borderBottomWidth: 1,
+        backgroundColor: '#ffffff',
+    },
     container: {
-        backgroundColor: '#211f20',
+        margin: 15,
     },
     row: {
+        width: '100%',
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginLeft: 10,
     },
-    title: {
-        fontSize: 30,
-        color: '#fff',
+    rowCenter: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'center',
         textAlign: 'center',
-        paddingTop: 20,
-        paddingBottom: 20,
     },
-    text: {
-        fontSize: 16,
-        textAlign: 'center',
-        color: '#fff',
-        paddingTop: 20,
-        paddingBottom: 20,
-    },
-    card: {
+    borderedContainer: {
+        padding: 15,
         borderRadius: 10,
-        backgroundColor: '#ffffff',
-        padding: 10,
-        width: '45%',
-        margin: 5,
+        borderColor: '#d9d9d9',
+        borderWidth: 1,
+        textAlign: 'center',
+        marginTop: 20,
+        backgroundColor: '#ffffff'
     },
-    icon: {
-        height: 60,
-        width: 55,
-        margin: 5,
+    halfContainer: {
+        width: '50%',
     },
-    cardText: {
-        marginTop: 15,
-        color: '#606060',
+    modalView: {
+        backgroundColor: "#F1F6F9",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        textAlign: 'left',
     },
-    cardLink: {
-        marginTop: 15,
+    modalButton: {
+        alignSelf: 'flex-end',
+        marginTop: 10,
+        marginBottom: 10,
+        marginRight: 15,
+    },
+    modalButtonText: {
         color: '#00a5e4',
         fontWeight: 'bold',
+        fontSize: 16,
     },
-    blue: {
+    modalTitle: {
+        alignSelf: 'center',
         color: '#00a5e4',
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    leftMenu: {
+        marginLeft: 15,
+        justifyContent: 'flex-start',
+        flex: 1,
+    },
+    hyperlink: {
+        fontSize: 14,
+        color: 'blue',
+        alignSelf:'center',
+        textAlign:'center',
+        textDecorationLine: "underline",
+        marginBottom: 10,
+        marginTop: 10,
+    },
+    logoHorizontal: {
+        marginTop: 20,
+        height: 20,
+        width: 100,
+        alignSelf: 'center',
+    },
+    text: {
+        fontSize: 14,
+    },
+    textBold: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    textAzul: {
+        fontSize: 14,
+        color: '#00a5e4',
+        fontWeight: 'bold',        
+    },
+    textBanco: {
+        fontSize: 14,
+        marginTop: 10,
+    },
+    debitosEmAtraso: {
+        fontSize: 20,
+        alignSelf: 'flex-start',
+        textAlign: 'left',
+        fontWeight: 'bold',
+        color: '#ff0000',
+    },
+    valorDosDebitos: {
+        fontSize: 20,
+        alignSelf: 'flex-end',
+        textAlign: 'right',
+    },
+    select: {
+        width: '95%',
+        padding: 10,
+    },
+    collapsibleHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '90%',
+        marginLeft: 20,
+        marginTop: 10,
+        marginBottom: 30,
+        paddingBottom: 5,
+        borderBottomColor: '#606060',
+        borderBottomWidth: 0.5,
+    },
+    collapsibleHeaderText: {
+        fontSize: 18,
+        alignSelf: 'flex-start',
+    },
+    caret: {
+        alignSelf: 'flex-end',
+        marginRight: 10,
+        marginBottom: 3,
+        color: '#00a5e4',
+        marginTop: 5,
+    },
+    collapsible: {
+        flex: 1,
+    },
+    collapsibleItem: {
+        fontSize: 22,
+    },
+    buttonSubmit: {
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '90%',
+        backgroundColor: '#00a5e4',
+        paddingTop: 14,
+        paddingBottom: 14,
+        marginLeft: 12,
+        marginTop: 30,
+    },
+    buttonSubmitMini: {
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '25%',
+        backgroundColor: '#00a5e4',
+        paddingTop: 8,
+        paddingBottom: 8,
+        marginRight: 10
+    },
+    textButtonSubmitMini: {
+        fontSize: 12,
+        color: '#fff',
+    },
+    textButtonSubmit: {
+        fontSize: 20,
+        color: '#fff',
+    },
+    listItem: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    rightArrow: {
+        flexDirection: 'row',
+        alignContent: 'space-between',
+        position: 'absolute',
+        right: 15,
+        top: 13,
+        color: 'white'
+    },
+    botaoMenuServicos: {
+        marginLeft: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#ffffff',
+        borderTopColor: '#909090',
+        borderBottomColor: '#909090',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        flexDirection: 'row',
+    },
+    textMenuServicos: {
+        fontSize: 16,
+        marginLeft: 10,
+    },
+    textMenuServicosLinks: {
+        fontSize: 14,
+        marginLeft: 10,
+        color: '#30ACDC',
     },
 });
 

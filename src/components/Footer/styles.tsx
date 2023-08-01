@@ -4,12 +4,20 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         display: 'flex',
-        height: 80,
+        height: 60,
         bottom: 0,
         justifyContent: 'space-between',
     },  
-    footerImg: {
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         width: '100%',
+    },
+    third: {
+        width: '33%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20,
     }
 });
 

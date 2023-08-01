@@ -38,6 +38,8 @@ import LigacaoAgua from './src/components/LigacaoAgua';
 import FaltaDeAgua from './src/components/FaltaDeAgua';
 import QualidadeAgua from './src/components/QualidadeAgua';
 import AlterarEndereco from './src/components/AlterarEndereco';
+import Servicos from './src/components/Servicos';
+import FaturaPorEmail from './src/components/FaturaPorEmail';
 
 
 const Stack = createNativeStackNavigator();
@@ -56,6 +58,8 @@ export default function App() {
         <Stack.Screen name="Acordos" component={Acordos} />
         <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} />
         <Stack.Screen name="FaleComSabesp" component={FaleComSabesp} />
+        <Stack.Screen name="Servicos" component={Servicos} />
+        <Stack.Screen name="FaturaPorEmail" component={FaturaPorEmail} />
 
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="CadastroSemAcesso" component={CadastroSemAcesso} />
