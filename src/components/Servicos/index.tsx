@@ -116,7 +116,7 @@ export default function Servicos({ navigation, route }) {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.borderedContainer}>
+              <TouchableOpacity style={styles.borderedContainer} onPress={() => navigation.navigate('FaltaDeAgua')}>
                 <View style={styles.row}>
                   <Image source={require('../../../assets/icons/servicos/falta-agua.png')} />
                   <Text style={styles.textMenuServicos}>Falta de água ou pouca pressão</Text>

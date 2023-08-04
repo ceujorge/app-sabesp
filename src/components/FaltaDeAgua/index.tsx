@@ -1,256 +1,263 @@
 import React, { useState } from "react";
-import { View, Text, Modal, Linking, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { View, Text, Modal, Image, TouchableOpacity, ScrollView, SafeAreaView, StatusBar, Linking } from "react-native";
 import { TextInput, Checkbox, RadioButton } from "react-native-paper";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle'
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons/faCircleCheck'
+import axios from "axios";
 
 import Header from "../Header";
-import Breadcrumb from "../Breadcrumb"
 
 import styles from "./styles";
 
-const breadcrumb = [
-  {label: 'Home', link: 'Home'}, 
-  {label: 'Falta de Água', link: '', active: true}
-]
-
 export default function FaltaDeAgua({ navigation }) {
   const [step, setStep] = useState(1);
-  const [fornecimento, setFornecimento] = useState('1018261920001');
-  const [check1, setCheck1] = useState('');
-  const [check2, setCheck2] = useState('');
-  const [checked, setChecked] = useState(false);
-  const [nome, setNome] = useState('');
-  const [sobrenome, setSobrenome] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
-  const [modal, setModal] = useState(false);
+  const [fornecimento, setFornecimento] = useState('')
+  const [radio1, setRadio1] = useState('10')
+  const [radio2, setRadio2] = useState('sim')
+  const [showModalFornecimento, setShowModalFornecimento] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [showModalErro, setShowModalErro] = useState(false)
+  const [endereco, setEndereco] = useState('');
+  const [protocolo, setProtocolo] = useState('');
+  const [checkbox, setChecbox] = useState(false)
+  const [erro, setErro] = useState('');
 
-  const setMascaraTel = function (tel) {
-    tel = tel.replace(/\D/g, "").substring(0, 11);                   //Remove tudo o que não é dígito
-    tel = tel.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
-    tel = tel.replace(/(\d)(\d{4})$/, "$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
-    setTelefone(tel)
+  const geraProtocolo = () => {
+    let codPedido = radio1 + (radio1 == '10' ? (radio2 == 'sim' ? '50' : '60') : (radio2 == 'sim' ? '10' : '20'))
+
+    axios.post('https://pwa-api-nsint.sabesp.com.br/pedidosNew', {
+      'tipoPedido': codPedido,
+      'tipoOrigem': "Fornecimento",
+      'origemCodigoFornecimento': fornecimento,
+      'dadosSolicitante': {
+        'nome': 'teste',
+        'sobrenome': 'teste2',
+        'email': 'teste@teste.com',
+        'telefone': '(11) 99999-9999'
+      }
+    }).then(res => {
+      setProtocolo(res.data.protocolo);
+      setShowModal(true);
+    }).catch(error => {
+      setErro(error.response.data.details.substring(0, 200))
+      setShowModalErro(true)
+    })
+  }
+
+  const processaFornecimento = () => {
+    axios.get('https://pwa-api-nsint.sabesp.com.br/fornecimento/' + fornecimento)
+      .then(resp => {
+        if(resp.data.tipoPde == 'FICT') {
+          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setShowModalErro(true)
+        } else if(resp.data.tipoLigacao == '2') {
+          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setShowModalErro(true)
+        } else {
+          // passou
+          axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+            .then(res => {
+              setEndereco(res.data)
+              setStep(4);
+            }).catch(error => {
+              console.log(error)
+              setErro(error.response.data.details.substring(0, 200))
+              setShowModalErro(true)
+            })
+        }
+      }).catch(error => {
+        console.log(error.response)
+        setErro(error.response.data.details.substring(0, 200))
+        setShowModalErro(true)
+      })
   }
 
   return (
     <SafeAreaView>
-      <Header/>
-      <ScrollView contentContainerStyle={{ paddingBottom: 150 }}>
-        <Breadcrumb config={ breadcrumb } navigation={ navigation }/>
-        <View style={styles.steps}>
-          <FontAwesomeIcon icon={ faCircle } size={14} style={styles.activeStep}/>
-          <Text style={styles.activeStep}>Identificação</Text>
-          <FontAwesomeIcon icon={ faMinus } size={14} style={step >= 2 ? styles.activeStep : styles.inactiveStep}/>
-          <FontAwesomeIcon icon={ faCircle } size={14} style={step >= 2 ? styles.activeStep : styles.inactiveStep}/>
-          <Text style={step >= 2 ? styles.activeStep : styles.inactiveStep}>Detalhamento</Text>
-          <FontAwesomeIcon icon={ faMinus } size={14} style={step == 3 ? styles.activeStep : styles.inactiveStep}/>
-          <FontAwesomeIcon icon={ faCircle } size={14} style={step == 3 ? styles.activeStep : styles.inactiveStep}/>
-          <Text style={step >= 4 ? styles.activeStep : styles.inactiveStep}>Confirmação</Text>
-        </View>
+      <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
+      <ScrollView>
+        <Header navigation={navigation} backButton={() => step === 1 ? navigation.navigate('Servicos') : setStep(step - 1)}/>
 
-        <Text style={styles.title}>Falta de água ou pouca pressão</Text>
+        {step === 1 ? (<View style={styles.container}>
+          <View style={styles.borderedContainer}>
+            <Text style={styles.textBold}>Falta de água ou pouca pressão</Text>
+            <Image source={require('../../../assets/icons/exclamation-blue.png')} style={{ width: 100, height: 100, alignSelf: 'center'}}/>
 
-        {step == 1 ? (<View style={styles.container}>
-          <Text style={styles.textLeft}>A falta de água pode ocorrer por vários motivos. Antes de prosseguir este atendimento, por favor, verifique se:</Text>
-          <Text style={styles.textLeft}>- A falta de água é apenas no seu imóvel ou se os seus vizinhos também estão sem água.</Text>
-          <Text style={styles.textLeft}>- O registro do seu cavalete está aberto.</Text>
-          <Text style={styles.textLeft}>- Sai água da torneira de jardim ou da primeira torneira direto da rua, mas não tem água no interior do seu imóvel. Neste caso, pode haver algum problema interno como, por exemplo, um vazamento. <Text style={styles.hyperlink}>Caso seja necessário, consulte dicas e testes para identificar vazamentos.</Text></Text>
+            <Text style={[styles.text, {textAlign: 'center'}]}>A falta de água pode ocorrer por vários motivos. Antes de prosseguir com esse andamento, por favor verifique se:</Text>
 
-          <TouchableOpacity style={styles.buttonSubmit} onPress={() => setStep(2)}>
-            <Text style={styles.textButtonSubmit}>Prosseguir</Text>
-          </TouchableOpacity>
+            <View style={styles.rowBorder}>
+              <Text style={styles.itemNumber}>1</Text>
+              <Text style={styles.text}>O registro de sua casa está aberto.</Text>
+            </View>
+            <View style={styles.rowBorder}>
+              <Text style={styles.itemNumber}>2</Text>
+              <Text style={styles.text}>A falta de água é apenas no seu imóvel ou se os seus vizinhos também estão sem água.</Text>
+            </View>
+            <View style={styles.rowBorder}>
+              <Text style={styles.itemNumber}>3</Text>
+              <Text style={styles.text}>Sai água da torneira de jardim ou da promeira torneira direto da rua, mas não tem água no interior do seu imóvel. Neste caso, pode haver algum problema interno como, por exemplo, um vazamento. <Text style={styles.hyperlink} onPress={() => Linking.openURL('https://site.sabesp.com.br/site/interna/Default.aspx?secaoId=244')}>Caso seja necessário, consulte dicas e testes para identificar vazamentos.</Text></Text>
+            </View>
+
+            <TouchableOpacity 
+              style={styles.buttonSubmit} 
+              onPress={() => setStep(2)}>
+              <Text style={styles.textButtonSubmit}>Continuar</Text>
+            </TouchableOpacity>
+          </View>
         </View>) : null}
-        
-        {step == 2 ? (<View style={styles.container}>
-          <Text style={styles.textLeft}>Responda as questões abaixo.</Text>
 
-          <Text style={styles.textLeft}>O que está acontecendo com a sua água?</Text>
-          <View style={styles.radioBar}>
-            <View style={{flexDirection: 'row'}}>
-              <RadioButton
-                value="naoSai"
-                status={ check1 === 'naoSai' ? 'checked' : 'unchecked' }
-                onPress={() => setCheck1('naoSai')}
-              />
-              <Text style={styles.radioTexto}>Não sai água</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <RadioButton
-                value="saiPouca"
-                status={ check1 === 'saiPouca' ? 'checked' : 'unchecked' }
-                onPress={() => setCheck1('saiPouca')}
-              />
-              <Text style={styles.radioTexto}>Sai pouca água</Text>
-            </View>
+        {step === 2 ? (<View style={styles.container}>
+          <Text style={styles.textBold}>Falta de água ou pouca pressão</Text>
+
+          <Text style={styles.textGray}>O que está acontecendo com a sua água?</Text>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Todos"
+              status={ radio1 === '10' ? 'checked' : 'unchecked' }
+              onPress={() => setRadio1('10')}
+              color="#00a5e4"
+            />
+            <Text style={styles.radioTexto}>Não sai água</Text>
           </View>
 
-          <Text style={styles.textLeft}>Os vizinhos têm o mesmo problema?</Text>
-          <View style={styles.radioBar}>
-            <View style={{flexDirection: 'row'}}>
-              <RadioButton
-                value="sim"
-                status={ check2 === 'sim' ? 'checked' : 'unchecked' }
-                onPress={() => setCheck2('sim')}
-              />
-              <Text style={styles.radioTexto}>Sim</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <RadioButton
-                value="nao"
-                status={ check2 === 'nao' ? 'checked' : 'unchecked' }
-                onPress={() => setCheck2('nao')}
-              />
-              <Text style={styles.radioTexto}>Não/Não sei</Text>
-            </View>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Todos"
+              status={ radio1 === '11' ? 'checked' : 'unchecked' }
+              onPress={() => setRadio1('11')}
+              color="#00a5e4"
+            />
+            <Text style={styles.radioTexto}>Sai pouca água</Text>
           </View>
 
-          <TouchableOpacity 
-            style={check1 && check2 ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
-            onPress={() => setStep(3)} 
-            disabled={!(check1 && check2)}>
-            <Text style={styles.textButtonSubmit}>Continuar</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => setStep(1)}>
-            <Text style={styles.textButtonOutline}>Voltar</Text>
-          </TouchableOpacity>
-        </View>) : null}
-        
-        {step == 3 ? (<View style={styles.container}>
-          <TextInput 
-            label='Fornecimento' 
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={fornecimento}
-            onChangeText={value => setFornecimento(value)}
-          />
+          <Text style={styles.textGray}>Os vizinhos tem o mesmo problema?</Text>
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Todos"
+              status={ radio2 === 'sim' ? 'checked' : 'unchecked' }
+              onPress={() => setRadio2('sim')}
+              color="#00a5e4"
+            />
+            <Text style={styles.radioTexto}>Sim</Text>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <RadioButton
+              value="Todos"
+              status={ radio2 === 'nao' ? 'checked' : 'unchecked' }
+              onPress={() => setRadio2('nao')}
+              color="#00a5e4"
+            />
+            <Text style={styles.radioTexto}>Não/Não sei</Text>
+          </View>
 
           <TouchableOpacity 
             style={styles.buttonSubmit} 
-            onPress={() => setStep(4)}>
+            onPress={() => setStep(3)}>
             <Text style={styles.textButtonSubmit}>Continuar</Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => setStep(2)}>
-            <Text style={styles.textButtonOutline}>Voltar</Text>
-          </TouchableOpacity>
+
         </View>) : null}
-        
-        {step == 4 ? (<View style={styles.container}>
-          <Text style={styles.title}>Para prosseguir, verifique se os dados estão corretos:</Text>
 
-          <Text style={styles.textLeftBold}>O que está acontecendo com a sua água?</Text>
-          <Text style={styles.textLeft}>Resposta: {check1 == 'naoSai' ? 'Não sai água' : 'Sai pouca água'}</Text>  
+        {step === 3 ? (<View style={styles.container}>
+          <Text style={styles.textBold}>Falta de água ou pouca pressão</Text>
 
-          <Text style={styles.textLeftBold}>Os vizinhos tem o mesmo problema?</Text>
-          <Text style={styles.textLeft}>Resposta: {check2 == 'sim' ? 'Sim' : 'Não'}</Text>
-
-          <Text style={styles.title}>Com base nas respostas fornecidas será aberto o seguinte serviço:</Text>
-
-          <Text style={styles.textLeft}>
-            <Text style={styles.textLeftBold}>Descrição: </Text>
-            {check1 == 'naoSai' ? 'Falta de Água' : 'Pouca Pressão'} {check2 == 'sim' ? 'Geral' : 'Local'}
-          </Text>
-
-          <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Endereço: </Text>RUA SERRA GERAL, N 114, VILA GUILHERME FM - FRANCISCO MORATO - SP</Text>
-          <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Prazo de atendimento: </Text>24 horas</Text>
-          <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Importante: </Text>No momento da execução do serviço, ser for constatada divergência entre as informações aqui registradas e as condições do local, pode haver alteração no preço e/ou prazo informados.</Text>
-          <Text style={styles.textLeft}><Text style={styles.textLeftBold}>Preço: </Text>Gratuíto</Text>
-
-          <View style={styles.checkBoxContainer}>
-            <Checkbox.Android
-              status={checked ? 'checked' : 'unchecked'}
-              onPress={() => setChecked(!checked)}
-            />
-            <Text style={[styles.textLeftBold, {marginTop: 10}]}>Sim, confirmo o pedido</Text>
+          <TextInput 
+            placeholder="Fornecimento"
+            style={{}}
+            theme={{ colors: { primary: '#00a5e4' }}}
+            label='Fornecimento' 
+            value={fornecimento} 
+            onChangeText={value => { setFornecimento(value) }}
+            keyboardType='numeric'
+          />
+          <View style={styles.linkContainer}>
+            <Text style={styles.hyperlink} onPress={() => setShowModalFornecimento(true)}>
+              Localize o código de fornecimento da sua conta
+            </Text>
           </View>
 
           <TouchableOpacity 
-            style={checked ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
-            onPress={() => setStep(5)} 
-            disabled={!checked}>
+            style={styles.buttonSubmit} 
+            onPress={() => processaFornecimento()}>
             <Text style={styles.textButtonSubmit}>Continuar</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => setStep(3)}>
-            <Text style={styles.textButtonOutline}>Voltar</Text>
           </TouchableOpacity>
         </View>) : null}
-        
-        {step == 5 ? (<View style={styles.container}>
-          <Text style={styles.textLeft}>Para continuar o seu atendimento, será necessário identificar-se.</Text> 
-          <Text style={styles.textLeft}>As informações aqui registradas são de uso exclusivo da Sabesp, não sendo compartilhadas com outras empresas.</Text> 
 
-          <TextInput 
-            label='Nome*' 
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={nome}
-            style={{ margin: 10 }}
-            onChangeText={value => setNome(value)}
-          />
-          <TextInput 
-            label='Sobrenome*' 
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={sobrenome}
-            style={{ margin: 10 }}
-            onChangeText={value => setSobrenome(value)}
-          />
-          <TextInput 
-            label='Telefone*' 
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={telefone}
-            style={{ margin: 10 }}
-            keyboardType='numeric'
-            onChangeText={value => setMascaraTel(value)}
-          />
-          <TextInput 
-            label='Email*' 
-            theme={{ colors: { primary: '#00a5e4' }}}
-            value={email}
-            style={{ margin: 10 }}
-            onChangeText={value => setEmail(value)}
-          />
+        {step === 4 ? (<View style={styles.container}>
+          <View style={styles.borderedContainer}>
+            <Text style={styles.textBold}>Falta de água ou pouca pressão</Text>
 
-          <Text style={styles.textLeftBold}>* Campos obrigatórios</Text>
+            <Text style={[styles.textBold, {textAlign: 'left'}]}>Descrição: <Text style={styles.text}>{(radio1 == '10' ? 'Falta de água ' : 'Pouca pressão ') + (radio2 == 'sim' ? 'geral' : 'local') }</Text></Text>
+            <Text style={[styles.textBold, {textAlign: 'left'}]}>Endereço: <Text style={styles.text}>{endereco ? `${endereco.toponimo} ${endereco.nomeLogradouro}, ${endereco.numeroImovel}, ${endereco.bairro}, ${endereco.nomeMunicipio} - ${endereco.estado}, ${endereco.cep} - ${endereco.complemento}` : ''}</Text></Text>
+            <Text style={[styles.textBold, {textAlign: 'left'}]}>Atendimento: <Text style={styles.text}>24 horas</Text></Text>
+            <Text style={[styles.textBold, {textAlign: 'left'}]}>Preço: <Text style={styles.text}>Gratuíto</Text></Text>
+            <Text style={[styles.textBold, {textAlign: 'left'}]}>Importante: <Text style={styles.text}>No momento da execução do serviço, se for constatada divergência entre as informações aqui registradas e as condições do local, pode haver alteração no preço e/ou prazo informados.</Text></Text>
 
-          <TouchableOpacity 
-            style={(nome && sobrenome && telefone && email) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
-            onPress={() => setModal(true)} 
-            disabled={!(nome && sobrenome && telefone && email)}>
-            <Text style={styles.textButtonSubmit}>Continuar</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.buttonOutline} onPress={() => setStep(4)}>
-            <Text style={styles.textButtonOutline}>Voltar</Text>
-          </TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+              <Checkbox.Android
+                status={checkbox ? 'checked' : 'unchecked'}
+                onPress={() => setChecbox(!checkbox)}
+              />
+              <Text style={[styles.textBold, {textAlign: 'left', marginTop: 10}]}>Confirmo que lí e estou de acordo.</Text>
+            </View>
 
-          <Modal animationType="slide" visible={modal} transparent={true}>
-            <ScrollView>
-              <View style={styles.modalView}>
-                <View style={styles.centerView}>
-                  <FontAwesomeIcon icon={ faCircleCheck } size={100} style={{ color: '#00a000', marginTop: 30}}/>
-                  <Text style={styles.title}>Sua solicitação foi concluída!</Text>
-                  <Text style={styles.textLeft}>Descrição: <Text style={styles.textLeftBold}>{check1 == 'naoSai' ? 'Falta de Água' : 'Pouca Pressão'} {check2 == 'sim' ? 'Geral' : 'Local'}</Text></Text>
-                  <Text style={styles.textLeft}>Número da solicitação: <Text style={styles.textLeftBold}>12345678910</Text></Text>
-                  <Text style={styles.textLeft}>Data e hora do pedido: <Text style={styles.textLeftBold}>09/03/2023 15:32.</Text></Text>
+            <TouchableOpacity 
+              style={checkbox ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
+              onPress={() => geraProtocolo()}
+              disabled={!checkbox}>
+              <Text style={styles.textButtonSubmit}>Concluir solicitação</Text>
+            </TouchableOpacity>
+          </View>
+        </View>) : null}
 
-                  <TouchableOpacity 
-                    style={styles.buttonSubmit} 
-                    onPress={() => {
-                      setStep(1);
-                      setModal(false);
-                      navigation.navigate('Home')
-                    }}>
-                    <Text style={styles.textButtonSubmit}>Página inicial</Text>
-                  </TouchableOpacity>
-                </View>
+        <Modal animationType="slide" visible={showModalFornecimento} transparent={true}>
+          <ScrollView style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Localize seu código de fornecimento</Text>
+              <Text style={styles.modalText}>Seu código de fornecimento pode ser encontrado no canto esquerdo superior da sua conta mensal.</Text>
+
+              <Image style={styles.modalImagem} source={require('../../../assets/imagens/localizar-fornecimento.png')} />
+
+              <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalFornecimento(false)}>
+                <Text style={styles.modalButtonText}>Ok</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </Modal>
+
+        <Modal animationType="slide" visible={showModal} transparent={true}>
+          <ScrollView style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.modalView}>
+              <View style={styles.center}>
+                <FontAwesomeIcon icon={ faCircleCheck } size={100} style={{ color: '#00a000' }}/>
               </View>
-            </ScrollView>
-          </Modal>
+              <Text style={styles.modalTitle}>Solicitação realizada com sucesso!</Text>
+              <Text style={styles.modalText}>Protocolo de atendimento: <Text style={styles.modalTitle}>nº {protocolo}</Text>.</Text>
 
-        </View>) : null}
+              <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate('Servicos')}>
+                <Text style={styles.modalButtonText}>Voltar para o início</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </Modal>
+
+        <Modal animationType="slide" visible={showModalErro} transparent={true}>
+          <ScrollView style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} contentContainerStyle={{ flex: 1, justifyContent: 'center' }}>
+            <View style={styles.modalView}>
+              <View style={styles.center}>
+                <Image source={require('../../../assets/icons/exclamation.png')} style={{ width: 100, height: 100}}/>
+              </View>
+              <Text style={styles.modalText}>{erro}</Text>
+
+              <TouchableOpacity style={styles.modalButton} onPress={() => setShowModalErro(false)}>
+                <Text style={styles.modalButtonText}>Ok</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );

@@ -48,7 +48,7 @@ const CardFornecimento: React.FC<{
     return (
       <TouchableOpacity style={styles.borderedContainer} onPress={() => setDados()}>
         <Text style={styles.textAzul}>Endereço</Text>
-          <Text style={styles.textBold}>{endereco ? `${endereco.toponimo} ${endereco.nomeLogradouro}, ${endereco.numeroImovel}, ${endereco.bairro}, ${endereco.nomeMunicipio} - ${endereco.estado}, ${endereco.cep}` : 'Nenhum endereço encontrado'}</Text>
+          <Text style={styles.textBold}>{endereco ? `${endereco.toponimo} ${endereco.nomeLogradouro}, ${endereco.numeroImovel}, ${endereco.bairro}, ${endereco.nomeMunicipio} - ${endereco.estado}, ${endereco.cep} - ${endereco.complemento}` : 'Nenhum endereço encontrado'}</Text>
         <View style={{ borderBottomColor: '#ccc', borderBottomWidth: 1, marginTop: 5, marginBottom: 5 }}/>
 
         <View style={styles.row}>

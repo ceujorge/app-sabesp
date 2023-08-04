@@ -135,12 +135,14 @@ export default function FaturaSimplificada({ route, navigation }) {
       return pagar
     }
 
-    const faturasComInfo = faturas.map(fatura => 
-      ({... fatura,
+    const faturasComInfo = faturas.map(fatura => {
+      if(fatura.estadoSaldoPagamento == "RF") fatura.situacaoDaFatura = 'PAGA';
+
+      return ({... fatura,
         mostrar: deveriaAparecer(fatura),
         pagar: podePagar(fatura)
       })
-    )
+    })
 
     return faturasComInfo;
   }
