@@ -25,6 +25,14 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flex: 1,
     },
+    rightMenu: {
+        flexDirection: 'row',
+        alignContent: 'space-between',
+        position: 'absolute',
+        right: 15,
+        top: 0,
+        color: 'white'
+    },
     logoHorizontal: {
         marginTop: 20,
         height: 20,

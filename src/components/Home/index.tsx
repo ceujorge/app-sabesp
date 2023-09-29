@@ -139,7 +139,7 @@ export default function Home({ route, navigation }) {
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
       <ScrollView style={{ backgroundColor: '#F1F6F9', height: height - 60 }}>
-        <Header navigation={navigation} backButton={() => tela === 0 ? navigation.navigate('Faturas') : setTela(0)}/>
+        <Header navigation={navigation} menu={true} backButton={() => tela === 0 ? navigation.navigate('Faturas') : setTela(0)}/>
 
         {tela == 0 ? (
           <>

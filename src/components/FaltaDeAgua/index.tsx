@@ -22,9 +22,12 @@ export default function FaltaDeAgua({ navigation }) {
   const [endereco, setEndereco] = useState('');
   const [protocolo, setProtocolo] = useState('');
   const [checkbox, setChecbox] = useState(false)
+  const [habilitaBotao, setHabilitaBotao] = useState(true)
   const [erro, setErro] = useState('');
 
   const geraProtocolo = () => {
+    setHabilitaBotao(false)
+
     let codPedido = radio1 + (radio1 == '10' ? (radio2 == 'sim' ? '50' : '60') : (radio2 == 'sim' ? '10' : '20'))
 
     axios.post('https://pwa-api-nsint.sabesp.com.br/pedidosNew', {
@@ -38,11 +41,18 @@ export default function FaltaDeAgua({ navigation }) {
         'telefone': '(11) 99999-9999'
       }
     }).then(res => {
+      if(res.data.concorrencia = true) {
+        setErro('Já existe uma solicitação registrada deste serviço ou de serviço relacionado para este imóvel')
+        setShowModalErro(true)
+        setHabilitaBotao(true)
+      }
       setProtocolo(res.data.protocolo);
       setShowModal(true);
+      setHabilitaBotao(true)
     }).catch(error => {
       setErro(error.response.data.details.substring(0, 200))
       setShowModalErro(true)
+      setHabilitaBotao(true)
     })
   }
 
@@ -53,6 +63,12 @@ export default function FaltaDeAgua({ navigation }) {
           setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
           setShowModalErro(true)
         } else if(resp.data.tipoLigacao == '2') {
+          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setShowModalErro(true)
+        } else if(resp.data.status == 'ENCERRADO E FATURADO' || resp.data.status == 'ENCERRADO A FATURAR' || resp.data.status == 'ENCERRAMENTO EM ANDAMENTO' ) {
+          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setShowModalErro(true)
+        } else if(resp.data.status == 'CORTADO') {
           setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
           setShowModalErro(true)
         } else {
@@ -205,9 +221,9 @@ export default function FaltaDeAgua({ navigation }) {
             </View>
 
             <TouchableOpacity 
-              style={checkbox ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
+              style={(checkbox && habilitaBotao) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
               onPress={() => geraProtocolo()}
-              disabled={!checkbox}>
+              disabled={(!checkbox && habilitaBotao)}>
               <Text style={styles.textButtonSubmit}>Concluir solicitação</Text>
             </TouchableOpacity>
           </View>

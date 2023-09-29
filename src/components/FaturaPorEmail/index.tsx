@@ -19,6 +19,7 @@ export default function FaturaPorEmail({ navigation }) {
   const [showModalErro, setShowModalErro] = useState(false)
   const [protocolo, setProtocolo] = useState('');
   const [check, setCheck] = useState(false)
+  const [habilitaBotao, setHabilitaBotao] = useState(true)
   const [erro, setErro] = useState('');
 
   const achaEndereco = () => {
@@ -29,6 +30,8 @@ export default function FaturaPorEmail({ navigation }) {
   }
 
   const geraProtocolo = () => {
+    setHabilitaBotao(false)
+
     axios.post('https://pwa-api-nsint.sabesp.com.br/pedidos/alteracaoendereco', {
       'tipoPedido': 'CRM006B',
       'codigoFornecimento': fornecimento,
@@ -36,9 +39,11 @@ export default function FaturaPorEmail({ navigation }) {
     }).then(res => {
       setProtocolo(res.data.protocolo);
       setShowModal(true);
+      setHabilitaBotao(true)
     }).catch(error => {
       setErro(error.response.data.details)
       setShowModalErro(true)
+      setHabilitaBotao(true)
     })
   }
 
@@ -130,9 +135,9 @@ export default function FaturaPorEmail({ navigation }) {
                 </View>
 
                 <TouchableOpacity 
-                  style={(check) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
+                  style={(check && habilitaBotao) ? styles.buttonSubmit : styles.buttonSubmitDisabled} 
                   onPress={() => geraProtocolo()}
-                  disabled={!(check)}>
+                  disabled={!(check && habilitaBotao)}>
                   <Text style={styles.textButtonSubmit}>Continuar</Text>
                 </TouchableOpacity>
 

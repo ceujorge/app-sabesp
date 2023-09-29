@@ -162,9 +162,9 @@ export function ServicosMenu({ navigation, showMenu, setShowMenu }) {
       > 
         <TouchableOpacity activeOpacity={1}>
           <View style={styles.modalView}>
-            <TouchableOpacity style={styles.botaoMenuServicos} onPress={() => navigation.navigate('Servicos')}>
-              <Image source={require('../../../assets/icons/servicos/servicos-sabesp.png')} />
-              <Text style={styles.textMenuServicos}>Serviços Sabesp</Text>
+            <TouchableOpacity style={styles.botaoMenuServicos}>
+              <Image source={require('../../../assets/icons/servicos/perfil.png')} />
+              <Text style={styles.textMenuServicos}>Perfil de usuário</Text>
               <View style={styles.rightArrow}>
                 <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4' }}/>
               </View>
@@ -172,13 +172,6 @@ export function ServicosMenu({ navigation, showMenu, setShowMenu }) {
             <TouchableOpacity style={styles.botaoMenuServicos}>
               <Image source={require('../../../assets/icons/servicos/agende-atendimento.png')} />
               <Text style={styles.textMenuServicos}>Agende seu atendimento</Text>
-              <View style={styles.rightArrow}>
-                <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4' }}/>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.botaoMenuServicos}>
-              <Image source={require('../../../assets/icons/servicos/qualidade-agua.png')} />
-              <Text style={styles.textMenuServicos}>Conheça a qualidade da água</Text>
               <View style={styles.rightArrow}>
                 <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4' }}/>
               </View>
