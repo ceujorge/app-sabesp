@@ -80,12 +80,12 @@ export default function FaturaSimplificada({ route, navigation }) {
   const [fatura, setFatura] = useState('');
 
   useEffect(() => {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+    axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
       .then(res => {
         setEnderecoFornecimento(res.data)
       })
 
-    axios.get('https://pwa-api-nsint.sabesp.com.br/cliente/fornecimento/' + fornecimento)
+    axios.get('http://pwa-api-nshom.sabesp.com.br/cliente/fornecimento/' + fornecimento)
       .then(res => {
         setDadosCliente(res.data)
       })

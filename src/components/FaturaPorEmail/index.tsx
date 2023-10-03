@@ -23,7 +23,7 @@ export default function FaturaPorEmail({ navigation }) {
   const [erro, setErro] = useState('');
 
   const achaEndereco = () => {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+    axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
       .then(res => {
         setEndereco(res.data)
       })
@@ -32,7 +32,7 @@ export default function FaturaPorEmail({ navigation }) {
   const geraProtocolo = () => {
     setHabilitaBotao(false)
 
-    axios.post('https://pwa-api-nsint.sabesp.com.br/pedidos/alteracaoendereco', {
+    axios.post('http://pwa-api-nshom.sabesp.com.br/pedidos/alteracaoendereco', {
       'tipoPedido': 'CRM006B',
       'codigoFornecimento': fornecimento,
       'email': email

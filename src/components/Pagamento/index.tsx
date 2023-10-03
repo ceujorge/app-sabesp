@@ -58,7 +58,7 @@ export default function Pagamento({ fatura, fornecimento, simples = true }) {
   };
 
   useEffect(() => {
-    axios.post('https://pwa-api-nsint.sabesp.com.br/download', {
+    axios.post('http://pwa-api-nshom.sabesp.com.br/download', {
       "codigoFornecimento": fornecimento,
       "codelineFaturas": [
         fatura.codigoPagamento,

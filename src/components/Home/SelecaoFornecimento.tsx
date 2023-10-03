@@ -28,12 +28,12 @@ const CardFornecimento: React.FC<{
     const [situacao, setSit] = useState('');
 
     useEffect(() => {
-      axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento.codigo + '/endereco')
+      axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + fornecimento.codigo + '/endereco')
         .then(resp => {
           setEnd(resp.data);
         })
 
-      axios.get('https://pwa-api-nsint.sabesp.com.br/fornecimento/' + fornecimento.codigo)
+      axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento.codigo)
         .then(resp => {
           setSit(capitalize(resp.data.status));
         })

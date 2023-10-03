@@ -30,12 +30,12 @@ export default function Home({ route, navigation }) {
   const [graphData, setGraphData] = useState('');
 
   useEffect(() => {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/fornecimento/cliente/' + dadosCliente.codigo)
+    axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/cliente/' + dadosCliente.codigo)
       .then(res => {
         setFornecimentos(res.data);
 
         if(res.data.length) {
-          axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + res.data[0].codigo + '/endereco')
+          axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + res.data[0].codigo + '/endereco')
             .then(resp => {
               setEndereco(resp.data);
             })
@@ -50,7 +50,7 @@ export default function Home({ route, navigation }) {
     if(fornecimentos) {
       let forn = fornecimento ? fornecimento.codigo : fornecimentos[0].codigo
 
-      axios.get('https://pwa-api-nsint.sabesp.com.br/fatura/fornecimento/' + forn)
+      axios.get('http://pwa-api-nshom.sabesp.com.br/fatura/fornecimento/' + forn)
         .then(res => {
           let faturasOrdenadas = '';
 

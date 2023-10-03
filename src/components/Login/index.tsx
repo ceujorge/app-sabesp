@@ -20,7 +20,7 @@ export default function Login({ navigation, tipoPessoa = 'PF', redirect = false}
   }
 
   const processCpf = function(cpf) {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/cliente/cpf/' + cpf)
+    axios.get('http://pwa-api-nshom.sabesp.com.br/cliente/cpf/' + cpf)
       .then(res => {
         navigation.navigate('Home', { dadosCliente: res.data })
       })

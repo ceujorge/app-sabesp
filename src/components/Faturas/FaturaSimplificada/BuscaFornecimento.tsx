@@ -18,7 +18,7 @@ export default function BuscaFornecimento({ navigation }) {
     const [isSelected, setSelection] = useState(false);
 
     const getFaturaFornecimento = (fornecimento:string) => {
-      axios.get('https://pwa-api-nsint.sabesp.com.br/fatura/fornecimento/' + fornecimento)
+      axios.get('http://pwa-api-nshom.sabesp.com.br/fatura/fornecimento/' + fornecimento)
         .then(res => {
           processaFaturas(res.data)
         }).catch(error => {

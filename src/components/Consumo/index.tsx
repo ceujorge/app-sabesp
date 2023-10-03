@@ -29,7 +29,7 @@ export default function HistoricoPagamento({ navigation, faturas, fornecimento }
   const [leituras, setLeituras] = useState('');
 
   useEffect(() => {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/consumo/fornecimento/' + fornecimento.codigo + '/leituras')
+    axios.get('http://pwa-api-nshom.sabesp.com.br/consumo/fornecimento/' + fornecimento.codigo + '/leituras')
       .then(res => {
         setLeituras(res.data);
       })

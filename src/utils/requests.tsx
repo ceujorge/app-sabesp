@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-const env = 'https://pwa-api-nsintsabesp.com.br'
+const env = 'http://pwa-api-nshomsabesp.com.br'
 
 export default function requests() {
   return (<></>);

@@ -30,7 +30,7 @@ export default function FaltaDeAgua({ navigation }) {
 
     let codPedido = radio1 + (radio1 == '10' ? (radio2 == 'sim' ? '50' : '60') : (radio2 == 'sim' ? '10' : '20'))
 
-    axios.post('https://pwa-api-nsint.sabesp.com.br/pedidosNew', {
+    axios.post('http://pwa-api-nshom.sabesp.com.br/pedidosNew', {
       'tipoPedido': codPedido,
       'tipoOrigem': "Fornecimento",
       'origemCodigoFornecimento': fornecimento,
@@ -57,7 +57,7 @@ export default function FaltaDeAgua({ navigation }) {
   }
 
   const processaFornecimento = () => {
-    axios.get('https://pwa-api-nsint.sabesp.com.br/fornecimento/' + fornecimento)
+    axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento)
       .then(resp => {
         if(resp.data.tipoPde == 'FICT') {
           setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
@@ -73,7 +73,7 @@ export default function FaltaDeAgua({ navigation }) {
           setShowModalErro(true)
         } else {
           // passou
-          axios.get('https://pwa-api-nsint.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
+          axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
             .then(res => {
               setEndereco(res.data)
               setStep(4);
