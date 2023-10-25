@@ -15,15 +15,17 @@ import styles from "./styles";
 moment.locale('pt-br');
 
 const capitalize = (string) => {
-  let str = string;
-
-  const words = str.split(" ");
-  for (let i = 0; i < words.length; i++) {
-    words[i] = words[i][0].toUpperCase() + words[i].substr(1).toLowerCase();
+  if(string != null){
+      let str = string;
+    
+      const words = str.split(" ");
+      for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1).toLowerCase();
+      }
+      str = words.join(' ');
+    
+      return str
   }
-  str = words.join(' ');
-
-  return str
 }
 
 function CardFatura({ dados }) {
@@ -85,6 +87,7 @@ export default function Pagamento({ fatura, fornecimento, simples = true }) {
       <View style={styles.center}>
         <Text style={styles.codigoFatura}>{fatura.codigoDeBarras}</Text>      
 
+        {/* {pdfFatura ? ( */}
         {pdfFatura ? (
           <View style={styles.buttonCardBar}>
             <TouchableOpacity style={styles.buttonCard} onPress={() => copyToClipboard(fatura.codigoDeBarras)}>
@@ -100,7 +103,15 @@ export default function Pagamento({ fatura, fornecimento, simples = true }) {
               <Text style={styles.buttonCardText}>Visualizar</Text>
             </TouchableOpacity>
           </View>
-        ) : <Progress.Circle size={50} indeterminate={true} color="#00a5e4" style={{ margin: 10 }} />}
+        ) :  (
+        <View>
+          <TouchableOpacity style={styles.buttonCard} onPress={() => copyToClipboard(fatura.codigoDeBarras)}>
+            <FontAwesomeIcon icon={ faCopy } size={22} style={styles.buttonCardIcon}/>
+              <Text style={styles.buttonCardText}>Copiar</Text>
+          </TouchableOpacity>
+        </View> )  }          
+        {/* ) 
+        : <Progress.Circle size={50} indeterminate={true} color="#00a5e4" style={{ margin: 10 }} />} */}
 
         <Image style={{ margin: 5, width: '90%' }} source={require('../../../assets/icons/codigoDeBarrasLongo.png')}></Image>
       </View>
