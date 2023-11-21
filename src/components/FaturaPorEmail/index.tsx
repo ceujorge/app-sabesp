@@ -55,7 +55,7 @@ export default function FaturaPorEmail({ navigation }) {
   return (
     <SafeAreaView>
     <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
       <Header navigation={navigation} backButton={() => page === 1 ? navigation.navigate('Servicos') : setPage(1)}/>
         {
           page === 1 ? (
@@ -100,10 +100,12 @@ export default function FaturaPorEmail({ navigation }) {
               />
 
               {
-                !(email.length && confirmEmail.length && email === confirmEmail) ? (
-                  <Text style={{ fontSize: 14, textAlign: 'center', margin: 20, color: 'red' }}>
-                    Os dois e-mails informados devem ser iguais.
-                  </Text>
+                (email.length && confirmEmail.length) ? (
+                  !(email === confirmEmail) ? (
+                    <Text style={{ fontSize: 14, textAlign: 'center', margin: 20, color: 'red' }}>
+                      Os dois e-mails informados devem ser iguais.
+                    </Text>
+                  ) : null
                 ) : null
               }
 

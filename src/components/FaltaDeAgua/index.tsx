@@ -93,7 +93,7 @@ export default function FaltaDeAgua({ navigation }) {
   return (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor='#ffffff' />
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#F1F6F9' }}>
         <Header navigation={navigation} backButton={() => step === 1 ? navigation.navigate('Servicos') : setStep(step - 1)}/>
 
         {step === 1 ? (<View style={styles.container}>

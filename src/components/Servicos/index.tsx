@@ -153,6 +153,11 @@ export default function Servicos({ navigation, route }) {
 }
 
 export function ServicosMenu({ navigation, showMenu, setShowMenu }) {
+  const maisServicos = function() {
+    showMenu = false
+    navigation.navigate('Servicos');
+  }
+
   return (
     <Modal animationType="slide" visible={showMenu} transparent={true}>
       <TouchableOpacity 
@@ -190,7 +195,7 @@ export function ServicosMenu({ navigation, showMenu, setShowMenu }) {
                 <FontAwesomeIcon icon={ faChevronRight } size={18} style={{ color: '#00a5e4' }}/>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Servicos')} style={styles.botaoMenuServicos}>
+            <TouchableOpacity onPress={() => maisServicos()} style={styles.botaoMenuServicos}>
               <Image source={require('../../../assets/icons/servicos/mais-servicos.png')} />
               <Text style={styles.textMenuServicos}>Encontre mais serviços</Text>
               <View style={styles.rightArrow}>
