@@ -63,15 +63,82 @@ export default function FaltaDeAgua({ navigation }) {
           setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
           setShowModalErro(true)
         } else if(resp.data.tipoLigacao == '2') {
-          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setErro('Verifiquei aqui e a Sabesp não fornece água para este imóvel.')
           setShowModalErro(true)
         } else if(resp.data.status == 'ENCERRADO E FATURADO' || resp.data.status == 'ENCERRADO A FATURAR' || resp.data.status == 'ENCERRAMENTO EM ANDAMENTO' ) {
-          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
+          setErro('Este tipo de serviço não está disponível para este "Fornecimento". Em caso de dúvida, acesse o chat https://sabesp-chat.sabesp.com.br/chat-externo ou ligue 0800 055 0195.')
           setShowModalErro(true)
-        } else if(resp.data.status == 'CORTADO') {
-          setErro('Este tipo de serviço não está disponível para o "Fornecimento" informado.')
-          setShowModalErro(true)
-        } else {
+        } else if(resp.data.status == 'CORTADO' ) {
+              axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento + '/processos/religacao').then(resp => {
+                if(resp.data.religacao){
+                  setErro("Verifiquei aqui e a ligação do imóvel está inativa, mas o serviço de religação já foi solicitado. Por favor, aguardar.");
+                  setShowModalErro(true);
+                }
+                else if(resp.data.reestabelecimento){
+                  setErro("Verifiquei aqui e a água do imóvel está com abastecimento suspenso por motivo de corte, porém já foi solicitado o restabelecimento do serviço. Por favor, aguardar.");
+                  setShowModalErro(true);
+                }
+                else {
+                  setErro("Verifiquei aqui e a água do imóvel está com abastecimento suspenso e, por isso, este serviço não está disponível para este Fornecimento.");
+                  setShowModalErro(true);
+                }
+              }).catch(error => {
+                setErro(error.response.data.details.substring(0, 200))
+                setShowModalErro(true)
+                setHabilitaBotao(true)
+              });;
+        } else if (resp.data.status == 'SUPRIMIDO'){
+          axios.post('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento + '/CausaleEvoluzione',null).then(resp => {
+            if(resp.data.causaleEvoluzione == 'PDEB'){
+              axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento + '/processos/religacao').then(resp => {
+                if(resp.data.religacao){
+                  setErro("Verifiquei aqui e a ligação do imóvel está inativa, mas o serviço de religação já foi solicitado. Por favor, aguardar.");
+                  setShowModalErro(true);
+                }
+                else if(resp.data.reestabelecimento){
+                  setErro("Verifiquei aqui e a água do imóvel está com abastecimento suspenso por motivo de corte, porém já foi solicitado o restabelecimento do serviço. Por favor, aguardar.");
+                  setShowModalErro(true);
+                }
+                else {
+                  setErro("Verifiquei aqui e a água do imóvel está com abastecimento suspenso e, por isso, este serviço não está disponível para este Fornecimento.");
+                  setShowModalErro(true);
+                }
+              }).catch(error => {
+                setErro(error.response.data.details.substring(0, 200))
+                setShowModalErro(true)
+                setHabilitaBotao(true)
+              });;
+            }
+            else if(resp.data.causaleEvoluzione == 'APEDIDO'){
+              setErro('Verifiquei aqui e esse "Fornecimento" está com abastecimento temporariamente suspenso.')
+              setShowModalErro(true)
+            }
+            else{
+              axios.get('http://pwa-api-nshom.sabesp.com.br/fornecimento/' + fornecimento + '/verificarManobras').then(resp =>{
+                var dataAtual = new Date();
+                if(resp.data != null){
+                  var dataManobra = new Date(resp.data[0].previsao);
+                  if(dataAtual.getTime() <= dataManobra.getTime()){
+                    setErro("Nossa equipe já está trabalhando para resolver esta situação.O que houve: " + resp.data[0].descricao);
+                    setShowModalErro(true)
+                  }
+                  else if((dataManobra.getHours() + ":" + dataManobra.getMinutes()) == "23:59"){
+                    setErro("Nossa equipe já está trabalhando para resolver esta situação.O que houve: " + resp.data[0].descricao);
+                    setShowModalErro(true)
+                  }
+                }
+                else{
+
+                }
+              });
+            }
+          }).catch(error => {
+            setErro(error.response.data.details.substring(0, 200))
+            setShowModalErro(true)
+            setHabilitaBotao(true)
+          });
+        }
+        else {
           // passou
           axios.get('http://pwa-api-nshom.sabesp.com.br/viario/fornecimento/' + fornecimento + '/endereco')
             .then(res => {
