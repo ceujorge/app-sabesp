@@ -154,7 +154,7 @@ export default function Servicos({ navigation, route }) {
 
 export function ServicosMenu({ navigation, showMenu, setShowMenu }) {
   const maisServicos = function() {
-    showMenu = false
+    setShowMenu(false);
     navigation.navigate('Servicos');
   }
 
